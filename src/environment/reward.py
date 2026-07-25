@@ -24,6 +24,7 @@ class RewardConfig:
     genetic_gain_weight: float = 1.0
     variance_retention_weight: float = 0.5
     phenotyping_cost_weight: float = 0.2
+    reliability_improvement_weight: float = 0.3
     invalid_action_penalty: float = 1.0
     gain_scale: float = 1.0
 
@@ -35,6 +36,9 @@ class RewardConfig:
             ),
             "phenotyping_cost_weight": (
                 self.phenotyping_cost_weight
+            ),
+            "reliability_improvement_weight": (
+                self.reliability_improvement_weight
             ),
             "invalid_action_penalty": (
                 self.invalid_action_penalty
@@ -61,6 +65,7 @@ class RewardBreakdown:
     genetic_gain_component: float
     variance_component: float
     cost_component: float
+    model_quality_component: float
     invalid_action_component: float
 
 
@@ -101,6 +106,47 @@ def batch_cost_reward(
         genetic_gain_component=0.0,
         variance_component=0.0,
         cost_component=float(cost),
+        model_quality_component=0.0,
+        invalid_action_component=0.0,
+    )
+
+
+def model_quality_reward(
+    *,
+    previous_mean_reliability: float,
+    current_mean_reliability: float,
+    config: RewardConfig,
+) -> RewardBreakdown:
+    """Return dense reward for improving prediction reliability."""
+    if not isinstance(config, RewardConfig):
+        raise TypeError("'config' must be a RewardConfig instance.")
+
+    previous = float(previous_mean_reliability)
+    current = float(current_mean_reliability)
+
+    if not np.isfinite(previous):
+        raise ValueError(
+            "'previous_mean_reliability' must be finite."
+        )
+    if not np.isfinite(current):
+        raise ValueError(
+            "'current_mean_reliability' must be finite."
+        )
+
+    previous = float(np.clip(previous, 0.0, 1.0))
+    current = float(np.clip(current, 0.0, 1.0))
+
+    quality_component = (
+        config.reliability_improvement_weight
+        * (current - previous)
+    )
+
+    return RewardBreakdown(
+        total=float(quality_component),
+        genetic_gain_component=0.0,
+        variance_component=0.0,
+        cost_component=0.0,
+        model_quality_component=float(quality_component),
         invalid_action_component=0.0,
     )
 
@@ -179,6 +225,7 @@ def final_generation_reward(
         genetic_gain_component=float(gain_component),
         variance_component=float(variance_component),
         cost_component=float(cost_component),
+        model_quality_component=0.0,
         invalid_action_component=0.0,
     )
 
@@ -197,5 +244,6 @@ def invalid_action_reward(
         genetic_gain_component=0.0,
         variance_component=0.0,
         cost_component=0.0,
+        model_quality_component=0.0,
         invalid_action_component=penalty,
     )

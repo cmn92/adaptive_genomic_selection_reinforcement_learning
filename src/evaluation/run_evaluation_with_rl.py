@@ -24,7 +24,6 @@ def main():
         number_of_generations=20,
         number_to_phenotype=200,
         base_seed=20001,
-        discretizer_bins=5,
     )
 
     raw_paths = save_five_strategy_results(result, output_directory)

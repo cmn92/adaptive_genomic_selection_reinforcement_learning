@@ -11,7 +11,9 @@ from src.environment.r_bridge import RBreedingBridge
 from src.environment.reward import RewardConfig
 from src.evaluation.metrics import summarize_all_replicates
 from src.rl.discretizer import ObservationDiscretizer
+from src.rl.linear_q import LinearQAgent
 from src.rl.q_learning import QLearningAgent
+from src.rl.train import state_for_agent
 
 
 @dataclass(frozen=True)
@@ -31,7 +33,7 @@ class RLStrategyEvaluationConfig:
     n_cores: int = 1
     base_seed: int = 20001
     maximum_steps_per_episode: int = 200
-    strategy_name: str = "q_learning"
+    strategy_name: str = "linear_q_learning"
 
 
 @dataclass
@@ -46,8 +48,8 @@ class RLStrategyEvaluationResult:
 def evaluate_frozen_rl_strategy(
     *,
     project_root: str | Path,
-    agent: QLearningAgent,
-    discretizer: ObservationDiscretizer,
+    agent: QLearningAgent | LinearQAgent,
+    discretizer: ObservationDiscretizer | None,
     config: RLStrategyEvaluationConfig,
     population_file: str | Path = "data/initial_candidate_population.RData",
     reward_config: RewardConfig | None = None,
@@ -55,19 +57,31 @@ def evaluate_frozen_rl_strategy(
     project_root = Path(project_root).expanduser().resolve()
     reward_config = reward_config or RewardConfig()
 
-    if agent.q_table:
+    if isinstance(agent, QLearningAgent) and agent.q_table:
         state_widths = {
             len(state)
             for state in agent.q_table
         }
-        expected_width = discretizer.observation_size
+        if discretizer is None:
+            raise ValueError(
+                "Tabular Q-learning evaluation requires a discretizer."
+            )
+
+        expected_width = discretizer.state_size
 
         if state_widths != {expected_width}:
             raise ValueError(
                 "The loaded agent was trained with incompatible "
                 "discrete-state widths. Retrain the Q-learning agent "
-                f"for observation size {expected_width} before "
+                f"for discrete state size {expected_width} before "
                 "running frozen-policy evaluation."
+            )
+
+    if isinstance(agent, LinearQAgent):
+        expected_width = agent.observation_size
+        if expected_width < 1:
+            raise ValueError(
+                "Linear Q agent has an invalid observation width."
             )
 
     generation_tables = []
@@ -107,7 +121,11 @@ def evaluate_frozen_rl_strategy(
         terminated = truncated = False
 
         for step_number in range(1, config.maximum_steps_per_episode + 1):
-            state = discretizer.transform(observation)
+            state = state_for_agent(
+                observation,
+                agent=agent,
+                discretizer=discretizer,
+            )
             action = agent.greedy_action(
                 state,
                 action_mask=np.asarray(info["action_mask"], dtype=bool),

@@ -311,6 +311,7 @@ class QLearningAgent:
         )
 
         payload = {
+            "agent_type": "tabular_q",
             "number_of_actions": self.number_of_actions,
             "config": self.config,
             "q_table": self.q_table,
@@ -346,3 +347,39 @@ class QLearningAgent:
         agent.q_table = payload["q_table"]
 
         return agent
+
+
+def load_q_agent(
+    path: str | Path,
+) -> QLearningAgent | Any:
+    """Load either a tabular or linear Q-learning agent."""
+    path = Path(path).expanduser().resolve()
+
+    if not path.is_file():
+        raise FileNotFoundError(
+            f"Saved agent was not found: {path}"
+        )
+
+    with path.open("rb") as file:
+        payload = pickle.load(file)
+
+    agent_type = payload.get("agent_type", "tabular_q")
+
+    if agent_type == "tabular_q":
+        agent = QLearningAgent(
+            number_of_actions=payload[
+                "number_of_actions"
+            ],
+            config=payload["config"],
+        )
+        agent.q_table = payload["q_table"]
+        return agent
+
+    if agent_type == "linear_q":
+        from src.rl.linear_q import LinearQAgent
+
+        return LinearQAgent.load(path)
+
+    raise ValueError(
+        f"Unknown saved Q-agent type: {agent_type!r}."
+    )

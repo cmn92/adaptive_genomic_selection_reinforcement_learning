@@ -4,12 +4,12 @@ from pathlib import Path
 import pandas as pd
 
 from src.environment.reward import RewardConfig
-from src.environment.state import observation_size
 from src.evaluation.compare_strategies import StrategyComparisonConfig, compare_strategies
 from src.evaluation.metrics import summarize_all_replicates
 from src.evaluation.run_rl_strategy import RLStrategyEvaluationConfig, evaluate_frozen_rl_strategy
-from src.rl.discretizer import ObservationDiscretizer
-from src.rl.q_learning import QLearningAgent
+from src.rl.discretizer import compact_breeding_discretizer
+from src.rl.linear_q import LinearQAgent
+from src.rl.q_learning import load_q_agent
 
 
 @dataclass
@@ -27,13 +27,13 @@ def compare_all_five_strategies(
     number_of_generations: int = 20,
     number_to_phenotype: int = 200,
     base_seed: int = 20001,
-    discretizer_bins: int = 5,
 ) -> FiveStrategyComparisonResult:
     project_root = Path(project_root).expanduser().resolve()
-    agent = QLearningAgent.load(agent_path)
-    discretizer = ObservationDiscretizer(
-        bins_per_feature=discretizer_bins,
-        observation_size=observation_size(),
+    agent = load_q_agent(agent_path)
+    discretizer = (
+        None
+        if isinstance(agent, LinearQAgent)
+        else compact_breeding_discretizer()
     )
 
     baseline = compare_strategies(

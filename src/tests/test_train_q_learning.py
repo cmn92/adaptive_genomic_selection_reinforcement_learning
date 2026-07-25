@@ -14,10 +14,9 @@ from src.environment.breeding_env import (
 from src.environment.r_bridge import RBreedingBridge
 from src.environment.reward import RewardConfig
 from src.environment.state import observation_size
-from src.rl.discretizer import ObservationDiscretizer
-from src.rl.q_learning import (
-    QLearningAgent,
-    QLearningConfig,
+from src.rl.linear_q import (
+    LinearQAgent,
+    LinearQConfig,
 )
 from src.rl.train import (
     TrainingConfig,
@@ -46,15 +45,11 @@ def main() -> None:
         reward_config=RewardConfig(),
     )
 
-    discretizer = ObservationDiscretizer(
-        bins_per_feature=3,
-        observation_size=observation_size(),
-    )
-
-    agent = QLearningAgent(
+    agent = LinearQAgent(
         number_of_actions=env.action_space.n,
-        config=QLearningConfig(
-            learning_rate=0.2,
+        observation_size=observation_size(),
+        config=LinearQConfig(
+            learning_rate=0.05,
             discount_factor=0.95,
             epsilon_start=1.0,
             epsilon_end=0.1,
@@ -66,7 +61,7 @@ def main() -> None:
     result = train_q_learning(
         env=env,
         agent=agent,
-        discretizer=discretizer,
+        discretizer=None,
         config=TrainingConfig(
             number_of_episodes=1,
             maximum_steps_per_episode=10,
@@ -76,7 +71,7 @@ def main() -> None:
     )
 
     assert len(result.episode_history) == 1
-    assert len(result.agent.q_table) > 0
+    assert result.agent.number_of_parameters > 0
     assert result.total_runtime_seconds > 0
 
     print("\nTraining history:")

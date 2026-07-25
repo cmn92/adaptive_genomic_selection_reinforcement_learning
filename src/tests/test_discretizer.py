@@ -48,6 +48,24 @@ def main() -> None:
 
     assert len(batch) == 2
 
+    compact = ObservationDiscretizer(
+        bins_per_feature=(2, 4, 3),
+        observation_size=12,
+        feature_indices=(0, 5, 11),
+    )
+
+    compact_state = compact.transform(observation)
+
+    assert compact.state_size == 3
+    assert compact.feature_indices_ == (0, 5, 11)
+    assert compact.number_of_states == 24
+    assert len(compact_state) == 3
+    assert compact_state == (
+        0,
+        1,
+        2,
+    )
+
     print("All discretizer checks passed.")
 
 

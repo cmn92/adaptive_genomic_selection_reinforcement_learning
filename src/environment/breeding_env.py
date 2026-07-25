@@ -50,6 +50,7 @@ from src.environment.reward import (
     batch_cost_reward,
     final_generation_reward,
     invalid_action_reward,
+    model_quality_reward,
 )
 from src.environment.state import (
     BreedingStateSnapshot,
@@ -164,6 +165,7 @@ class BreedingEnv(gym.Env):
 
         self._previous_genetic_gain = 0.0
         self._previous_variance_retention = 1.0
+        self._previous_mean_reliability = 0.0
         self._initial_generation_variance: float | None = None
 
         self._episode_return = 0.0
@@ -202,6 +204,7 @@ class BreedingEnv(gym.Env):
 
         self._previous_genetic_gain = 0.0
         self._previous_variance_retention = 1.0
+        self._previous_mean_reliability = 0.0
         self._initial_generation_variance = None
 
         self._episode_return = 0.0
@@ -279,17 +282,32 @@ class BreedingEnv(gym.Env):
             >= self.config.minimum_training_size
         ):
             self._refresh_model_and_uncertainty()
+            model_quality_breakdown = (
+                self._model_quality_breakdown()
+            )
         else:
             self._prediction_table = None
             self._uncertainty_table = None
             self._last_uncertainty_error = None
+            model_quality_breakdown = (
+                model_quality_reward(
+                    previous_mean_reliability=0.0,
+                    current_mean_reliability=0.0,
+                    config=self.reward_config,
+                )
+            )
 
-        breakdown = batch_cost_reward(
+        batch_breakdown = batch_cost_reward(
             batch_size=self.config.batch_size,
             maximum_phenotypes=(
                 self.config.maximum_phenotypes
             ),
             config=self.reward_config,
+        )
+
+        breakdown = self._combine_reward_breakdowns(
+            batch_breakdown,
+            model_quality_breakdown,
         )
 
         reward = breakdown.total
@@ -381,6 +399,69 @@ class BreedingEnv(gym.Env):
             "uncertainty_table"
         ]
         self._last_uncertainty_error = None
+
+    def _model_quality_breakdown(self) -> RewardBreakdown:
+        """Return reliability-improvement shaping for the latest model."""
+        if self._uncertainty_table is None:
+            return model_quality_reward(
+                previous_mean_reliability=(
+                    self._previous_mean_reliability
+                ),
+                current_mean_reliability=(
+                    self._previous_mean_reliability
+                ),
+                config=self.reward_config,
+            )
+
+        _, _, current_mean_reliability = (
+            self._uncertainty_summaries()
+        )
+
+        breakdown = model_quality_reward(
+            previous_mean_reliability=(
+                self._previous_mean_reliability
+            ),
+            current_mean_reliability=(
+                current_mean_reliability
+            ),
+            config=self.reward_config,
+        )
+
+        self._previous_mean_reliability = (
+            current_mean_reliability
+        )
+
+        return breakdown
+
+    @staticmethod
+    def _combine_reward_breakdowns(
+        first: RewardBreakdown,
+        second: RewardBreakdown,
+    ) -> RewardBreakdown:
+        """Add two reward breakdowns component-wise."""
+        return RewardBreakdown(
+            total=first.total + second.total,
+            genetic_gain_component=(
+                first.genetic_gain_component
+                + second.genetic_gain_component
+            ),
+            variance_component=(
+                first.variance_component
+                + second.variance_component
+            ),
+            cost_component=(
+                first.cost_component
+                + second.cost_component
+            ),
+            model_quality_component=(
+                first.model_quality_component
+                + second.model_quality_component
+            ),
+            invalid_action_component=(
+                first.invalid_action_component
+                + second.invalid_action_component
+            ),
+        )
 
     def _has_usable_marker_variation(self) -> bool:
         """Return whether the current marker matrix can support PEV fitting."""
@@ -985,6 +1066,7 @@ class BreedingEnv(gym.Env):
             )
             self._prediction_table = None
             self._uncertainty_table = None
+            self._previous_mean_reliability = 0.0
             self._last_uncertainty_error = None
 
         observation = self._build_current_observation()
@@ -1060,6 +1142,9 @@ class BreedingEnv(gym.Env):
                 ),
                 "cost_component": (
                     reward_breakdown.cost_component
+                ),
+                "model_quality_component": (
+                    reward_breakdown.model_quality_component
                 ),
                 "invalid_action_component": (
                     reward_breakdown.invalid_action_component

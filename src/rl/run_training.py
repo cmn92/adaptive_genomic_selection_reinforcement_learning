@@ -21,6 +21,7 @@ The default settings are intended for a longer production-style training run.
 
 from __future__ import annotations
 
+import os
 from pathlib import Path
 
 import matplotlib.pyplot as plt
@@ -33,11 +34,7 @@ from src.environment.breeding_env import (
 from src.environment.r_bridge import RBreedingBridge
 from src.environment.reward import RewardConfig
 from src.environment.state import observation_size
-from src.rl.discretizer import ObservationDiscretizer
-from src.rl.q_learning import (
-    QLearningAgent,
-    QLearningConfig,
-)
+from src.rl.linear_q import LinearQAgent, LinearQConfig
 from src.rl.train import (
     TrainingConfig,
     save_training_result,
@@ -71,8 +68,8 @@ def create_training_plots(
     epsilon.png
         Exploration rate over training.
 
-    q_table_growth.png
-        Number of visited discrete states.
+    model_size.png
+        Number of learned value-function parameters.
 
     genetic_gain.png
         Final-generation realized gain by episode.
@@ -156,25 +153,25 @@ def create_training_plots(
     paths["epsilon"] = epsilon_path
 
     # ------------------------------------------------------------------
-    # Q-table growth
+    # Value-model size
     # ------------------------------------------------------------------
 
-    q_table_path = output_directory / "q_table_growth.png"
+    model_size_path = output_directory / "model_size.png"
 
     fig, ax = plt.subplots(figsize=(9, 6))
     ax.plot(
         history["episode"],
-        history["q_table_states"],
+        history["model_size"],
     )
-    ax.set_title("Visited discrete states during training")
+    ax.set_title("Learned value model size during training")
     ax.set_xlabel("Episode")
-    ax.set_ylabel("Q-table states")
+    ax.set_ylabel("Model parameters")
     ax.grid(True, alpha=0.25)
     fig.tight_layout()
-    fig.savefig(q_table_path, dpi=300)
+    fig.savefig(model_size_path, dpi=300)
     plt.close(fig)
 
-    paths["q_table_growth"] = q_table_path
+    paths["model_size"] = model_size_path
 
     # ------------------------------------------------------------------
     # Final-generation genetic gain
@@ -250,6 +247,10 @@ def main() -> None:
     """Run a development Q-learning training experiment."""
 
     project_root = Path(__file__).resolve().parents[2]
+    available_cores = max(
+        1,
+        min(4, os.cpu_count() or 1),
+    )
 
     output_directory = (
         project_root
@@ -296,16 +297,17 @@ def main() -> None:
         reps=1,
         trait=1,
         snp_chip=1,
-        n_cores=1,
+        n_cores=available_cores,
         seed=12345,
     )
 
     reward_config = RewardConfig(
-        genetic_gain_weight=1.2,
+        genetic_gain_weight=2.0,
         variance_retention_weight=0.8,
         phenotyping_cost_weight=0.2,
+        reliability_improvement_weight=0.3,
         invalid_action_penalty=1.0,
-        gain_scale=1.0,
+        gain_scale=2.0,
     )
 
     env = BreedingEnv(
@@ -315,46 +317,47 @@ def main() -> None:
     )
 
     # ------------------------------------------------------------------
-    # 3. Observation discretization
+    # 3. State representation
     #
-    # Five bins per feature gives finer policy resolution now that training
-    # runs long enough to revisit useful state regions.
+    # Linear Q uses the continuous observation directly. This avoids the
+    # state-recurrence failure mode of tabular Q-learning over many features.
     # ------------------------------------------------------------------
 
-    discretizer = ObservationDiscretizer(
-        bins_per_feature=5,
-        observation_size=observation_size(),
-    )
+    discretizer = None
 
     # ------------------------------------------------------------------
-    # 4. Q-learning agent
+    # 4. Linear Q-learning agent
     # ------------------------------------------------------------------
 
-    agent_config = QLearningConfig(
-        learning_rate=0.15,
+    agent_config = LinearQConfig(
+        learning_rate=0.02,
         discount_factor=0.95,
         epsilon_start=1.0,
         epsilon_end=0.05,
-        epsilon_decay_episodes=3000,
+        epsilon_decay_episodes=250,
+        l2_penalty=0.001,
+        gradient_clip=5.0,
         seed=12345,
     )
 
-    agent = QLearningAgent(
+    agent = LinearQAgent(
         number_of_actions=env.action_space.n,
+        observation_size=observation_size(),
         config=agent_config,
     )
 
     # ------------------------------------------------------------------
     # 5. Training settings
     #
-    # Longer training is needed for the richer state vector and finer bins.
+    # Function approximation generalizes across continuous states, so hundreds
+    # of episodes are a reasonable first run before doing wider sweeps.
     # ------------------------------------------------------------------
 
     training_config = TrainingConfig(
-        number_of_episodes=5000,
+        number_of_episodes=500,
         maximum_steps_per_episode=220,
         seed=12345,
-        checkpoint_every=250,
+        checkpoint_every=50,
     )
 
     # ------------------------------------------------------------------
@@ -404,15 +407,23 @@ def main() -> None:
                     f"training_{key}": value
                     for key, value in training_config.__dict__.items()
                 },
-                "discretizer_bins_per_feature": 5,
-                "discretizer_observation_size": (
-                    observation_size()
+                "agent_kind": agent.kind,
+                "agent_observation_size": (
+                    agent.observation_size
+                ),
+                "agent_number_of_features": (
+                    agent.number_of_features
+                ),
+                "agent_number_of_parameters": (
+                    agent.number_of_parameters
                 ),
                 "total_runtime_seconds": (
                     result.total_runtime_seconds
                 ),
-                "final_q_table_states": len(
-                    result.agent.q_table
+                "final_model_size": (
+                    result.episode_history[
+                        "model_size"
+                    ].iloc[-1]
                 ),
             }
         ]
@@ -423,7 +434,7 @@ def main() -> None:
         index=False,
     )
 
-    print("\nQ-learning training completed.")
+    print("\nLinear Q-learning training completed.")
     print(
         "Total runtime seconds:",
         round(
@@ -431,10 +442,7 @@ def main() -> None:
             3,
         ),
     )
-    print(
-        "Final Q-table states:",
-        len(result.agent.q_table),
-    )
+    print("Model parameters:", agent.number_of_parameters)
 
     print("\nSaved training files:")
     for name, path in saved_paths.items():

@@ -16,7 +16,25 @@ from typing import Iterable
 import numpy as np
 
 from src.environment.state import (
+    OBSERVATION_NAMES,
     observation_size as breeding_observation_size,
+)
+
+
+COMPACT_BREEDING_FEATURES = (
+    "generation_progress",
+    "phenotyping_fraction",
+    "model_available",
+    "mean_reliability",
+    "previous_variance_retention",
+)
+
+COMPACT_BREEDING_BINS = (
+    4,
+    5,
+    2,
+    4,
+    3,
 )
 
 
@@ -33,10 +51,16 @@ class ObservationDiscretizer:
 
     observation_size:
         Number of values in the observation vector.
+
+    feature_indices:
+        Optional zero-based observation columns to discretize. When supplied,
+        the full observation is still validated against ``observation_size``,
+        but the returned discrete state contains only these selected features.
     """
 
     bins_per_feature: int | tuple[int, ...] = 5
     observation_size: int = breeding_observation_size()
+    feature_indices: tuple[int, ...] | None = None
 
     def __post_init__(self) -> None:
         if (
@@ -48,9 +72,20 @@ class ObservationDiscretizer:
                 "'observation_size' must be a positive integer."
             )
 
+        feature_indices = self._normalize_feature_indices(
+            self.feature_indices,
+            self.observation_size,
+        )
+
         bins = self._normalize_bins(
             self.bins_per_feature,
-            self.observation_size,
+            len(feature_indices),
+        )
+
+        object.__setattr__(
+            self,
+            "_feature_indices",
+            feature_indices,
         )
 
         object.__setattr__(
@@ -76,9 +111,55 @@ class ObservationDiscretizer:
         )
 
     @staticmethod
+    def _normalize_feature_indices(
+        feature_indices: tuple[int, ...] | None,
+        observation_size: int,
+    ) -> tuple[int, ...]:
+        """Validate and standardize selected observation columns."""
+        if feature_indices is None:
+            return tuple(range(observation_size))
+
+        if not isinstance(feature_indices, tuple):
+            raise TypeError(
+                "'feature_indices' must be a tuple or None."
+            )
+
+        if len(feature_indices) < 1:
+            raise ValueError(
+                "'feature_indices' must contain at least one index."
+            )
+
+        normalized: list[int] = []
+
+        for position, value in enumerate(feature_indices):
+            if (
+                isinstance(value, bool)
+                or not isinstance(value, (int, np.integer))
+            ):
+                raise TypeError(
+                    f"Feature index at position {position} must be an integer."
+                )
+
+            index = int(value)
+
+            if not 0 <= index < observation_size:
+                raise ValueError(
+                    f"Feature index {index} is outside the observation width."
+                )
+
+            normalized.append(index)
+
+        if len(set(normalized)) != len(normalized):
+            raise ValueError(
+                "'feature_indices' cannot contain duplicates."
+            )
+
+        return tuple(normalized)
+
+    @staticmethod
     def _normalize_bins(
         bins_per_feature: int | tuple[int, ...],
-        observation_size: int,
+        number_of_features: int,
     ) -> tuple[int, ...]:
         """Validate and standardize bin counts."""
         if isinstance(bins_per_feature, (int, np.integer)):
@@ -94,7 +175,7 @@ class ObservationDiscretizer:
 
             return tuple(
                 int(bins_per_feature)
-                for _ in range(observation_size)
+                for _ in range(number_of_features)
             )
 
         if not isinstance(bins_per_feature, tuple):
@@ -102,10 +183,10 @@ class ObservationDiscretizer:
                 "'bins_per_feature' must be an integer or tuple."
             )
 
-        if len(bins_per_feature) != observation_size:
+        if len(bins_per_feature) != number_of_features:
             raise ValueError(
                 "The number of per-feature bin counts must match "
-                "'observation_size'."
+                "the number of discretized features."
             )
 
         normalized: list[int] = []
@@ -129,6 +210,16 @@ class ObservationDiscretizer:
     def bins(self) -> tuple[int, ...]:
         """Return the number of bins for each feature."""
         return self._bins
+
+    @property
+    def feature_indices_(self) -> tuple[int, ...]:
+        """Return the selected full-observation feature indices."""
+        return self._feature_indices
+
+    @property
+    def state_size(self) -> int:
+        """Return the number of values in the discrete state tuple."""
+        return len(self._feature_indices)
 
     @property
     def number_of_states(self) -> int:
@@ -163,16 +254,19 @@ class ObservationDiscretizer:
             -1.0,
             1.0,
         )
+        selected_values = values[
+            list(self._feature_indices)
+        ]
 
         discrete_state = tuple(
             int(
                 np.digitize(
-                    values[index],
+                    selected_values[index],
                     self._edges[index],
                     right=False,
                 )
             )
-            for index in range(self.observation_size)
+            for index in range(self.state_size)
         )
 
         return discrete_state
@@ -201,3 +295,33 @@ class ObservationDiscretizer:
             self.transform(row)
             for row in values
         ]
+
+
+def feature_indices_for_names(
+    feature_names: tuple[str, ...],
+) -> tuple[int, ...]:
+    """Return observation indices for named breeding-state features."""
+    indices: list[int] = []
+
+    for name in feature_names:
+        if name not in OBSERVATION_NAMES:
+            raise ValueError(
+                f"Unknown observation feature: {name!r}."
+            )
+
+        indices.append(
+            OBSERVATION_NAMES.index(name)
+        )
+
+    return tuple(indices)
+
+
+def compact_breeding_discretizer() -> ObservationDiscretizer:
+    """Return the compact recurring state space for tabular Q-learning."""
+    return ObservationDiscretizer(
+        bins_per_feature=COMPACT_BREEDING_BINS,
+        observation_size=breeding_observation_size(),
+        feature_indices=feature_indices_for_names(
+            COMPACT_BREEDING_FEATURES
+        ),
+    )

@@ -1,7 +1,7 @@
 """
 train.py
 
-Training utilities for the tabular Q-learning breeding agent.
+Training utilities for Q-learning breeding agents.
 """
 
 from __future__ import annotations
@@ -16,7 +16,11 @@ import pandas as pd
 
 from src.environment.breeding_env import BreedingEnv
 from src.rl.discretizer import ObservationDiscretizer
+from src.rl.linear_q import LinearQAgent
 from src.rl.q_learning import QLearningAgent
+
+
+LearningAgent = QLearningAgent | LinearQAgent
 
 
 @dataclass(frozen=True)
@@ -47,36 +51,44 @@ class TrainingResult:
     """Outputs from Q-learning training."""
 
     episode_history: pd.DataFrame
-    agent: QLearningAgent
-    discretizer: ObservationDiscretizer
+    agent: LearningAgent
+    discretizer: ObservationDiscretizer | None
     total_runtime_seconds: float
 
 
 def train_q_learning(
     *,
     env: BreedingEnv,
-    agent: QLearningAgent,
-    discretizer: ObservationDiscretizer,
+    agent: LearningAgent,
+    discretizer: ObservationDiscretizer | None,
     config: TrainingConfig,
     checkpoint_directory: str | Path | None = None,
 ) -> TrainingResult:
-    """Train a tabular Q-learning agent."""
+    """Train a tabular or linear Q-learning agent."""
     if not isinstance(env, BreedingEnv):
         raise TypeError(
             "'env' must be a BreedingEnv instance."
         )
 
-    if not isinstance(agent, QLearningAgent):
+    if not isinstance(agent, (QLearningAgent, LinearQAgent)):
         raise TypeError(
-            "'agent' must be a QLearningAgent instance."
+            "'agent' must be a QLearningAgent or LinearQAgent instance."
         )
 
-    if not isinstance(
+    if isinstance(agent, QLearningAgent) and not isinstance(
         discretizer,
         ObservationDiscretizer,
     ):
         raise TypeError(
-            "'discretizer' must be an ObservationDiscretizer."
+            "Tabular Q-learning requires an ObservationDiscretizer."
+        )
+
+    if discretizer is not None and not isinstance(
+        discretizer,
+        ObservationDiscretizer,
+    ):
+        raise TypeError(
+            "'discretizer' must be an ObservationDiscretizer or None."
         )
 
     if not isinstance(config, TrainingConfig):
@@ -105,8 +117,10 @@ def train_q_learning(
             seed=episode_seed
         )
 
-        state = discretizer.transform(
-            observation
+        state = state_for_agent(
+            observation,
+            agent=agent,
+            discretizer=discretizer,
         )
 
         epsilon = agent.epsilon_for_episode(
@@ -142,8 +156,10 @@ def train_q_learning(
                 next_info,
             ) = env.step(action)
 
-            next_state = discretizer.transform(
-                next_observation
+            next_state = state_for_agent(
+                next_observation,
+                agent=agent,
+                discretizer=discretizer,
             )
 
             agent.update(
@@ -214,9 +230,13 @@ def train_q_learning(
                 "final_variance_retention": (
                     final_variance_retention
                 ),
-                "q_table_states": len(
-                    agent.q_table
+                "q_table_states": (
+                    len(agent.q_table)
+                    if isinstance(agent, QLearningAgent)
+                    else np.nan
                 ),
+                "model_size": _agent_model_size(agent),
+                "agent_kind": _agent_kind(agent),
             }
         )
 
@@ -239,7 +259,7 @@ def train_q_learning(
             f"return={episode_return:.3f}; "
             f"epsilon={epsilon:.3f}; "
             f"steps={episode_steps}; "
-            f"states={len(agent.q_table)}"
+            f"model_size={_agent_model_size(agent)}"
         )
 
     total_runtime_seconds = (
@@ -256,6 +276,43 @@ def train_q_learning(
             total_runtime_seconds
         ),
     )
+
+
+def state_for_agent(
+    observation: np.ndarray,
+    *,
+    agent: LearningAgent,
+    discretizer: ObservationDiscretizer | None,
+) -> np.ndarray | tuple[int, ...]:
+    """Return the state representation expected by the agent."""
+    if isinstance(agent, LinearQAgent):
+        return np.asarray(
+            observation,
+            dtype=np.float32,
+        )
+
+    if discretizer is None:
+        raise RuntimeError(
+            "Tabular Q-learning requires a discretizer."
+        )
+
+    return discretizer.transform(observation)
+
+
+def _agent_model_size(agent: LearningAgent) -> int:
+    """Return a comparable size metric for the learned value model."""
+    if isinstance(agent, LinearQAgent):
+        return agent.number_of_parameters
+
+    return len(agent.q_table)
+
+
+def _agent_kind(agent: LearningAgent) -> str:
+    """Return a readable agent kind."""
+    if isinstance(agent, LinearQAgent):
+        return agent.kind
+
+    return "tabular_q"
 
 
 def save_training_result(

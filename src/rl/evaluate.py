@@ -17,7 +17,9 @@ import pandas as pd
 from src.environment.actions import action_name
 from src.environment.breeding_env import BreedingEnv
 from src.rl.discretizer import ObservationDiscretizer
+from src.rl.linear_q import LinearQAgent
 from src.rl.q_learning import QLearningAgent
+from src.rl.train import state_for_agent
 
 
 @dataclass
@@ -32,8 +34,8 @@ class PolicyEvaluationResult:
 def evaluate_q_learning(
     *,
     env: BreedingEnv,
-    agent: QLearningAgent,
-    discretizer: ObservationDiscretizer,
+    agent: QLearningAgent | LinearQAgent,
+    discretizer: ObservationDiscretizer | None,
     number_of_episodes: int = 20,
     base_seed: int = 20001,
     maximum_steps_per_episode: int = 200,
@@ -66,8 +68,10 @@ def evaluate_q_learning(
         observation, info = env.reset(
             seed=episode_seed
         )
-        state = discretizer.transform(
-            observation
+        state = state_for_agent(
+            observation,
+            agent=agent,
+            discretizer=discretizer,
         )
 
         episode_return = 0.0
@@ -148,8 +152,10 @@ def evaluate_q_learning(
                     ]
                 )
 
-            state = discretizer.transform(
-                next_observation
+            state = state_for_agent(
+                next_observation,
+                agent=agent,
+                discretizer=discretizer,
             )
             info = next_info
 
