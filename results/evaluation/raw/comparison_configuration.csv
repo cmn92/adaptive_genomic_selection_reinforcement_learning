@@ -1,0 +1,2 @@
+number_of_replicates,number_of_generations,number_to_phenotype,number_of_parents,number_of_crosses,f1_per_cross,dh_per_f1,reps,trait,snp_chip,active_initial_batch_size,n_cores,base_seed,total_runtime_seconds
+3,5,200,20,100,1,10,1,1,1,50,1,1001,21.111770837000222
