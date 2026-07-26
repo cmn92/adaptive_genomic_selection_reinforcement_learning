@@ -67,7 +67,12 @@ def compare_all_five_strategies(
             maximum_phenotypes=number_to_phenotype,
             base_seed=base_seed,
         ),
-        reward_config=RewardConfig(),
+        reward_config=RewardConfig(
+            # The baseline strategies all use a fixed phenotyping budget.
+            # Disable cost pressure here so RL is compared on batch choice,
+            # not on its ability to spend less than the baselines.
+            phenotyping_cost_weight=0.0,
+        ),
     )
 
     generation_results = pd.concat(

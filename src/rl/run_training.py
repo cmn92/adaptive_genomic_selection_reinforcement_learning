@@ -304,7 +304,9 @@ def main() -> None:
     reward_config = RewardConfig(
         genetic_gain_weight=2.0,
         variance_retention_weight=0.8,
-        phenotyping_cost_weight=0.2,
+        # Fixed-budget baselines always spend the full phenotyping budget.
+        # Keep Linear Q focused on batch choice rather than budget avoidance.
+        phenotyping_cost_weight=0.0,
         reliability_improvement_weight=0.3,
         invalid_action_penalty=1.0,
         gain_scale=2.0,

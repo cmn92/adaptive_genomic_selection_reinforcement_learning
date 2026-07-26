@@ -1,59 +1,1848 @@
 strategy,replicate,run_seed,step,generation_before,number_phenotyped_before,action,action_name,reward,event
-q_learning,1,20001,1,1,0,1,Diversity batch,-0.025,phenotype_batch
-q_learning,1,20001,2,1,25,0,Random batch,-0.025,phenotype_batch
-q_learning,1,20001,3,1,50,4,Stop and finalize generation,1.3580254621648602,generation_finalized
-q_learning,1,20001,4,2,0,0,Random batch,-0.025,phenotype_batch
-q_learning,1,20001,5,2,25,1,Diversity batch,-0.025,phenotype_batch
-q_learning,1,20001,6,2,50,4,Stop and finalize generation,1.0016026940077412,generation_finalized
-q_learning,1,20001,7,3,0,1,Diversity batch,-0.025,phenotype_batch
-q_learning,1,20001,8,3,25,0,Random batch,-0.025,phenotype_batch
-q_learning,1,20001,9,3,50,4,Stop and finalize generation,0.8768799935818683,generation_finalized
-q_learning,1,20001,10,4,0,1,Diversity batch,-0.025,phenotype_batch
-q_learning,1,20001,11,4,25,1,Diversity batch,-0.025,phenotype_batch
-q_learning,1,20001,12,4,50,0,Random batch,-0.025,phenotype_batch
-q_learning,1,20001,13,4,75,4,Stop and finalize generation,0.29058109369147633,generation_finalized
-q_learning,1,20001,14,5,0,1,Diversity batch,-0.025,phenotype_batch
-q_learning,1,20001,15,5,25,1,Diversity batch,-0.025,phenotype_batch
-q_learning,1,20001,16,5,50,0,Random batch,-0.025,phenotype_batch
-q_learning,1,20001,17,5,75,4,Stop and finalize generation,0.510836978353636,generation_finalized
-q_learning,2,20002,1,1,0,1,Diversity batch,-0.025,phenotype_batch
-q_learning,2,20002,2,1,25,0,Random batch,-0.025,phenotype_batch
-q_learning,2,20002,3,1,50,4,Stop and finalize generation,1.2949439873065922,generation_finalized
-q_learning,2,20002,4,2,0,0,Random batch,-0.025,phenotype_batch
-q_learning,2,20002,5,2,25,1,Diversity batch,-0.025,phenotype_batch
-q_learning,2,20002,6,2,50,4,Stop and finalize generation,0.8497803838395573,generation_finalized
-q_learning,2,20002,7,3,0,1,Diversity batch,-0.025,phenotype_batch
-q_learning,2,20002,8,3,25,0,Random batch,-0.025,phenotype_batch
-q_learning,2,20002,9,3,50,2,Highest-PEV batch,-0.025,phenotype_batch
-q_learning,2,20002,10,3,75,4,Stop and finalize generation,0.4712977889012342,generation_finalized
-q_learning,2,20002,11,4,0,1,Diversity batch,-0.025,phenotype_batch
-q_learning,2,20002,12,4,25,1,Diversity batch,-0.025,phenotype_batch
-q_learning,2,20002,13,4,50,0,Random batch,-0.025,phenotype_batch
-q_learning,2,20002,14,4,75,4,Stop and finalize generation,0.02517718100152181,generation_finalized
-q_learning,2,20002,15,5,0,1,Diversity batch,-0.025,phenotype_batch
-q_learning,2,20002,16,5,25,1,Diversity batch,-0.025,phenotype_batch
-q_learning,2,20002,17,5,50,0,Random batch,-0.025,phenotype_batch
-q_learning,2,20002,18,5,75,4,Stop and finalize generation,0.07766518847403234,generation_finalized
-q_learning,3,20003,1,1,0,1,Diversity batch,-0.025,phenotype_batch
-q_learning,3,20003,2,1,25,0,Random batch,-0.025,phenotype_batch
-q_learning,3,20003,3,1,50,4,Stop and finalize generation,0.9899735960934517,generation_finalized
-q_learning,3,20003,4,2,0,0,Random batch,-0.025,phenotype_batch
-q_learning,3,20003,5,2,25,1,Diversity batch,-0.025,phenotype_batch
-q_learning,3,20003,6,2,50,2,Highest-PEV batch,-0.025,phenotype_batch
-q_learning,3,20003,7,2,75,4,Stop and finalize generation,1.4153203434440302,generation_finalized
-q_learning,3,20003,8,3,0,0,Random batch,-0.025,phenotype_batch
-q_learning,3,20003,9,3,25,1,Diversity batch,-0.025,phenotype_batch
-q_learning,3,20003,10,3,50,4,Stop and finalize generation,0.987626179434849,generation_finalized
-q_learning,3,20003,11,4,0,0,Random batch,-0.025,phenotype_batch
-q_learning,3,20003,12,4,25,0,Random batch,-0.025,phenotype_batch
-q_learning,3,20003,13,4,50,3,Highest-GEBV batch,-0.025,phenotype_batch
-q_learning,3,20003,14,4,75,3,Highest-GEBV batch,-0.025,phenotype_batch
-q_learning,3,20003,15,4,100,3,Highest-GEBV batch,-0.025,phenotype_batch
-q_learning,3,20003,16,4,125,3,Highest-GEBV batch,-0.025,phenotype_batch
-q_learning,3,20003,17,4,150,1,Diversity batch,-0.025,phenotype_batch
-q_learning,3,20003,18,4,175,1,Diversity batch,1.1480451235602445,generation_finalized
-q_learning,3,20003,19,5,0,0,Random batch,-0.025,phenotype_batch
-q_learning,3,20003,20,5,25,0,Random batch,-0.025,phenotype_batch
-q_learning,3,20003,21,5,50,3,Highest-GEBV batch,-0.025,phenotype_batch
-q_learning,3,20003,22,5,75,0,Random batch,-0.025,phenotype_batch
-q_learning,3,20003,23,5,100,4,Stop and finalize generation,0.9395940533397775,generation_finalized
+linear_q_learning,1,20001,1,1,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,1,20001,2,1,25,0,Random batch,0.015593635407599572,phenotype_batch
+linear_q_learning,1,20001,3,1,50,4,Stop and finalize generation,1.163151850267227,generation_finalized
+linear_q_learning,1,20001,4,2,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,1,20001,5,2,25,0,Random batch,0.04035816992354473,phenotype_batch
+linear_q_learning,1,20001,6,2,50,4,Stop and finalize generation,1.1940731778992402,generation_finalized
+linear_q_learning,1,20001,7,3,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,1,20001,8,3,25,0,Random batch,0.05543801498652533,phenotype_batch
+linear_q_learning,1,20001,9,3,50,4,Stop and finalize generation,0.5698280523942865,generation_finalized
+linear_q_learning,1,20001,10,4,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,1,20001,11,4,25,0,Random batch,0.08456098067319763,phenotype_batch
+linear_q_learning,1,20001,12,4,50,4,Stop and finalize generation,0.8436307033572369,generation_finalized
+linear_q_learning,1,20001,13,5,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,1,20001,14,5,25,0,Random batch,1.0652879504138992e-09,phenotype_batch
+linear_q_learning,1,20001,15,5,50,4,Stop and finalize generation,0.25978676048420224,generation_finalized
+linear_q_learning,1,20001,16,6,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,1,20001,17,6,25,0,Random batch,0.038037429914804785,phenotype_batch
+linear_q_learning,1,20001,18,6,50,4,Stop and finalize generation,0.5907321257438282,generation_finalized
+linear_q_learning,1,20001,19,7,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,1,20001,20,7,25,0,Random batch,0.06784890803988644,phenotype_batch
+linear_q_learning,1,20001,21,7,50,4,Stop and finalize generation,0.2602776955886411,generation_finalized
+linear_q_learning,1,20001,22,8,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,1,20001,23,8,25,0,Random batch,0.07880695767552373,phenotype_batch
+linear_q_learning,1,20001,24,8,50,4,Stop and finalize generation,-0.08963226784282786,generation_finalized
+linear_q_learning,1,20001,25,9,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,1,20001,26,9,25,0,Random batch,0.0445775750730321,phenotype_batch
+linear_q_learning,1,20001,27,9,50,4,Stop and finalize generation,-0.08618381143471612,generation_finalized
+linear_q_learning,1,20001,28,10,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,1,20001,29,10,25,1,Diversity batch,3.81056396275544e-09,phenotype_batch
+linear_q_learning,1,20001,30,10,50,4,Stop and finalize generation,0.039783437601035684,generation_finalized
+linear_q_learning,1,20001,31,11,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,1,20001,32,11,25,1,Diversity batch,2.1940868705076706e-08,phenotype_batch
+linear_q_learning,1,20001,33,11,50,3,Highest-GEBV batch,5.560186064663435e-09,phenotype_batch
+linear_q_learning,1,20001,34,11,75,0,Random batch,1.0920900737554963e-08,phenotype_batch
+linear_q_learning,1,20001,35,11,100,0,Random batch,0.010365771958143324,phenotype_batch
+linear_q_learning,1,20001,36,11,125,4,Stop and finalize generation,0.05432908341989611,generation_finalized
+linear_q_learning,1,20001,37,12,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,1,20001,38,12,25,1,Diversity batch,0.1554110847767264,phenotype_batch
+linear_q_learning,1,20001,39,12,50,3,Highest-GEBV batch,-0.11326826583266593,phenotype_batch
+linear_q_learning,1,20001,40,12,75,3,Highest-GEBV batch,0.003763227394799437,phenotype_batch
+linear_q_learning,1,20001,41,12,100,3,Highest-GEBV batch,-0.029198650277236546,phenotype_batch
+linear_q_learning,1,20001,42,12,125,1,Diversity batch,-0.016707378635928753,phenotype_batch
+linear_q_learning,1,20001,43,12,150,0,Random batch,0.0020310218309529124,phenotype_batch
+linear_q_learning,1,20001,44,12,175,4,Stop and finalize generation,0.03699771324969577,generation_finalized
+linear_q_learning,1,20001,45,13,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,1,20001,46,13,25,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,1,20001,47,13,50,0,Random batch,0.0,phenotype_batch
+linear_q_learning,1,20001,48,13,75,0,Random batch,0.0,phenotype_batch
+linear_q_learning,1,20001,49,13,100,0,Random batch,0.0,phenotype_batch
+linear_q_learning,1,20001,50,13,125,0,Random batch,0.0,phenotype_batch
+linear_q_learning,1,20001,51,13,150,4,Stop and finalize generation,1.6747197951889832e-30,generation_finalized
+linear_q_learning,1,20001,52,14,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,1,20001,53,14,25,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,1,20001,54,14,50,4,Stop and finalize generation,1.6747197951889832e-30,generation_finalized
+linear_q_learning,1,20001,55,15,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,1,20001,56,15,25,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,1,20001,57,15,50,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,1,20001,58,15,75,4,Stop and finalize generation,1.6747197951889832e-30,generation_finalized
+linear_q_learning,1,20001,59,16,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,1,20001,60,16,25,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,1,20001,61,16,50,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,1,20001,62,16,75,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,1,20001,63,16,100,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,1,20001,64,16,125,4,Stop and finalize generation,1.6747197951889832e-30,generation_finalized
+linear_q_learning,1,20001,65,17,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,1,20001,66,17,25,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,1,20001,67,17,50,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,1,20001,68,17,75,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,1,20001,69,17,100,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,1,20001,70,17,125,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,1,20001,71,17,150,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,1,20001,72,17,175,4,Stop and finalize generation,1.6747197951889832e-30,generation_finalized
+linear_q_learning,1,20001,73,18,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,1,20001,74,18,25,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,1,20001,75,18,50,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,1,20001,76,18,75,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,1,20001,77,18,100,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,1,20001,78,18,125,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,1,20001,79,18,150,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,1,20001,80,18,175,3,Highest-GEBV batch,1.6747197951889832e-30,generation_finalized
+linear_q_learning,1,20001,81,19,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,1,20001,82,19,25,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,1,20001,83,19,50,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,1,20001,84,19,75,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,1,20001,85,19,100,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,1,20001,86,19,125,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,1,20001,87,19,150,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,1,20001,88,19,175,3,Highest-GEBV batch,1.6747197951889832e-30,generation_finalized
+linear_q_learning,1,20001,89,20,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,1,20001,90,20,25,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,1,20001,91,20,50,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,1,20001,92,20,75,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,1,20001,93,20,100,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,1,20001,94,20,125,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,1,20001,95,20,150,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,1,20001,96,20,175,3,Highest-GEBV batch,1.6747197951889832e-30,generation_finalized
+linear_q_learning,2,20002,1,1,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,2,20002,2,1,25,0,Random batch,0.024419810973758935,phenotype_batch
+linear_q_learning,2,20002,3,1,50,4,Stop and finalize generation,1.0115339206499647,generation_finalized
+linear_q_learning,2,20002,4,2,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,2,20002,5,2,25,0,Random batch,7.151307244975638e-10,phenotype_batch
+linear_q_learning,2,20002,6,2,50,4,Stop and finalize generation,0.9205394838378363,generation_finalized
+linear_q_learning,2,20002,7,3,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,2,20002,8,3,25,0,Random batch,0.04956960512300521,phenotype_batch
+linear_q_learning,2,20002,9,3,50,4,Stop and finalize generation,0.17226361178354374,generation_finalized
+linear_q_learning,2,20002,10,4,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,2,20002,11,4,25,0,Random batch,1.3494048037211493e-09,phenotype_batch
+linear_q_learning,2,20002,12,4,50,4,Stop and finalize generation,-0.009174959814486338,generation_finalized
+linear_q_learning,2,20002,13,5,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,2,20002,14,5,25,0,Random batch,1.4762373983234766e-09,phenotype_batch
+linear_q_learning,2,20002,15,5,50,4,Stop and finalize generation,0.0987214009530538,generation_finalized
+linear_q_learning,2,20002,16,6,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,2,20002,17,6,25,0,Random batch,0.09204762578921837,phenotype_batch
+linear_q_learning,2,20002,18,6,50,4,Stop and finalize generation,0.027261997024473086,generation_finalized
+linear_q_learning,2,20002,19,7,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,2,20002,20,7,25,0,Random batch,1.730831561723945e-09,phenotype_batch
+linear_q_learning,2,20002,21,7,50,4,Stop and finalize generation,0.005150562262236832,generation_finalized
+linear_q_learning,2,20002,22,8,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,2,20002,23,8,25,0,Random batch,2.2048601011976684e-09,phenotype_batch
+linear_q_learning,2,20002,24,8,50,4,Stop and finalize generation,0.0012875831271798876,generation_finalized
+linear_q_learning,2,20002,25,9,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,2,20002,26,9,25,0,Random batch,3.894821582619089e-09,phenotype_batch
+linear_q_learning,2,20002,27,9,50,4,Stop and finalize generation,0.0017030180518980236,generation_finalized
+linear_q_learning,2,20002,28,10,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,2,20002,29,10,25,1,Diversity batch,0.08469766381853318,phenotype_batch
+linear_q_learning,2,20002,30,10,50,4,Stop and finalize generation,4.186799487972458e-31,generation_finalized
+linear_q_learning,2,20002,31,11,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,2,20002,32,11,25,1,Diversity batch,2.5607659552980074e-08,phenotype_batch
+linear_q_learning,2,20002,33,11,50,4,Stop and finalize generation,4.186799487972458e-31,generation_finalized
+linear_q_learning,2,20002,34,12,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,2,20002,35,12,25,0,Random batch,0.0,phenotype_batch
+linear_q_learning,2,20002,36,12,50,4,Stop and finalize generation,4.186799487972458e-31,generation_finalized
+linear_q_learning,2,20002,37,13,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,2,20002,38,13,25,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,2,20002,39,13,50,4,Stop and finalize generation,4.186799487972458e-31,generation_finalized
+linear_q_learning,2,20002,40,14,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,2,20002,41,14,25,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,2,20002,42,14,50,4,Stop and finalize generation,4.186799487972458e-31,generation_finalized
+linear_q_learning,2,20002,43,15,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,2,20002,44,15,25,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,2,20002,45,15,50,4,Stop and finalize generation,4.186799487972458e-31,generation_finalized
+linear_q_learning,2,20002,46,16,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,2,20002,47,16,25,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,2,20002,48,16,50,4,Stop and finalize generation,4.186799487972458e-31,generation_finalized
+linear_q_learning,2,20002,49,17,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,2,20002,50,17,25,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,2,20002,51,17,50,4,Stop and finalize generation,4.186799487972458e-31,generation_finalized
+linear_q_learning,2,20002,52,18,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,2,20002,53,18,25,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,2,20002,54,18,50,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,2,20002,55,18,75,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,2,20002,56,18,100,4,Stop and finalize generation,4.186799487972458e-31,generation_finalized
+linear_q_learning,2,20002,57,19,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,2,20002,58,19,25,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,2,20002,59,19,50,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,2,20002,60,19,75,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,2,20002,61,19,100,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,2,20002,62,19,125,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,2,20002,63,19,150,4,Stop and finalize generation,4.186799487972458e-31,generation_finalized
+linear_q_learning,2,20002,64,20,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,2,20002,65,20,25,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,2,20002,66,20,50,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,2,20002,67,20,75,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,2,20002,68,20,100,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,2,20002,69,20,125,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,2,20002,70,20,150,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,2,20002,71,20,175,3,Highest-GEBV batch,4.186799487972458e-31,generation_finalized
+linear_q_learning,3,20003,1,1,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,3,20003,2,1,25,0,Random batch,0.03254196638086288,phenotype_batch
+linear_q_learning,3,20003,3,1,50,4,Stop and finalize generation,0.9763777435535321,generation_finalized
+linear_q_learning,3,20003,4,2,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,3,20003,5,2,25,0,Random batch,0.08643009018042747,phenotype_batch
+linear_q_learning,3,20003,6,2,50,4,Stop and finalize generation,0.965970921252927,generation_finalized
+linear_q_learning,3,20003,7,3,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,3,20003,8,3,25,0,Random batch,0.10239774886466682,phenotype_batch
+linear_q_learning,3,20003,9,3,50,4,Stop and finalize generation,0.29022649581563587,generation_finalized
+linear_q_learning,3,20003,10,4,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,3,20003,11,4,25,0,Random batch,0.1443493044895043,phenotype_batch
+linear_q_learning,3,20003,12,4,50,4,Stop and finalize generation,0.3628842499153214,generation_finalized
+linear_q_learning,3,20003,13,5,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,3,20003,14,5,25,0,Random batch,0.07811295613688801,phenotype_batch
+linear_q_learning,3,20003,15,5,50,4,Stop and finalize generation,0.09023780485513183,generation_finalized
+linear_q_learning,3,20003,16,6,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,3,20003,17,6,25,0,Random batch,1.8477639189244592e-09,phenotype_batch
+linear_q_learning,3,20003,18,6,50,4,Stop and finalize generation,0.03716640873910005,generation_finalized
+linear_q_learning,3,20003,19,7,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,3,20003,20,7,25,0,Random batch,1.6543659740026209e-09,phenotype_batch
+linear_q_learning,3,20003,21,7,50,4,Stop and finalize generation,0.03182398919901018,generation_finalized
+linear_q_learning,3,20003,22,8,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,3,20003,23,8,25,0,Random batch,0.1913145009317367,phenotype_batch
+linear_q_learning,3,20003,24,8,50,4,Stop and finalize generation,0.010310372612996718,generation_finalized
+linear_q_learning,3,20003,25,9,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,3,20003,26,9,25,0,Random batch,2.744860732180405e-09,phenotype_batch
+linear_q_learning,3,20003,27,9,50,4,Stop and finalize generation,0.031083332759056826,generation_finalized
+linear_q_learning,3,20003,28,10,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,3,20003,29,10,25,1,Diversity batch,0.08591786168120104,phenotype_batch
+linear_q_learning,3,20003,30,10,50,4,Stop and finalize generation,-0.013132935467954365,generation_finalized
+linear_q_learning,3,20003,31,11,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,3,20003,32,11,25,1,Diversity batch,3.251129168143454e-08,phenotype_batch
+linear_q_learning,3,20003,33,11,50,4,Stop and finalize generation,0.04224409612929553,generation_finalized
+linear_q_learning,3,20003,34,12,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,3,20003,35,12,25,0,Random batch,0.0,phenotype_batch
+linear_q_learning,3,20003,36,12,50,4,Stop and finalize generation,0.0019857757060746484,generation_finalized
+linear_q_learning,3,20003,37,13,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,3,20003,38,13,25,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,3,20003,39,13,50,4,Stop and finalize generation,0.0,generation_finalized
+linear_q_learning,3,20003,40,14,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,3,20003,41,14,25,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,3,20003,42,14,50,4,Stop and finalize generation,0.0,generation_finalized
+linear_q_learning,3,20003,43,15,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,3,20003,44,15,25,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,3,20003,45,15,50,4,Stop and finalize generation,0.0,generation_finalized
+linear_q_learning,3,20003,46,16,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,3,20003,47,16,25,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,3,20003,48,16,50,4,Stop and finalize generation,0.0,generation_finalized
+linear_q_learning,3,20003,49,17,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,3,20003,50,17,25,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,3,20003,51,17,50,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,3,20003,52,17,75,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,3,20003,53,17,100,4,Stop and finalize generation,0.0,generation_finalized
+linear_q_learning,3,20003,54,18,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,3,20003,55,18,25,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,3,20003,56,18,50,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,3,20003,57,18,75,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,3,20003,58,18,100,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,3,20003,59,18,125,4,Stop and finalize generation,0.0,generation_finalized
+linear_q_learning,3,20003,60,19,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,3,20003,61,19,25,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,3,20003,62,19,50,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,3,20003,63,19,75,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,3,20003,64,19,100,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,3,20003,65,19,125,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,3,20003,66,19,150,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,3,20003,67,19,175,3,Highest-GEBV batch,0.0,generation_finalized
+linear_q_learning,3,20003,68,20,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,3,20003,69,20,25,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,3,20003,70,20,50,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,3,20003,71,20,75,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,3,20003,72,20,100,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,3,20003,73,20,125,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,3,20003,74,20,150,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,3,20003,75,20,175,3,Highest-GEBV batch,0.0,generation_finalized
+linear_q_learning,4,20004,1,1,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,4,20004,2,1,25,0,Random batch,0.04046491023403911,phenotype_batch
+linear_q_learning,4,20004,3,1,50,4,Stop and finalize generation,1.0694380554145526,generation_finalized
+linear_q_learning,4,20004,4,2,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,4,20004,5,2,25,0,Random batch,6.653756184974027e-10,phenotype_batch
+linear_q_learning,4,20004,6,2,50,4,Stop and finalize generation,1.0249841863501339,generation_finalized
+linear_q_learning,4,20004,7,3,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,4,20004,8,3,25,0,Random batch,0.09537915214553871,phenotype_batch
+linear_q_learning,4,20004,9,3,50,4,Stop and finalize generation,0.83924809493631,generation_finalized
+linear_q_learning,4,20004,10,4,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,4,20004,11,4,25,0,Random batch,0.0386786820442837,phenotype_batch
+linear_q_learning,4,20004,12,4,50,4,Stop and finalize generation,0.5878791914933432,generation_finalized
+linear_q_learning,4,20004,13,5,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,4,20004,14,5,25,0,Random batch,0.02435378059587903,phenotype_batch
+linear_q_learning,4,20004,15,5,50,4,Stop and finalize generation,0.950391883591831,generation_finalized
+linear_q_learning,4,20004,16,6,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,4,20004,17,6,25,0,Random batch,8.608387242685878e-10,phenotype_batch
+linear_q_learning,4,20004,18,6,50,4,Stop and finalize generation,0.4730715984097696,generation_finalized
+linear_q_learning,4,20004,19,7,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,4,20004,20,7,25,0,Random batch,1.2821896186542223e-09,phenotype_batch
+linear_q_learning,4,20004,21,7,50,4,Stop and finalize generation,0.3541607167270825,generation_finalized
+linear_q_learning,4,20004,22,8,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,4,20004,23,8,25,0,Random batch,1.5222252461690848e-09,phenotype_batch
+linear_q_learning,4,20004,24,8,50,4,Stop and finalize generation,0.044589782246960113,generation_finalized
+linear_q_learning,4,20004,25,9,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,4,20004,26,9,25,1,Diversity batch,1.9504541123959104e-09,phenotype_batch
+linear_q_learning,4,20004,27,9,50,4,Stop and finalize generation,-0.06138984014156368,generation_finalized
+linear_q_learning,4,20004,28,10,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,4,20004,29,10,25,1,Diversity batch,2.522593333799175e-09,phenotype_batch
+linear_q_learning,4,20004,30,10,50,4,Stop and finalize generation,0.0368840112803548,generation_finalized
+linear_q_learning,4,20004,31,11,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,4,20004,32,11,25,1,Diversity batch,2.934835520537018e-09,phenotype_batch
+linear_q_learning,4,20004,33,11,50,4,Stop and finalize generation,0.023569003257013343,generation_finalized
+linear_q_learning,4,20004,34,12,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,4,20004,35,12,25,1,Diversity batch,3.205014856598684e-09,phenotype_batch
+linear_q_learning,4,20004,36,12,50,3,Highest-GEBV batch,1.5195072164957756e-09,phenotype_batch
+linear_q_learning,4,20004,37,12,75,3,Highest-GEBV batch,1.2892698819895428e-09,phenotype_batch
+linear_q_learning,4,20004,38,12,100,0,Random batch,1.5604446535683844e-09,phenotype_batch
+linear_q_learning,4,20004,39,12,125,0,Random batch,1.5116662609144836e-09,phenotype_batch
+linear_q_learning,4,20004,40,12,150,4,Stop and finalize generation,0.004679524658310551,generation_finalized
+linear_q_learning,4,20004,41,13,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,4,20004,42,13,25,1,Diversity batch,6.412978700672636e-09,phenotype_batch
+linear_q_learning,4,20004,43,13,50,3,Highest-GEBV batch,4.126508571401505e-09,phenotype_batch
+linear_q_learning,4,20004,44,13,75,3,Highest-GEBV batch,4.8668136800550335e-09,phenotype_batch
+linear_q_learning,4,20004,45,13,100,3,Highest-GEBV batch,2.3838827949313175e-09,phenotype_batch
+linear_q_learning,4,20004,46,13,125,3,Highest-GEBV batch,3.596226911818013e-09,phenotype_batch
+linear_q_learning,4,20004,47,13,150,3,Highest-GEBV batch,3.1826025685301e-09,phenotype_batch
+linear_q_learning,4,20004,48,13,175,3,Highest-GEBV batch,4.926412894650083e-09,generation_finalized
+linear_q_learning,4,20004,49,14,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,4,20004,50,14,25,1,Diversity batch,5.703083089079654e-09,phenotype_batch
+linear_q_learning,4,20004,51,14,50,3,Highest-GEBV batch,0.07112237169990333,phenotype_batch
+linear_q_learning,4,20004,52,14,75,3,Highest-GEBV batch,0.01958349259714497,phenotype_batch
+linear_q_learning,4,20004,53,14,100,3,Highest-GEBV batch,-0.0020816799777805925,phenotype_batch
+linear_q_learning,4,20004,54,14,125,3,Highest-GEBV batch,0.0014931489046074663,phenotype_batch
+linear_q_learning,4,20004,55,14,150,3,Highest-GEBV batch,0.020542256994359326,phenotype_batch
+linear_q_learning,4,20004,56,14,175,3,Highest-GEBV batch,0.015155415644223635,generation_finalized
+linear_q_learning,4,20004,57,15,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,4,20004,58,15,25,1,Diversity batch,2.213256219272147e-08,phenotype_batch
+linear_q_learning,4,20004,59,15,50,3,Highest-GEBV batch,1.8444423799564507e-09,phenotype_batch
+linear_q_learning,4,20004,60,15,75,3,Highest-GEBV batch,9.222312005234896e-10,phenotype_batch
+linear_q_learning,4,20004,61,15,100,3,Highest-GEBV batch,5.531353119536672e-10,phenotype_batch
+linear_q_learning,4,20004,62,15,125,3,Highest-GEBV batch,3.693348882727323e-10,phenotype_batch
+linear_q_learning,4,20004,63,15,150,4,Stop and finalize generation,4.186799487972458e-31,generation_finalized
+linear_q_learning,4,20004,64,16,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,4,20004,65,16,25,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,4,20004,66,16,50,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,4,20004,67,16,75,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,4,20004,68,16,100,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,4,20004,69,16,125,4,Stop and finalize generation,4.186799487972458e-31,generation_finalized
+linear_q_learning,4,20004,70,17,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,4,20004,71,17,25,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,4,20004,72,17,50,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,4,20004,73,17,75,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,4,20004,74,17,100,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,4,20004,75,17,125,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,4,20004,76,17,150,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,4,20004,77,17,175,3,Highest-GEBV batch,4.186799487972458e-31,generation_finalized
+linear_q_learning,4,20004,78,18,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,4,20004,79,18,25,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,4,20004,80,18,50,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,4,20004,81,18,75,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,4,20004,82,18,100,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,4,20004,83,18,125,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,4,20004,84,18,150,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,4,20004,85,18,175,3,Highest-GEBV batch,4.186799487972458e-31,generation_finalized
+linear_q_learning,4,20004,86,19,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,4,20004,87,19,25,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,4,20004,88,19,50,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,4,20004,89,19,75,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,4,20004,90,19,100,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,4,20004,91,19,125,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,4,20004,92,19,150,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,4,20004,93,19,175,3,Highest-GEBV batch,4.186799487972458e-31,generation_finalized
+linear_q_learning,4,20004,94,20,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,4,20004,95,20,25,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,4,20004,96,20,50,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,4,20004,97,20,75,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,4,20004,98,20,100,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,4,20004,99,20,125,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,4,20004,100,20,150,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,4,20004,101,20,175,3,Highest-GEBV batch,4.186799487972458e-31,generation_finalized
+linear_q_learning,5,20005,1,1,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,5,20005,2,1,25,0,Random batch,1.8195665910833874e-10,phenotype_batch
+linear_q_learning,5,20005,3,1,50,4,Stop and finalize generation,1.1341903834679756,generation_finalized
+linear_q_learning,5,20005,4,2,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,5,20005,5,2,25,0,Random batch,1.0171235302073486e-09,phenotype_batch
+linear_q_learning,5,20005,6,2,50,4,Stop and finalize generation,1.0537959760986488,generation_finalized
+linear_q_learning,5,20005,7,3,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,5,20005,8,3,25,0,Random batch,0.0845667943091524,phenotype_batch
+linear_q_learning,5,20005,9,3,50,4,Stop and finalize generation,0.8187561416571267,generation_finalized
+linear_q_learning,5,20005,10,4,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,5,20005,11,4,25,0,Random batch,0.02731396743432361,phenotype_batch
+linear_q_learning,5,20005,12,4,50,4,Stop and finalize generation,0.7690531825674033,generation_finalized
+linear_q_learning,5,20005,13,5,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,5,20005,14,5,25,0,Random batch,8.331780140199827e-10,phenotype_batch
+linear_q_learning,5,20005,15,5,50,4,Stop and finalize generation,0.51785604023276,generation_finalized
+linear_q_learning,5,20005,16,6,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,5,20005,17,6,25,0,Random batch,0.14407304173402308,phenotype_batch
+linear_q_learning,5,20005,18,6,50,4,Stop and finalize generation,0.6332643168940714,generation_finalized
+linear_q_learning,5,20005,19,7,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,5,20005,20,7,25,0,Random batch,0.10361594474253488,phenotype_batch
+linear_q_learning,5,20005,21,7,50,4,Stop and finalize generation,0.19102598421909806,generation_finalized
+linear_q_learning,5,20005,22,8,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,5,20005,23,8,25,0,Random batch,0.023233669374707524,phenotype_batch
+linear_q_learning,5,20005,24,8,50,4,Stop and finalize generation,0.04331662311467213,generation_finalized
+linear_q_learning,5,20005,25,9,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,5,20005,26,9,25,0,Random batch,1.4756673723672151e-09,phenotype_batch
+linear_q_learning,5,20005,27,9,50,4,Stop and finalize generation,0.0830634570883022,generation_finalized
+linear_q_learning,5,20005,28,10,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,5,20005,29,10,25,1,Diversity batch,0.09885173952038363,phenotype_batch
+linear_q_learning,5,20005,30,10,50,4,Stop and finalize generation,0.4155829913896225,generation_finalized
+linear_q_learning,5,20005,31,11,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,5,20005,32,11,25,1,Diversity batch,1.642549962324748e-09,phenotype_batch
+linear_q_learning,5,20005,33,11,50,4,Stop and finalize generation,0.0662448015369225,generation_finalized
+linear_q_learning,5,20005,34,12,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,5,20005,35,12,25,1,Diversity batch,1.6655525563998677e-09,phenotype_batch
+linear_q_learning,5,20005,36,12,50,3,Highest-GEBV batch,0.02223854459929695,phenotype_batch
+linear_q_learning,5,20005,37,12,75,3,Highest-GEBV batch,0.008856568442210217,phenotype_batch
+linear_q_learning,5,20005,38,12,100,4,Stop and finalize generation,0.2425879051251455,generation_finalized
+linear_q_learning,5,20005,39,13,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,5,20005,40,13,25,1,Diversity batch,2.3337208596123296e-09,phenotype_batch
+linear_q_learning,5,20005,41,13,50,3,Highest-GEBV batch,0.003865259146417551,phenotype_batch
+linear_q_learning,5,20005,42,13,75,3,Highest-GEBV batch,-0.0038652574663314474,phenotype_batch
+linear_q_learning,5,20005,43,13,100,3,Highest-GEBV batch,1.0102018735905606e-09,phenotype_batch
+linear_q_learning,5,20005,44,13,125,3,Highest-GEBV batch,9.942098992637096e-10,phenotype_batch
+linear_q_learning,5,20005,45,13,150,3,Highest-GEBV batch,1.0530901349522037e-09,phenotype_batch
+linear_q_learning,5,20005,46,13,175,4,Stop and finalize generation,0.052498241268347984,generation_finalized
+linear_q_learning,5,20005,47,14,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,5,20005,48,14,25,1,Diversity batch,3.3573611119640463e-09,phenotype_batch
+linear_q_learning,5,20005,49,14,50,3,Highest-GEBV batch,1.421283565114518e-09,phenotype_batch
+linear_q_learning,5,20005,50,14,75,3,Highest-GEBV batch,0.0331857615907709,phenotype_batch
+linear_q_learning,5,20005,51,14,100,3,Highest-GEBV batch,0.04276161601380797,phenotype_batch
+linear_q_learning,5,20005,52,14,125,3,Highest-GEBV batch,0.025368191197698047,phenotype_batch
+linear_q_learning,5,20005,53,14,150,3,Highest-GEBV batch,0.005145129824872435,phenotype_batch
+linear_q_learning,5,20005,54,14,175,3,Highest-GEBV batch,0.04635939289963106,generation_finalized
+linear_q_learning,5,20005,55,15,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,5,20005,56,15,25,1,Diversity batch,4.7846200783808216e-09,phenotype_batch
+linear_q_learning,5,20005,57,15,50,3,Highest-GEBV batch,0.155721418157164,phenotype_batch
+linear_q_learning,5,20005,58,15,75,3,Highest-GEBV batch,-0.048341196116730066,phenotype_batch
+linear_q_learning,5,20005,59,15,100,3,Highest-GEBV batch,0.026700529531872207,phenotype_batch
+linear_q_learning,5,20005,60,15,125,3,Highest-GEBV batch,0.02577934938182449,phenotype_batch
+linear_q_learning,5,20005,61,15,150,3,Highest-GEBV batch,-0.006377441666901129,phenotype_batch
+linear_q_learning,5,20005,62,15,175,3,Highest-GEBV batch,0.00524365223416795,generation_finalized
+linear_q_learning,5,20005,63,16,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,5,20005,64,16,25,1,Diversity batch,6.952567860517509e-09,phenotype_batch
+linear_q_learning,5,20005,65,16,50,3,Highest-GEBV batch,1.803283748174395e-09,phenotype_batch
+linear_q_learning,5,20005,66,16,75,3,Highest-GEBV batch,1.4013570177866795e-09,phenotype_batch
+linear_q_learning,5,20005,67,16,100,3,Highest-GEBV batch,3.357353261353101e-09,phenotype_batch
+linear_q_learning,5,20005,68,16,125,3,Highest-GEBV batch,1.524213444505762e-09,phenotype_batch
+linear_q_learning,5,20005,69,16,150,3,Highest-GEBV batch,1.5860569307799984e-09,phenotype_batch
+linear_q_learning,5,20005,70,16,175,3,Highest-GEBV batch,1.878151195284177e-09,generation_finalized
+linear_q_learning,5,20005,71,17,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,5,20005,72,17,25,1,Diversity batch,0.17101303006742027,phenotype_batch
+linear_q_learning,5,20005,73,17,50,3,Highest-GEBV batch,-0.0451089087087863,phenotype_batch
+linear_q_learning,5,20005,74,17,75,3,Highest-GEBV batch,-0.09440166495374573,phenotype_batch
+linear_q_learning,5,20005,75,17,100,3,Highest-GEBV batch,-0.031502439754068357,phenotype_batch
+linear_q_learning,5,20005,76,17,125,3,Highest-GEBV batch,4.3498562321296796e-10,phenotype_batch
+linear_q_learning,5,20005,77,17,150,3,Highest-GEBV batch,2.349485168402613e-10,phenotype_batch
+linear_q_learning,5,20005,78,17,175,3,Highest-GEBV batch,0.00023584975135304824,generation_finalized
+linear_q_learning,5,20005,79,18,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,5,20005,80,18,25,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,5,20005,81,18,50,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,5,20005,82,18,75,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,5,20005,83,18,100,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,5,20005,84,18,125,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,5,20005,85,18,150,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,5,20005,86,18,175,3,Highest-GEBV batch,0.0,generation_finalized
+linear_q_learning,5,20005,87,19,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,5,20005,88,19,25,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,5,20005,89,19,50,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,5,20005,90,19,75,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,5,20005,91,19,100,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,5,20005,92,19,125,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,5,20005,93,19,150,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,5,20005,94,19,175,3,Highest-GEBV batch,0.0,generation_finalized
+linear_q_learning,5,20005,95,20,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,5,20005,96,20,25,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,5,20005,97,20,50,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,5,20005,98,20,75,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,5,20005,99,20,100,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,5,20005,100,20,125,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,5,20005,101,20,150,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,5,20005,102,20,175,3,Highest-GEBV batch,0.0,generation_finalized
+linear_q_learning,6,20006,1,1,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,6,20006,2,1,25,0,Random batch,1.895328521146255e-10,phenotype_batch
+linear_q_learning,6,20006,3,1,50,4,Stop and finalize generation,1.2989868450100095,generation_finalized
+linear_q_learning,6,20006,4,2,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,6,20006,5,2,25,0,Random batch,0.11189399223250583,phenotype_batch
+linear_q_learning,6,20006,6,2,50,4,Stop and finalize generation,0.8029761338167216,generation_finalized
+linear_q_learning,6,20006,7,3,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,6,20006,8,3,25,0,Random batch,0.04611288531949088,phenotype_batch
+linear_q_learning,6,20006,9,3,50,4,Stop and finalize generation,0.4685098855186836,generation_finalized
+linear_q_learning,6,20006,10,4,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,6,20006,11,4,25,0,Random batch,0.10188625816425262,phenotype_batch
+linear_q_learning,6,20006,12,4,50,4,Stop and finalize generation,0.6495613425238912,generation_finalized
+linear_q_learning,6,20006,13,5,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,6,20006,14,5,25,0,Random batch,0.10786613881681788,phenotype_batch
+linear_q_learning,6,20006,15,5,50,4,Stop and finalize generation,0.6051056281962974,generation_finalized
+linear_q_learning,6,20006,16,6,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,6,20006,17,6,25,0,Random batch,0.048909169040529776,phenotype_batch
+linear_q_learning,6,20006,18,6,50,4,Stop and finalize generation,0.26347809915003206,generation_finalized
+linear_q_learning,6,20006,19,7,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,6,20006,20,7,25,0,Random batch,1.3889989115731687e-09,phenotype_batch
+linear_q_learning,6,20006,21,7,50,4,Stop and finalize generation,0.3900956868926156,generation_finalized
+linear_q_learning,6,20006,22,8,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,6,20006,23,8,25,0,Random batch,1.2148049126286209e-09,phenotype_batch
+linear_q_learning,6,20006,24,8,50,4,Stop and finalize generation,0.18129674987500874,generation_finalized
+linear_q_learning,6,20006,25,9,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,6,20006,26,9,25,1,Diversity batch,1.6060918436954173e-09,phenotype_batch
+linear_q_learning,6,20006,27,9,50,4,Stop and finalize generation,0.13142891121339786,generation_finalized
+linear_q_learning,6,20006,28,10,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,6,20006,29,10,25,1,Diversity batch,2.01868710081321e-09,phenotype_batch
+linear_q_learning,6,20006,30,10,50,4,Stop and finalize generation,0.05173811892070557,generation_finalized
+linear_q_learning,6,20006,31,11,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,6,20006,32,11,25,1,Diversity batch,3.006489531507278e-09,phenotype_batch
+linear_q_learning,6,20006,33,11,50,4,Stop and finalize generation,0.03379711803761521,generation_finalized
+linear_q_learning,6,20006,34,12,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,6,20006,35,12,25,1,Diversity batch,3.768560217992363e-09,phenotype_batch
+linear_q_learning,6,20006,36,12,50,3,Highest-GEBV batch,1.6769367568641176e-09,phenotype_batch
+linear_q_learning,6,20006,37,12,75,3,Highest-GEBV batch,1.2967050280989447e-09,phenotype_batch
+linear_q_learning,6,20006,38,12,100,3,Highest-GEBV batch,1.649541482176421e-09,phenotype_batch
+linear_q_learning,6,20006,39,12,125,4,Stop and finalize generation,0.00839742448498843,generation_finalized
+linear_q_learning,6,20006,40,13,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,6,20006,41,13,25,1,Diversity batch,0.16289167078774028,phenotype_batch
+linear_q_learning,6,20006,42,13,50,3,Highest-GEBV batch,-0.03927271095757599,phenotype_batch
+linear_q_learning,6,20006,43,13,75,3,Highest-GEBV batch,-0.05479846405656721,phenotype_batch
+linear_q_learning,6,20006,44,13,100,3,Highest-GEBV batch,-0.0029448484851468696,phenotype_batch
+linear_q_learning,6,20006,45,13,125,3,Highest-GEBV batch,-0.028203775290771817,phenotype_batch
+linear_q_learning,6,20006,46,13,150,3,Highest-GEBV batch,-0.021712355576720292,phenotype_batch
+linear_q_learning,6,20006,47,13,175,3,Highest-GEBV batch,-0.01152361950353092,generation_finalized
+linear_q_learning,6,20006,48,14,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,6,20006,49,14,25,1,Diversity batch,6.351079636692908e-09,phenotype_batch
+linear_q_learning,6,20006,50,14,50,3,Highest-GEBV batch,3.023025708602236e-08,phenotype_batch
+linear_q_learning,6,20006,51,14,75,3,Highest-GEBV batch,1.3521398859801867e-08,phenotype_batch
+linear_q_learning,6,20006,52,14,100,3,Highest-GEBV batch,1.0587594618079644e-08,phenotype_batch
+linear_q_learning,6,20006,53,14,125,3,Highest-GEBV batch,7.0183096886425155e-09,phenotype_batch
+linear_q_learning,6,20006,54,14,150,3,Highest-GEBV batch,9.09456591392716e-09,phenotype_batch
+linear_q_learning,6,20006,55,14,175,3,Highest-GEBV batch,4.696429828907061e-09,generation_finalized
+linear_q_learning,6,20006,56,15,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,6,20006,57,15,25,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,6,20006,58,15,50,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,6,20006,59,15,75,0,Random batch,0.0,phenotype_batch
+linear_q_learning,6,20006,60,15,100,4,Stop and finalize generation,4.186799487972458e-31,generation_finalized
+linear_q_learning,6,20006,61,16,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,6,20006,62,16,25,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,6,20006,63,16,50,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,6,20006,64,16,75,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,6,20006,65,16,100,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,6,20006,66,16,125,4,Stop and finalize generation,4.186799487972458e-31,generation_finalized
+linear_q_learning,6,20006,67,17,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,6,20006,68,17,25,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,6,20006,69,17,50,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,6,20006,70,17,75,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,6,20006,71,17,100,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,6,20006,72,17,125,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,6,20006,73,17,150,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,6,20006,74,17,175,4,Stop and finalize generation,4.186799487972458e-31,generation_finalized
+linear_q_learning,6,20006,75,18,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,6,20006,76,18,25,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,6,20006,77,18,50,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,6,20006,78,18,75,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,6,20006,79,18,100,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,6,20006,80,18,125,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,6,20006,81,18,150,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,6,20006,82,18,175,3,Highest-GEBV batch,4.186799487972458e-31,generation_finalized
+linear_q_learning,6,20006,83,19,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,6,20006,84,19,25,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,6,20006,85,19,50,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,6,20006,86,19,75,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,6,20006,87,19,100,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,6,20006,88,19,125,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,6,20006,89,19,150,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,6,20006,90,19,175,3,Highest-GEBV batch,4.186799487972458e-31,generation_finalized
+linear_q_learning,6,20006,91,20,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,6,20006,92,20,25,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,6,20006,93,20,50,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,6,20006,94,20,75,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,6,20006,95,20,100,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,6,20006,96,20,125,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,6,20006,97,20,150,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,6,20006,98,20,175,3,Highest-GEBV batch,4.186799487972458e-31,generation_finalized
+linear_q_learning,7,20007,1,1,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,7,20007,2,1,25,0,Random batch,0.018110431042914037,phenotype_batch
+linear_q_learning,7,20007,3,1,50,4,Stop and finalize generation,0.9967905688590672,generation_finalized
+linear_q_learning,7,20007,4,2,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,7,20007,5,2,25,0,Random batch,0.08407741003863613,phenotype_batch
+linear_q_learning,7,20007,6,2,50,4,Stop and finalize generation,0.91450532907988,generation_finalized
+linear_q_learning,7,20007,7,3,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,7,20007,8,3,25,0,Random batch,1.3007810593920023e-09,phenotype_batch
+linear_q_learning,7,20007,9,3,50,4,Stop and finalize generation,0.1417052018439422,generation_finalized
+linear_q_learning,7,20007,10,4,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,7,20007,11,4,25,0,Random batch,6.621144677795112e-10,phenotype_batch
+linear_q_learning,7,20007,12,4,50,4,Stop and finalize generation,0.45652290693703973,generation_finalized
+linear_q_learning,7,20007,13,5,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,7,20007,14,5,25,0,Random batch,0.05900887105844092,phenotype_batch
+linear_q_learning,7,20007,15,5,50,4,Stop and finalize generation,0.6526792626966093,generation_finalized
+linear_q_learning,7,20007,16,6,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,7,20007,17,6,25,0,Random batch,0.07912071509489245,phenotype_batch
+linear_q_learning,7,20007,18,6,50,4,Stop and finalize generation,0.5128211378409702,generation_finalized
+linear_q_learning,7,20007,19,7,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,7,20007,20,7,25,0,Random batch,9.611954541422524e-10,phenotype_batch
+linear_q_learning,7,20007,21,7,50,4,Stop and finalize generation,0.6448725911831106,generation_finalized
+linear_q_learning,7,20007,22,8,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,7,20007,23,8,25,0,Random batch,1.250722962706668e-09,phenotype_batch
+linear_q_learning,7,20007,24,8,50,4,Stop and finalize generation,0.18817403087282086,generation_finalized
+linear_q_learning,7,20007,25,9,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,7,20007,26,9,25,0,Random batch,1.2375283157526808e-09,phenotype_batch
+linear_q_learning,7,20007,27,9,50,4,Stop and finalize generation,0.24469259977097027,generation_finalized
+linear_q_learning,7,20007,28,10,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,7,20007,29,10,25,1,Diversity batch,1.7718233559285846e-09,phenotype_batch
+linear_q_learning,7,20007,30,10,50,4,Stop and finalize generation,0.11216647906314045,generation_finalized
+linear_q_learning,7,20007,31,11,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,7,20007,32,11,25,1,Diversity batch,0.04751504573024093,phenotype_batch
+linear_q_learning,7,20007,33,11,50,4,Stop and finalize generation,0.07890775086280684,generation_finalized
+linear_q_learning,7,20007,34,12,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,7,20007,35,12,25,1,Diversity batch,2.8611992252651413e-09,phenotype_batch
+linear_q_learning,7,20007,36,12,50,4,Stop and finalize generation,0.04494023298073164,generation_finalized
+linear_q_learning,7,20007,37,13,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,7,20007,38,13,25,1,Diversity batch,0.1588978683195495,phenotype_batch
+linear_q_learning,7,20007,39,13,50,3,Highest-GEBV batch,-0.06030959681905938,phenotype_batch
+linear_q_learning,7,20007,40,13,75,3,Highest-GEBV batch,-0.014011518480711993,phenotype_batch
+linear_q_learning,7,20007,41,13,100,3,Highest-GEBV batch,0.00749028814898155,phenotype_batch
+linear_q_learning,7,20007,42,13,125,3,Highest-GEBV batch,-0.015489137901266457,phenotype_batch
+linear_q_learning,7,20007,43,13,150,4,Stop and finalize generation,0.2977523583097691,generation_finalized
+linear_q_learning,7,20007,44,14,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,7,20007,45,14,25,1,Diversity batch,0.0928508550371974,phenotype_batch
+linear_q_learning,7,20007,46,14,50,3,Highest-GEBV batch,-0.058644302859358004,phenotype_batch
+linear_q_learning,7,20007,47,14,75,3,Highest-GEBV batch,-0.03420654328786635,phenotype_batch
+linear_q_learning,7,20007,48,14,100,3,Highest-GEBV batch,0.03300991669394203,phenotype_batch
+linear_q_learning,7,20007,49,14,125,3,Highest-GEBV batch,0.028585271500994196,phenotype_batch
+linear_q_learning,7,20007,50,14,150,3,Highest-GEBV batch,0.008839844242054659,phenotype_batch
+linear_q_learning,7,20007,51,14,175,3,Highest-GEBV batch,0.08938234320167973,generation_finalized
+linear_q_learning,7,20007,52,15,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,7,20007,53,15,25,1,Diversity batch,0.17321919200109562,phenotype_batch
+linear_q_learning,7,20007,54,15,50,3,Highest-GEBV batch,-0.17321917156418107,phenotype_batch
+linear_q_learning,7,20007,55,15,75,3,Highest-GEBV batch,5.118520444734508e-09,phenotype_batch
+linear_q_learning,7,20007,56,15,100,3,Highest-GEBV batch,3.444685880100399e-09,phenotype_batch
+linear_q_learning,7,20007,57,15,125,3,Highest-GEBV batch,0.04968446814603553,phenotype_batch
+linear_q_learning,7,20007,58,15,150,3,Highest-GEBV batch,0.053271418973137516,phenotype_batch
+linear_q_learning,7,20007,59,15,175,3,Highest-GEBV batch,-0.01557339047061504,generation_finalized
+linear_q_learning,7,20007,60,16,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,7,20007,61,16,25,1,Diversity batch,2.682389688053221e-08,phenotype_batch
+linear_q_learning,7,20007,62,16,50,3,Highest-GEBV batch,3.170081726105123e-08,phenotype_batch
+linear_q_learning,7,20007,63,16,75,3,Highest-GEBV batch,1.3505699054672253e-08,phenotype_batch
+linear_q_learning,7,20007,64,16,100,3,Highest-GEBV batch,8.10368449455367e-09,phenotype_batch
+linear_q_learning,7,20007,65,16,125,3,Highest-GEBV batch,5.402000658167089e-09,phenotype_batch
+linear_q_learning,7,20007,66,16,150,3,Highest-GEBV batch,3.858888573673429e-09,phenotype_batch
+linear_q_learning,7,20007,67,16,175,3,Highest-GEBV batch,-0.006056104740923837,generation_finalized
+linear_q_learning,7,20007,68,17,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,7,20007,69,17,25,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,7,20007,70,17,50,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,7,20007,71,17,75,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,7,20007,72,17,100,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,7,20007,73,17,125,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,7,20007,74,17,150,4,Stop and finalize generation,-0.003475415167564018,generation_finalized
+linear_q_learning,7,20007,75,18,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,7,20007,76,18,25,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,7,20007,77,18,50,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,7,20007,78,18,75,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,7,20007,79,18,100,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,7,20007,80,18,125,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,7,20007,81,18,150,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,7,20007,82,18,175,3,Highest-GEBV batch,-0.010387831488005468,generation_finalized
+linear_q_learning,7,20007,83,19,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,7,20007,84,19,25,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,7,20007,85,19,50,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,7,20007,86,19,75,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,7,20007,87,19,100,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,7,20007,88,19,125,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,7,20007,89,19,150,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,7,20007,90,19,175,3,Highest-GEBV batch,4.186799487972458e-31,generation_finalized
+linear_q_learning,7,20007,91,20,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,7,20007,92,20,25,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,7,20007,93,20,50,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,7,20007,94,20,75,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,7,20007,95,20,100,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,7,20007,96,20,125,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,7,20007,97,20,150,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,7,20007,98,20,175,3,Highest-GEBV batch,4.186799487972458e-31,generation_finalized
+linear_q_learning,8,20008,1,1,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,8,20008,2,1,25,0,Random batch,0.03315445665991396,phenotype_batch
+linear_q_learning,8,20008,3,1,50,4,Stop and finalize generation,0.8804793113061085,generation_finalized
+linear_q_learning,8,20008,4,2,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,8,20008,5,2,25,0,Random batch,0.09521944196704507,phenotype_batch
+linear_q_learning,8,20008,6,2,50,4,Stop and finalize generation,1.1244964117042513,generation_finalized
+linear_q_learning,8,20008,7,3,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,8,20008,8,3,25,0,Random batch,7.439931231090213e-10,phenotype_batch
+linear_q_learning,8,20008,9,3,50,4,Stop and finalize generation,0.5586836868721547,generation_finalized
+linear_q_learning,8,20008,10,4,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,8,20008,11,4,25,0,Random batch,0.051120438131575054,phenotype_batch
+linear_q_learning,8,20008,12,4,50,4,Stop and finalize generation,0.7926002784886851,generation_finalized
+linear_q_learning,8,20008,13,5,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,8,20008,14,5,25,0,Random batch,0.06458012247922512,phenotype_batch
+linear_q_learning,8,20008,15,5,50,4,Stop and finalize generation,0.4076065462055202,generation_finalized
+linear_q_learning,8,20008,16,6,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,8,20008,17,6,25,0,Random batch,0.05638495992393855,phenotype_batch
+linear_q_learning,8,20008,18,6,50,4,Stop and finalize generation,-0.11495970544687553,generation_finalized
+linear_q_learning,8,20008,19,7,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,8,20008,20,7,25,0,Random batch,1.2402839886004848e-09,phenotype_batch
+linear_q_learning,8,20008,21,7,50,4,Stop and finalize generation,0.22692759662626097,generation_finalized
+linear_q_learning,8,20008,22,8,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,8,20008,23,8,25,0,Random batch,0.10007513604575997,phenotype_batch
+linear_q_learning,8,20008,24,8,50,4,Stop and finalize generation,0.09796275026750453,generation_finalized
+linear_q_learning,8,20008,25,9,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,8,20008,26,9,25,1,Diversity batch,1.9099784393020326e-09,phenotype_batch
+linear_q_learning,8,20008,27,9,50,4,Stop and finalize generation,0.09747456820352521,generation_finalized
+linear_q_learning,8,20008,28,10,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,8,20008,29,10,25,1,Diversity batch,1.8779470280593176e-09,phenotype_batch
+linear_q_learning,8,20008,30,10,50,4,Stop and finalize generation,0.11482117502669029,generation_finalized
+linear_q_learning,8,20008,31,11,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,8,20008,32,11,25,1,Diversity batch,3.422789400330192e-09,phenotype_batch
+linear_q_learning,8,20008,33,11,50,4,Stop and finalize generation,0.14934130777856855,generation_finalized
+linear_q_learning,8,20008,34,12,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,8,20008,35,12,25,1,Diversity batch,4.5672824319395895e-09,phenotype_batch
+linear_q_learning,8,20008,36,12,50,3,Highest-GEBV batch,1.6537092328224527e-09,phenotype_batch
+linear_q_learning,8,20008,37,12,75,4,Stop and finalize generation,-0.03960846467122565,generation_finalized
+linear_q_learning,8,20008,38,13,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,8,20008,39,13,25,1,Diversity batch,2.4616168991643015e-08,phenotype_batch
+linear_q_learning,8,20008,40,13,50,3,Highest-GEBV batch,7.74391705755933e-09,phenotype_batch
+linear_q_learning,8,20008,41,13,75,3,Highest-GEBV batch,4.2282864427834185e-09,phenotype_batch
+linear_q_learning,8,20008,42,13,100,4,Stop and finalize generation,0.061928577764234195,generation_finalized
+linear_q_learning,8,20008,43,14,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,8,20008,44,14,25,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,8,20008,45,14,50,4,Stop and finalize generation,1.0466998719931145e-31,generation_finalized
+linear_q_learning,8,20008,46,15,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,8,20008,47,15,25,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,8,20008,48,15,50,4,Stop and finalize generation,1.0466998719931145e-31,generation_finalized
+linear_q_learning,8,20008,49,16,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,8,20008,50,16,25,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,8,20008,51,16,50,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,8,20008,52,16,75,4,Stop and finalize generation,1.0466998719931145e-31,generation_finalized
+linear_q_learning,8,20008,53,17,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,8,20008,54,17,25,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,8,20008,55,17,50,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,8,20008,56,17,75,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,8,20008,57,17,100,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,8,20008,58,17,125,4,Stop and finalize generation,1.0466998719931145e-31,generation_finalized
+linear_q_learning,8,20008,59,18,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,8,20008,60,18,25,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,8,20008,61,18,50,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,8,20008,62,18,75,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,8,20008,63,18,100,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,8,20008,64,18,125,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,8,20008,65,18,150,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,8,20008,66,18,175,4,Stop and finalize generation,1.0466998719931145e-31,generation_finalized
+linear_q_learning,8,20008,67,19,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,8,20008,68,19,25,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,8,20008,69,19,50,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,8,20008,70,19,75,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,8,20008,71,19,100,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,8,20008,72,19,125,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,8,20008,73,19,150,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,8,20008,74,19,175,3,Highest-GEBV batch,1.0466998719931145e-31,generation_finalized
+linear_q_learning,8,20008,75,20,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,8,20008,76,20,25,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,8,20008,77,20,50,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,8,20008,78,20,75,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,8,20008,79,20,100,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,8,20008,80,20,125,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,8,20008,81,20,150,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,8,20008,82,20,175,3,Highest-GEBV batch,1.0466998719931145e-31,generation_finalized
+linear_q_learning,9,20009,1,1,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,9,20009,2,1,25,0,Random batch,1.9841619340526206e-10,phenotype_batch
+linear_q_learning,9,20009,3,1,50,4,Stop and finalize generation,1.1199149222077343,generation_finalized
+linear_q_learning,9,20009,4,2,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,9,20009,5,2,25,0,Random batch,0.06663099242419161,phenotype_batch
+linear_q_learning,9,20009,6,2,50,4,Stop and finalize generation,0.6558500236934323,generation_finalized
+linear_q_learning,9,20009,7,3,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,9,20009,8,3,25,0,Random batch,0.084221110627016,phenotype_batch
+linear_q_learning,9,20009,9,3,50,4,Stop and finalize generation,0.5466522015484979,generation_finalized
+linear_q_learning,9,20009,10,4,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,9,20009,11,4,25,0,Random batch,0.0785680939986424,phenotype_batch
+linear_q_learning,9,20009,12,4,50,4,Stop and finalize generation,0.5146404747851222,generation_finalized
+linear_q_learning,9,20009,13,5,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,9,20009,14,5,25,0,Random batch,0.05363446790551523,phenotype_batch
+linear_q_learning,9,20009,15,5,50,4,Stop and finalize generation,0.08469295300753453,generation_finalized
+linear_q_learning,9,20009,16,6,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,9,20009,17,6,25,0,Random batch,0.018549671619151345,phenotype_batch
+linear_q_learning,9,20009,18,6,50,4,Stop and finalize generation,0.44031752369039134,generation_finalized
+linear_q_learning,9,20009,19,7,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,9,20009,20,7,25,0,Random batch,0.025261878236390138,phenotype_batch
+linear_q_learning,9,20009,21,7,50,4,Stop and finalize generation,0.06288408773333751,generation_finalized
+linear_q_learning,9,20009,22,8,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,9,20009,23,8,25,0,Random batch,1.8242675957917019e-09,phenotype_batch
+linear_q_learning,9,20009,24,8,50,4,Stop and finalize generation,-0.02237050164455974,generation_finalized
+linear_q_learning,9,20009,25,9,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,9,20009,26,9,25,0,Random batch,0.06938660320272588,phenotype_batch
+linear_q_learning,9,20009,27,9,50,4,Stop and finalize generation,-0.058586352222006234,generation_finalized
+linear_q_learning,9,20009,28,10,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,9,20009,29,10,25,1,Diversity batch,0.022513003749481026,phenotype_batch
+linear_q_learning,9,20009,30,10,50,4,Stop and finalize generation,-0.0031299827698306583,generation_finalized
+linear_q_learning,9,20009,31,11,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,9,20009,32,11,25,1,Diversity batch,7.212879802870038e-09,phenotype_batch
+linear_q_learning,9,20009,33,11,50,4,Stop and finalize generation,0.11144568671363342,generation_finalized
+linear_q_learning,9,20009,34,12,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,9,20009,35,12,25,1,Diversity batch,0.13461047339773943,phenotype_batch
+linear_q_learning,9,20009,36,12,50,3,Highest-GEBV batch,-0.13461045919708073,phenotype_batch
+linear_q_learning,9,20009,37,12,75,4,Stop and finalize generation,4.186799487972458e-31,generation_finalized
+linear_q_learning,9,20009,38,13,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,9,20009,39,13,25,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,9,20009,40,13,50,4,Stop and finalize generation,4.186799487972458e-31,generation_finalized
+linear_q_learning,9,20009,41,14,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,9,20009,42,14,25,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,9,20009,43,14,50,4,Stop and finalize generation,4.186799487972458e-31,generation_finalized
+linear_q_learning,9,20009,44,15,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,9,20009,45,15,25,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,9,20009,46,15,50,4,Stop and finalize generation,4.186799487972458e-31,generation_finalized
+linear_q_learning,9,20009,47,16,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,9,20009,48,16,25,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,9,20009,49,16,50,4,Stop and finalize generation,4.186799487972458e-31,generation_finalized
+linear_q_learning,9,20009,50,17,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,9,20009,51,17,25,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,9,20009,52,17,50,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,9,20009,53,17,75,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,9,20009,54,17,100,4,Stop and finalize generation,4.186799487972458e-31,generation_finalized
+linear_q_learning,9,20009,55,18,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,9,20009,56,18,25,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,9,20009,57,18,50,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,9,20009,58,18,75,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,9,20009,59,18,100,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,9,20009,60,18,125,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,9,20009,61,18,150,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,9,20009,62,18,175,4,Stop and finalize generation,4.186799487972458e-31,generation_finalized
+linear_q_learning,9,20009,63,19,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,9,20009,64,19,25,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,9,20009,65,19,50,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,9,20009,66,19,75,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,9,20009,67,19,100,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,9,20009,68,19,125,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,9,20009,69,19,150,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,9,20009,70,19,175,3,Highest-GEBV batch,4.186799487972458e-31,generation_finalized
+linear_q_learning,9,20009,71,20,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,9,20009,72,20,25,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,9,20009,73,20,50,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,9,20009,74,20,75,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,9,20009,75,20,100,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,9,20009,76,20,125,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,9,20009,77,20,150,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,9,20009,78,20,175,3,Highest-GEBV batch,4.186799487972458e-31,generation_finalized
+linear_q_learning,10,20010,1,1,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,10,20010,2,1,25,0,Random batch,0.028482360080849863,phenotype_batch
+linear_q_learning,10,20010,3,1,50,4,Stop and finalize generation,0.9388940236708478,generation_finalized
+linear_q_learning,10,20010,4,2,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,10,20010,5,2,25,0,Random batch,0.12013201393268061,phenotype_batch
+linear_q_learning,10,20010,6,2,50,4,Stop and finalize generation,1.2247784508189998,generation_finalized
+linear_q_learning,10,20010,7,3,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,10,20010,8,3,25,0,Random batch,0.06334387226042451,phenotype_batch
+linear_q_learning,10,20010,9,3,50,4,Stop and finalize generation,0.471523541151934,generation_finalized
+linear_q_learning,10,20010,10,4,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,10,20010,11,4,25,0,Random batch,0.06648261425730863,phenotype_batch
+linear_q_learning,10,20010,12,4,50,4,Stop and finalize generation,0.9363360967657548,generation_finalized
+linear_q_learning,10,20010,13,5,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,10,20010,14,5,25,0,Random batch,0.04025204653036582,phenotype_batch
+linear_q_learning,10,20010,15,5,50,4,Stop and finalize generation,0.20697583702683847,generation_finalized
+linear_q_learning,10,20010,16,6,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,10,20010,17,6,25,0,Random batch,8.668178343528229e-10,phenotype_batch
+linear_q_learning,10,20010,18,6,50,4,Stop and finalize generation,0.21850182844733762,generation_finalized
+linear_q_learning,10,20010,19,7,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,10,20010,20,7,25,0,Random batch,1.161207623144808e-09,phenotype_batch
+linear_q_learning,10,20010,21,7,50,4,Stop and finalize generation,0.25070441306846747,generation_finalized
+linear_q_learning,10,20010,22,8,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,10,20010,23,8,25,0,Random batch,1.9704935924712504e-09,phenotype_batch
+linear_q_learning,10,20010,24,8,50,4,Stop and finalize generation,0.23866733296012058,generation_finalized
+linear_q_learning,10,20010,25,9,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,10,20010,26,9,25,0,Random batch,0.053521590473191855,phenotype_batch
+linear_q_learning,10,20010,27,9,50,4,Stop and finalize generation,-0.14535974100521876,generation_finalized
+linear_q_learning,10,20010,28,10,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,10,20010,29,10,25,1,Diversity batch,0.11547516006384687,phenotype_batch
+linear_q_learning,10,20010,30,10,50,4,Stop and finalize generation,0.35123159682264393,generation_finalized
+linear_q_learning,10,20010,31,11,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,10,20010,32,11,25,1,Diversity batch,0.042297788852132416,phenotype_batch
+linear_q_learning,10,20010,33,11,50,4,Stop and finalize generation,0.42944642484225093,generation_finalized
+linear_q_learning,10,20010,34,12,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,10,20010,35,12,25,1,Diversity batch,0.019048445692061697,phenotype_batch
+linear_q_learning,10,20010,36,12,50,3,Highest-GEBV batch,0.05244210022923884,phenotype_batch
+linear_q_learning,10,20010,37,12,75,3,Highest-GEBV batch,0.025171872090498315,phenotype_batch
+linear_q_learning,10,20010,38,12,100,3,Highest-GEBV batch,-0.02396670995740532,phenotype_batch
+linear_q_learning,10,20010,39,12,125,4,Stop and finalize generation,-0.022117702167535218,generation_finalized
+linear_q_learning,10,20010,40,13,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,10,20010,41,13,25,1,Diversity batch,4.007206491436838e-09,phenotype_batch
+linear_q_learning,10,20010,42,13,50,3,Highest-GEBV batch,1.8999969300082055e-09,phenotype_batch
+linear_q_learning,10,20010,43,13,75,3,Highest-GEBV batch,3.420897238528944e-09,phenotype_batch
+linear_q_learning,10,20010,44,13,100,3,Highest-GEBV batch,1.893727101724233e-09,phenotype_batch
+linear_q_learning,10,20010,45,13,125,4,Stop and finalize generation,-0.0834719506675166,generation_finalized
+linear_q_learning,10,20010,46,14,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,10,20010,47,14,25,1,Diversity batch,4.933952125494768e-09,phenotype_batch
+linear_q_learning,10,20010,48,14,50,3,Highest-GEBV batch,3.2537461424985483e-09,phenotype_batch
+linear_q_learning,10,20010,49,14,75,3,Highest-GEBV batch,3.8647375709858386e-09,phenotype_batch
+linear_q_learning,10,20010,50,14,100,3,Highest-GEBV batch,2.004663083084101e-09,phenotype_batch
+linear_q_learning,10,20010,51,14,125,3,Highest-GEBV batch,1.1209171702550755e-09,phenotype_batch
+linear_q_learning,10,20010,52,14,150,3,Highest-GEBV batch,7.798958911913668e-10,phenotype_batch
+linear_q_learning,10,20010,53,14,175,4,Stop and finalize generation,0.2828740562074127,generation_finalized
+linear_q_learning,10,20010,54,15,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,10,20010,55,15,25,1,Diversity batch,0.17336358690603082,phenotype_batch
+linear_q_learning,10,20010,56,15,50,3,Highest-GEBV batch,-0.054463462859770675,phenotype_batch
+linear_q_learning,10,20010,57,15,75,3,Highest-GEBV batch,-0.017732648470392874,phenotype_batch
+linear_q_learning,10,20010,58,15,100,3,Highest-GEBV batch,0.037242572916165985,phenotype_batch
+linear_q_learning,10,20010,59,15,125,3,Highest-GEBV batch,0.010100778792631071,phenotype_batch
+linear_q_learning,10,20010,60,15,150,3,Highest-GEBV batch,0.004265383536773454,phenotype_batch
+linear_q_learning,10,20010,61,15,175,3,Highest-GEBV batch,0.08935995551645017,generation_finalized
+linear_q_learning,10,20010,62,16,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,10,20010,63,16,25,1,Diversity batch,0.10057234156196897,phenotype_batch
+linear_q_learning,10,20010,64,16,50,3,Highest-GEBV batch,-0.06273369319140837,phenotype_batch
+linear_q_learning,10,20010,65,16,75,3,Highest-GEBV batch,0.05517708401015799,phenotype_batch
+linear_q_learning,10,20010,66,16,100,3,Highest-GEBV batch,0.017800414575798246,phenotype_batch
+linear_q_learning,10,20010,67,16,125,3,Highest-GEBV batch,-0.033879688456028796,phenotype_batch
+linear_q_learning,10,20010,68,16,150,3,Highest-GEBV batch,0.028533232465635782,phenotype_batch
+linear_q_learning,10,20010,69,16,175,3,Highest-GEBV batch,-0.016935799556074795,generation_finalized
+linear_q_learning,10,20010,70,17,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,10,20010,71,17,25,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,10,20010,72,17,50,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,10,20010,73,17,75,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,10,20010,74,17,100,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,10,20010,75,17,125,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,10,20010,76,17,150,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,10,20010,77,17,175,3,Highest-GEBV batch,1.6747197951889832e-30,generation_finalized
+linear_q_learning,10,20010,78,18,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,10,20010,79,18,25,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,10,20010,80,18,50,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,10,20010,81,18,75,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,10,20010,82,18,100,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,10,20010,83,18,125,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,10,20010,84,18,150,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,10,20010,85,18,175,3,Highest-GEBV batch,1.6747197951889832e-30,generation_finalized
+linear_q_learning,10,20010,86,19,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,10,20010,87,19,25,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,10,20010,88,19,50,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,10,20010,89,19,75,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,10,20010,90,19,100,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,10,20010,91,19,125,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,10,20010,92,19,150,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,10,20010,93,19,175,3,Highest-GEBV batch,1.6747197951889832e-30,generation_finalized
+linear_q_learning,10,20010,94,20,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,10,20010,95,20,25,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,10,20010,96,20,50,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,10,20010,97,20,75,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,10,20010,98,20,100,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,10,20010,99,20,125,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,10,20010,100,20,150,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,10,20010,101,20,175,3,Highest-GEBV batch,1.6747197951889832e-30,generation_finalized
+linear_q_learning,11,20011,1,1,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,11,20011,2,1,25,0,Random batch,1.9360983633853163e-10,phenotype_batch
+linear_q_learning,11,20011,3,1,50,4,Stop and finalize generation,0.963831801336016,generation_finalized
+linear_q_learning,11,20011,4,2,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,11,20011,5,2,25,0,Random batch,0.08287420880347839,phenotype_batch
+linear_q_learning,11,20011,6,2,50,4,Stop and finalize generation,0.9105378178161556,generation_finalized
+linear_q_learning,11,20011,7,3,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,11,20011,8,3,25,0,Random batch,1.2593264694207412e-09,phenotype_batch
+linear_q_learning,11,20011,9,3,50,4,Stop and finalize generation,0.79025736033594,generation_finalized
+linear_q_learning,11,20011,10,4,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,11,20011,11,4,25,0,Random batch,0.07755143978720025,phenotype_batch
+linear_q_learning,11,20011,12,4,50,4,Stop and finalize generation,0.9713939079343,generation_finalized
+linear_q_learning,11,20011,13,5,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,11,20011,14,5,25,0,Random batch,0.04298691929064528,phenotype_batch
+linear_q_learning,11,20011,15,5,50,4,Stop and finalize generation,0.37317487673327376,generation_finalized
+linear_q_learning,11,20011,16,6,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,11,20011,17,6,25,0,Random batch,0.0767147481498369,phenotype_batch
+linear_q_learning,11,20011,18,6,50,4,Stop and finalize generation,0.2560651372892309,generation_finalized
+linear_q_learning,11,20011,19,7,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,11,20011,20,7,25,0,Random batch,0.07428052040335603,phenotype_batch
+linear_q_learning,11,20011,21,7,50,4,Stop and finalize generation,0.189064537506543,generation_finalized
+linear_q_learning,11,20011,22,8,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,11,20011,23,8,25,0,Random batch,1.3047247566554924e-09,phenotype_batch
+linear_q_learning,11,20011,24,8,50,4,Stop and finalize generation,0.15524915063659384,generation_finalized
+linear_q_learning,11,20011,25,9,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,11,20011,26,9,25,0,Random batch,0.004502565589893394,phenotype_batch
+linear_q_learning,11,20011,27,9,50,4,Stop and finalize generation,0.25730655595530627,generation_finalized
+linear_q_learning,11,20011,28,10,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,11,20011,29,10,25,1,Diversity batch,0.07360528838577628,phenotype_batch
+linear_q_learning,11,20011,30,10,50,4,Stop and finalize generation,0.09300061251882695,generation_finalized
+linear_q_learning,11,20011,31,11,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,11,20011,32,11,25,1,Diversity batch,0.07524506019532434,phenotype_batch
+linear_q_learning,11,20011,33,11,50,4,Stop and finalize generation,0.2553051721862378,generation_finalized
+linear_q_learning,11,20011,34,12,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,11,20011,35,12,25,1,Diversity batch,2.6616653322428093e-09,phenotype_batch
+linear_q_learning,11,20011,36,12,50,3,Highest-GEBV batch,0.0226143455834144,phenotype_batch
+linear_q_learning,11,20011,37,12,75,3,Highest-GEBV batch,-0.022614343953531724,phenotype_batch
+linear_q_learning,11,20011,38,12,100,4,Stop and finalize generation,0.009349584221426293,generation_finalized
+linear_q_learning,11,20011,39,13,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,11,20011,40,13,25,1,Diversity batch,0.1126626672291956,phenotype_batch
+linear_q_learning,11,20011,41,13,50,3,Highest-GEBV batch,-0.05918297326757371,phenotype_batch
+linear_q_learning,11,20011,42,13,75,3,Highest-GEBV batch,-0.053479688832848316,phenotype_batch
+linear_q_learning,11,20011,43,13,100,3,Highest-GEBV batch,7.245057933866335e-10,phenotype_batch
+linear_q_learning,11,20011,44,13,125,4,Stop and finalize generation,-0.04993178237448169,generation_finalized
+linear_q_learning,11,20011,45,14,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,11,20011,46,14,25,1,Diversity batch,6.625769376980123e-09,phenotype_batch
+linear_q_learning,11,20011,47,14,50,3,Highest-GEBV batch,2.908236727506394e-09,phenotype_batch
+linear_q_learning,11,20011,48,14,75,3,Highest-GEBV batch,4.608017518519208e-09,phenotype_batch
+linear_q_learning,11,20011,49,14,100,3,Highest-GEBV batch,2.4131112388737182e-09,phenotype_batch
+linear_q_learning,11,20011,50,14,125,3,Highest-GEBV batch,3.571369145129282e-09,phenotype_batch
+linear_q_learning,11,20011,51,14,150,3,Highest-GEBV batch,7.202490331328395e-09,phenotype_batch
+linear_q_learning,11,20011,52,14,175,3,Highest-GEBV batch,-0.011109353126420878,generation_finalized
+linear_q_learning,11,20011,53,15,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,11,20011,54,15,25,1,Diversity batch,8.219207099521111e-09,phenotype_batch
+linear_q_learning,11,20011,55,15,50,3,Highest-GEBV batch,1.938793980979794e-09,phenotype_batch
+linear_q_learning,11,20011,56,15,75,3,Highest-GEBV batch,4.44398938034504e-09,phenotype_batch
+linear_q_learning,11,20011,57,15,100,3,Highest-GEBV batch,1.7191983820573686e-09,phenotype_batch
+linear_q_learning,11,20011,58,15,125,3,Highest-GEBV batch,9.39563420275874e-10,phenotype_batch
+linear_q_learning,11,20011,59,15,150,3,Highest-GEBV batch,7.75518482190431e-10,phenotype_batch
+linear_q_learning,11,20011,60,15,175,3,Highest-GEBV batch,0.12284962559240921,generation_finalized
+linear_q_learning,11,20011,61,16,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,11,20011,62,16,25,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,11,20011,63,16,50,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,11,20011,64,16,75,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,11,20011,65,16,100,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,11,20011,66,16,125,4,Stop and finalize generation,1.0466998719931145e-31,generation_finalized
+linear_q_learning,11,20011,67,17,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,11,20011,68,17,25,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,11,20011,69,17,50,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,11,20011,70,17,75,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,11,20011,71,17,100,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,11,20011,72,17,125,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,11,20011,73,17,150,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,11,20011,74,17,175,4,Stop and finalize generation,1.0466998719931145e-31,generation_finalized
+linear_q_learning,11,20011,75,18,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,11,20011,76,18,25,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,11,20011,77,18,50,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,11,20011,78,18,75,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,11,20011,79,18,100,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,11,20011,80,18,125,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,11,20011,81,18,150,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,11,20011,82,18,175,3,Highest-GEBV batch,1.0466998719931145e-31,generation_finalized
+linear_q_learning,11,20011,83,19,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,11,20011,84,19,25,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,11,20011,85,19,50,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,11,20011,86,19,75,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,11,20011,87,19,100,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,11,20011,88,19,125,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,11,20011,89,19,150,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,11,20011,90,19,175,3,Highest-GEBV batch,1.0466998719931145e-31,generation_finalized
+linear_q_learning,11,20011,91,20,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,11,20011,92,20,25,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,11,20011,93,20,50,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,11,20011,94,20,75,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,11,20011,95,20,100,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,11,20011,96,20,125,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,11,20011,97,20,150,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,11,20011,98,20,175,3,Highest-GEBV batch,1.0466998719931145e-31,generation_finalized
+linear_q_learning,12,20012,1,1,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,12,20012,2,1,25,0,Random batch,0.06276250070736028,phenotype_batch
+linear_q_learning,12,20012,3,1,50,4,Stop and finalize generation,1.0082875806753397,generation_finalized
+linear_q_learning,12,20012,4,2,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,12,20012,5,2,25,0,Random batch,0.06550589515543141,phenotype_batch
+linear_q_learning,12,20012,6,2,50,4,Stop and finalize generation,0.878889658771858,generation_finalized
+linear_q_learning,12,20012,7,3,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,12,20012,8,3,25,0,Random batch,0.07444755657420435,phenotype_batch
+linear_q_learning,12,20012,9,3,50,4,Stop and finalize generation,0.7391436877008837,generation_finalized
+linear_q_learning,12,20012,10,4,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,12,20012,11,4,25,0,Random batch,0.09418734440944676,phenotype_batch
+linear_q_learning,12,20012,12,4,50,4,Stop and finalize generation,0.8707246181279964,generation_finalized
+linear_q_learning,12,20012,13,5,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,12,20012,14,5,25,0,Random batch,0.07549181762372949,phenotype_batch
+linear_q_learning,12,20012,15,5,50,4,Stop and finalize generation,0.551245345577781,generation_finalized
+linear_q_learning,12,20012,16,6,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,12,20012,17,6,25,0,Random batch,0.046594742242343105,phenotype_batch
+linear_q_learning,12,20012,18,6,50,4,Stop and finalize generation,0.32993788979485905,generation_finalized
+linear_q_learning,12,20012,19,7,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,12,20012,20,7,25,0,Random batch,1.0542316856680593e-09,phenotype_batch
+linear_q_learning,12,20012,21,7,50,4,Stop and finalize generation,0.30988386882006524,generation_finalized
+linear_q_learning,12,20012,22,8,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,12,20012,23,8,25,0,Random batch,1.4663845757305848e-09,phenotype_batch
+linear_q_learning,12,20012,24,8,50,4,Stop and finalize generation,0.0075778462450413215,generation_finalized
+linear_q_learning,12,20012,25,9,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,12,20012,26,9,25,1,Diversity batch,0.05451234658786804,phenotype_batch
+linear_q_learning,12,20012,27,9,50,4,Stop and finalize generation,0.021555820534427034,generation_finalized
+linear_q_learning,12,20012,28,10,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,12,20012,29,10,25,1,Diversity batch,2.1493768355666724e-09,phenotype_batch
+linear_q_learning,12,20012,30,10,50,4,Stop and finalize generation,0.04252852878041491,generation_finalized
+linear_q_learning,12,20012,31,11,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,12,20012,32,11,25,1,Diversity batch,2.469634055748521e-09,phenotype_batch
+linear_q_learning,12,20012,33,11,50,4,Stop and finalize generation,-0.061634042101101405,generation_finalized
+linear_q_learning,12,20012,34,12,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,12,20012,35,12,25,1,Diversity batch,2.2658207344407684e-09,phenotype_batch
+linear_q_learning,12,20012,36,12,50,3,Highest-GEBV batch,9.76524387210606e-10,phenotype_batch
+linear_q_learning,12,20012,37,12,75,3,Highest-GEBV batch,9.704730598745933e-10,phenotype_batch
+linear_q_learning,12,20012,38,12,100,4,Stop and finalize generation,-0.023670596269913566,generation_finalized
+linear_q_learning,12,20012,39,13,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,12,20012,40,13,25,1,Diversity batch,0.05740227083071541,phenotype_batch
+linear_q_learning,12,20012,41,13,50,3,Highest-GEBV batch,-0.05514071820106501,phenotype_batch
+linear_q_learning,12,20012,42,13,75,3,Highest-GEBV batch,-0.0022615471171909926,phenotype_batch
+linear_q_learning,12,20012,43,13,100,3,Highest-GEBV batch,5.699395545151407e-10,phenotype_batch
+linear_q_learning,12,20012,44,13,125,4,Stop and finalize generation,0.0962744113542966,generation_finalized
+linear_q_learning,12,20012,45,14,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,12,20012,46,14,25,1,Diversity batch,0.014212580350269571,phenotype_batch
+linear_q_learning,12,20012,47,14,50,3,Highest-GEBV batch,-0.01421257330301479,phenotype_batch
+linear_q_learning,12,20012,48,14,75,3,Highest-GEBV batch,8.803649177025618e-10,phenotype_batch
+linear_q_learning,12,20012,49,14,100,3,Highest-GEBV batch,5.961197609231987e-10,phenotype_batch
+linear_q_learning,12,20012,50,14,125,3,Highest-GEBV batch,2.2614790338309425e-10,phenotype_batch
+linear_q_learning,12,20012,51,14,150,3,Highest-GEBV batch,3.907189011202961e-10,phenotype_batch
+linear_q_learning,12,20012,52,14,175,3,Highest-GEBV batch,0.0682375193603199,generation_finalized
+linear_q_learning,12,20012,53,15,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,12,20012,54,15,25,1,Diversity batch,8.547645138953056e-09,phenotype_batch
+linear_q_learning,12,20012,55,15,50,3,Highest-GEBV batch,2.901642003517118e-09,phenotype_batch
+linear_q_learning,12,20012,56,15,75,3,Highest-GEBV batch,0.004550412723975471,phenotype_batch
+linear_q_learning,12,20012,57,15,100,3,Highest-GEBV batch,-0.004550411989221327,phenotype_batch
+linear_q_learning,12,20012,58,15,125,3,Highest-GEBV batch,-5.259455955078309e-10,phenotype_batch
+linear_q_learning,12,20012,59,15,150,3,Highest-GEBV batch,-1.6483763652437468e-10,phenotype_batch
+linear_q_learning,12,20012,60,15,175,3,Highest-GEBV batch,6.670409861210914e-09,generation_finalized
+linear_q_learning,12,20012,61,16,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,12,20012,62,16,25,1,Diversity batch,1.5730841778948064e-08,phenotype_batch
+linear_q_learning,12,20012,63,16,50,3,Highest-GEBV batch,9.962505621628018e-09,phenotype_batch
+linear_q_learning,12,20012,64,16,75,3,Highest-GEBV batch,4.86404093370119e-09,phenotype_batch
+linear_q_learning,12,20012,65,16,100,3,Highest-GEBV batch,2.822454652203397e-09,phenotype_batch
+linear_q_learning,12,20012,66,16,125,3,Highest-GEBV batch,1.7956927447581493e-09,phenotype_batch
+linear_q_learning,12,20012,67,16,150,3,Highest-GEBV batch,1.1954820353167713e-09,phenotype_batch
+linear_q_learning,12,20012,68,16,175,3,Highest-GEBV batch,0.01101447804092064,generation_finalized
+linear_q_learning,12,20012,69,17,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,12,20012,70,17,25,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,12,20012,71,17,50,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,12,20012,72,17,75,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,12,20012,73,17,100,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,12,20012,74,17,125,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,12,20012,75,17,150,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,12,20012,76,17,175,4,Stop and finalize generation,4.186799487972458e-31,generation_finalized
+linear_q_learning,12,20012,77,18,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,12,20012,78,18,25,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,12,20012,79,18,50,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,12,20012,80,18,75,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,12,20012,81,18,100,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,12,20012,82,18,125,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,12,20012,83,18,150,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,12,20012,84,18,175,3,Highest-GEBV batch,4.186799487972458e-31,generation_finalized
+linear_q_learning,12,20012,85,19,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,12,20012,86,19,25,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,12,20012,87,19,50,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,12,20012,88,19,75,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,12,20012,89,19,100,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,12,20012,90,19,125,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,12,20012,91,19,150,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,12,20012,92,19,175,3,Highest-GEBV batch,4.186799487972458e-31,generation_finalized
+linear_q_learning,12,20012,93,20,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,12,20012,94,20,25,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,12,20012,95,20,50,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,12,20012,96,20,75,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,12,20012,97,20,100,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,12,20012,98,20,125,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,12,20012,99,20,150,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,12,20012,100,20,175,3,Highest-GEBV batch,4.186799487972458e-31,generation_finalized
+linear_q_learning,13,20013,1,1,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,13,20013,2,1,25,0,Random batch,0.01839397051752728,phenotype_batch
+linear_q_learning,13,20013,3,1,50,4,Stop and finalize generation,1.0913697847253707,generation_finalized
+linear_q_learning,13,20013,4,2,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,13,20013,5,2,25,0,Random batch,8.597856366164193e-10,phenotype_batch
+linear_q_learning,13,20013,6,2,50,4,Stop and finalize generation,1.127572638575551,generation_finalized
+linear_q_learning,13,20013,7,3,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,13,20013,8,3,25,0,Random batch,0.005559480649240797,phenotype_batch
+linear_q_learning,13,20013,9,3,50,4,Stop and finalize generation,0.2546419781696043,generation_finalized
+linear_q_learning,13,20013,10,4,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,13,20013,11,4,25,0,Random batch,0.050334974792545534,phenotype_batch
+linear_q_learning,13,20013,12,4,50,4,Stop and finalize generation,0.7553902006539298,generation_finalized
+linear_q_learning,13,20013,13,5,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,13,20013,14,5,25,0,Random batch,9.82795905394471e-10,phenotype_batch
+linear_q_learning,13,20013,15,5,50,4,Stop and finalize generation,0.5059136472872567,generation_finalized
+linear_q_learning,13,20013,16,6,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,13,20013,17,6,25,0,Random batch,1.0855071689940207e-09,phenotype_batch
+linear_q_learning,13,20013,18,6,50,4,Stop and finalize generation,0.282246452218753,generation_finalized
+linear_q_learning,13,20013,19,7,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,13,20013,20,7,25,0,Random batch,1.861729752081063e-09,phenotype_batch
+linear_q_learning,13,20013,21,7,50,4,Stop and finalize generation,0.01288123003974112,generation_finalized
+linear_q_learning,13,20013,22,8,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,13,20013,23,8,25,0,Random batch,0.07147514025881259,phenotype_batch
+linear_q_learning,13,20013,24,8,50,4,Stop and finalize generation,-0.010281076425870266,generation_finalized
+linear_q_learning,13,20013,25,9,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,13,20013,26,9,25,1,Diversity batch,1.645217135123158e-09,phenotype_batch
+linear_q_learning,13,20013,27,9,50,4,Stop and finalize generation,-0.002255916973061191,generation_finalized
+linear_q_learning,13,20013,28,10,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,13,20013,29,10,25,1,Diversity batch,0.0835129489869829,phenotype_batch
+linear_q_learning,13,20013,30,10,50,4,Stop and finalize generation,0.06563671777940991,generation_finalized
+linear_q_learning,13,20013,31,11,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,13,20013,32,11,25,1,Diversity batch,1.6964257118355274e-09,phenotype_batch
+linear_q_learning,13,20013,33,11,50,4,Stop and finalize generation,0.03687181175158233,generation_finalized
+linear_q_learning,13,20013,34,12,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,13,20013,35,12,25,1,Diversity batch,2.4604951018741535e-09,phenotype_batch
+linear_q_learning,13,20013,36,12,50,3,Highest-GEBV batch,1.203912383790496e-09,phenotype_batch
+linear_q_learning,13,20013,37,12,75,4,Stop and finalize generation,-0.0035618621669550837,generation_finalized
+linear_q_learning,13,20013,38,13,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,13,20013,39,13,25,1,Diversity batch,0.0360988611570689,phenotype_batch
+linear_q_learning,13,20013,40,13,50,3,Highest-GEBV batch,-0.03609885588058837,phenotype_batch
+linear_q_learning,13,20013,41,13,75,3,Highest-GEBV batch,4.96712539640884e-10,phenotype_batch
+linear_q_learning,13,20013,42,13,100,4,Stop and finalize generation,-0.004602634241759995,generation_finalized
+linear_q_learning,13,20013,43,14,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,13,20013,44,14,25,1,Diversity batch,0.1201069156450002,phenotype_batch
+linear_q_learning,13,20013,45,14,50,3,Highest-GEBV batch,-0.1201069095657669,phenotype_batch
+linear_q_learning,13,20013,46,14,75,3,Highest-GEBV batch,1.7809050776007285e-09,phenotype_batch
+linear_q_learning,13,20013,47,14,100,3,Highest-GEBV batch,1.163794987040541e-09,phenotype_batch
+linear_q_learning,13,20013,48,14,125,3,Highest-GEBV batch,2.2350813289506817e-09,phenotype_batch
+linear_q_learning,13,20013,49,14,150,3,Highest-GEBV batch,1.5074455514772906e-09,phenotype_batch
+linear_q_learning,13,20013,50,14,175,4,Stop and finalize generation,0.003634404856995138,generation_finalized
+linear_q_learning,13,20013,51,15,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,13,20013,52,15,25,1,Diversity batch,0.06192668289896967,phenotype_batch
+linear_q_learning,13,20013,53,15,50,3,Highest-GEBV batch,0.0020664220100513747,phenotype_batch
+linear_q_learning,13,20013,54,15,75,3,Highest-GEBV batch,-0.034852398894276236,phenotype_batch
+linear_q_learning,13,20013,55,15,100,3,Highest-GEBV batch,0.017583952227660987,phenotype_batch
+linear_q_learning,13,20013,56,15,125,3,Highest-GEBV batch,0.046891206247314604,phenotype_batch
+linear_q_learning,13,20013,57,15,150,3,Highest-GEBV batch,0.009883774036223448,phenotype_batch
+linear_q_learning,13,20013,58,15,175,3,Highest-GEBV batch,0.04178111887568784,generation_finalized
+linear_q_learning,13,20013,59,16,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,13,20013,60,16,25,1,Diversity batch,9.815219739113607e-09,phenotype_batch
+linear_q_learning,13,20013,61,16,50,3,Highest-GEBV batch,2.4806078796692132e-09,phenotype_batch
+linear_q_learning,13,20013,62,16,75,3,Highest-GEBV batch,7.175715889272683e-10,phenotype_batch
+linear_q_learning,13,20013,63,16,100,3,Highest-GEBV batch,2.317928714001298e-09,phenotype_batch
+linear_q_learning,13,20013,64,16,125,3,Highest-GEBV batch,1.353097759010147e-09,phenotype_batch
+linear_q_learning,13,20013,65,16,150,3,Highest-GEBV batch,2.2950123167448196e-09,phenotype_batch
+linear_q_learning,13,20013,66,16,175,3,Highest-GEBV batch,0.0009062962275590103,generation_finalized
+linear_q_learning,13,20013,67,17,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,13,20013,68,17,25,1,Diversity batch,7.128434989286215e-08,phenotype_batch
+linear_q_learning,13,20013,69,17,50,3,Highest-GEBV batch,0.11375936584049297,phenotype_batch
+linear_q_learning,13,20013,70,17,75,3,Highest-GEBV batch,-0.018161233233825208,phenotype_batch
+linear_q_learning,13,20013,71,17,100,3,Highest-GEBV batch,0.026278339488701424,phenotype_batch
+linear_q_learning,13,20013,72,17,125,3,Highest-GEBV batch,0.09464147395579646,phenotype_batch
+linear_q_learning,13,20013,73,17,150,3,Highest-GEBV batch,-0.03944030331131421,phenotype_batch
+linear_q_learning,13,20013,74,17,175,3,Highest-GEBV batch,0.0586075275633777,generation_finalized
+linear_q_learning,13,20013,75,18,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,13,20013,76,18,25,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,13,20013,77,18,50,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,13,20013,78,18,75,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,13,20013,79,18,100,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,13,20013,80,18,125,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,13,20013,81,18,150,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,13,20013,82,18,175,4,Stop and finalize generation,1.6747197951889832e-30,generation_finalized
+linear_q_learning,13,20013,83,19,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,13,20013,84,19,25,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,13,20013,85,19,50,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,13,20013,86,19,75,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,13,20013,87,19,100,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,13,20013,88,19,125,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,13,20013,89,19,150,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,13,20013,90,19,175,3,Highest-GEBV batch,1.6747197951889832e-30,generation_finalized
+linear_q_learning,13,20013,91,20,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,13,20013,92,20,25,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,13,20013,93,20,50,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,13,20013,94,20,75,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,13,20013,95,20,100,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,13,20013,96,20,125,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,13,20013,97,20,150,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,13,20013,98,20,175,3,Highest-GEBV batch,1.6747197951889832e-30,generation_finalized
+linear_q_learning,14,20014,1,1,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,14,20014,2,1,25,0,Random batch,0.013967924528592912,phenotype_batch
+linear_q_learning,14,20014,3,1,50,4,Stop and finalize generation,0.5223427698218394,generation_finalized
+linear_q_learning,14,20014,4,2,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,14,20014,5,2,25,0,Random batch,0.0690692290268526,phenotype_batch
+linear_q_learning,14,20014,6,2,50,4,Stop and finalize generation,0.36535484757881864,generation_finalized
+linear_q_learning,14,20014,7,3,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,14,20014,8,3,25,0,Random batch,1.2677292197759089e-09,phenotype_batch
+linear_q_learning,14,20014,9,3,50,4,Stop and finalize generation,0.18698508413204515,generation_finalized
+linear_q_learning,14,20014,10,4,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,14,20014,11,4,25,0,Random batch,0.11557744838390774,phenotype_batch
+linear_q_learning,14,20014,12,4,50,4,Stop and finalize generation,0.8871223630030824,generation_finalized
+linear_q_learning,14,20014,13,5,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,14,20014,14,5,25,0,Random batch,8.839551878189597e-10,phenotype_batch
+linear_q_learning,14,20014,15,5,50,4,Stop and finalize generation,0.3104398021948641,generation_finalized
+linear_q_learning,14,20014,16,6,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,14,20014,17,6,25,0,Random batch,0.021969646902943455,phenotype_batch
+linear_q_learning,14,20014,18,6,50,4,Stop and finalize generation,-0.08887772542340933,generation_finalized
+linear_q_learning,14,20014,19,7,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,14,20014,20,7,25,0,Random batch,1.319853245538177e-09,phenotype_batch
+linear_q_learning,14,20014,21,7,50,4,Stop and finalize generation,0.08279946185227444,generation_finalized
+linear_q_learning,14,20014,22,8,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,14,20014,23,8,25,0,Random batch,1.1802989859161826e-09,phenotype_batch
+linear_q_learning,14,20014,24,8,50,4,Stop and finalize generation,0.2585554241042382,generation_finalized
+linear_q_learning,14,20014,25,9,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,14,20014,26,9,25,1,Diversity batch,1.567149148276165e-09,phenotype_batch
+linear_q_learning,14,20014,27,9,50,4,Stop and finalize generation,0.06722000887032771,generation_finalized
+linear_q_learning,14,20014,28,10,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,14,20014,29,10,25,1,Diversity batch,1.6668153703935927e-09,phenotype_batch
+linear_q_learning,14,20014,30,10,50,4,Stop and finalize generation,0.12235900707193065,generation_finalized
+linear_q_learning,14,20014,31,11,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,14,20014,32,11,25,1,Diversity batch,2.095273590945424e-09,phenotype_batch
+linear_q_learning,14,20014,33,11,50,4,Stop and finalize generation,0.02918268844758539,generation_finalized
+linear_q_learning,14,20014,34,12,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,14,20014,35,12,25,1,Diversity batch,3.528885690539633e-09,phenotype_batch
+linear_q_learning,14,20014,36,12,50,4,Stop and finalize generation,0.003239065402013965,generation_finalized
+linear_q_learning,14,20014,37,13,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,14,20014,38,13,25,1,Diversity batch,8.278046159531326e-09,phenotype_batch
+linear_q_learning,14,20014,39,13,50,4,Stop and finalize generation,-0.0010142477834345516,generation_finalized
+linear_q_learning,14,20014,40,14,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,14,20014,41,14,25,1,Diversity batch,8.482083278275803e-09,phenotype_batch
+linear_q_learning,14,20014,42,14,50,3,Highest-GEBV batch,0.03547704930578024,phenotype_batch
+linear_q_learning,14,20014,43,14,75,3,Highest-GEBV batch,0.06750762177374263,phenotype_batch
+linear_q_learning,14,20014,44,14,100,3,Highest-GEBV batch,-0.07026803236055117,phenotype_batch
+linear_q_learning,14,20014,45,14,125,4,Stop and finalize generation,0.003451361651160945,generation_finalized
+linear_q_learning,14,20014,46,15,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,14,20014,47,15,25,1,Diversity batch,0.08584973272130636,phenotype_batch
+linear_q_learning,14,20014,48,15,50,3,Highest-GEBV batch,-0.08584971069682946,phenotype_batch
+linear_q_learning,14,20014,49,15,75,3,Highest-GEBV batch,0.07234990371844081,phenotype_batch
+linear_q_learning,14,20014,50,15,100,3,Highest-GEBV batch,-0.02787895263283721,phenotype_batch
+linear_q_learning,14,20014,51,15,125,3,Highest-GEBV batch,0.04802124563062095,phenotype_batch
+linear_q_learning,14,20014,52,15,150,3,Highest-GEBV batch,0.0245017077275973,phenotype_batch
+linear_q_learning,14,20014,53,15,175,3,Highest-GEBV batch,-0.0025060134800338695,generation_finalized
+linear_q_learning,14,20014,54,16,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,14,20014,55,16,25,1,Diversity batch,1.772598579592794e-08,phenotype_batch
+linear_q_learning,14,20014,56,16,50,3,Highest-GEBV batch,2.6917226796658602e-08,phenotype_batch
+linear_q_learning,14,20014,57,16,75,3,Highest-GEBV batch,9.255057387744514e-09,phenotype_batch
+linear_q_learning,14,20014,58,16,100,3,Highest-GEBV batch,5.553242097438862e-09,phenotype_batch
+linear_q_learning,14,20014,59,16,125,3,Highest-GEBV batch,3.7020047737251237e-09,phenotype_batch
+linear_q_learning,14,20014,60,16,150,3,Highest-GEBV batch,2.6448409774439023e-09,phenotype_batch
+linear_q_learning,14,20014,61,16,175,3,Highest-GEBV batch,1.9831777177126102e-09,generation_finalized
+linear_q_learning,14,20014,62,17,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,14,20014,63,17,25,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,14,20014,64,17,50,4,Stop and finalize generation,1.0466998719931145e-31,generation_finalized
+linear_q_learning,14,20014,65,18,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,14,20014,66,18,25,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,14,20014,67,18,50,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,14,20014,68,18,75,4,Stop and finalize generation,1.0466998719931145e-31,generation_finalized
+linear_q_learning,14,20014,69,19,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,14,20014,70,19,25,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,14,20014,71,19,50,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,14,20014,72,19,75,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,14,20014,73,19,100,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,14,20014,74,19,125,4,Stop and finalize generation,1.0466998719931145e-31,generation_finalized
+linear_q_learning,14,20014,75,20,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,14,20014,76,20,25,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,14,20014,77,20,50,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,14,20014,78,20,75,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,14,20014,79,20,100,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,14,20014,80,20,125,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,14,20014,81,20,150,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,14,20014,82,20,175,4,Stop and finalize generation,1.0466998719931145e-31,generation_finalized
+linear_q_learning,15,20015,1,1,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,15,20015,2,1,25,0,Random batch,0.040013290683993376,phenotype_batch
+linear_q_learning,15,20015,3,1,50,4,Stop and finalize generation,1.1342661903718096,generation_finalized
+linear_q_learning,15,20015,4,2,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,15,20015,5,2,25,0,Random batch,0.10097761357487255,phenotype_batch
+linear_q_learning,15,20015,6,2,50,4,Stop and finalize generation,0.8934771706033553,generation_finalized
+linear_q_learning,15,20015,7,3,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,15,20015,8,3,25,0,Random batch,7.780633520979457e-10,phenotype_batch
+linear_q_learning,15,20015,9,3,50,4,Stop and finalize generation,0.4805799081020743,generation_finalized
+linear_q_learning,15,20015,10,4,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,15,20015,11,4,25,0,Random batch,0.09856310360676587,phenotype_batch
+linear_q_learning,15,20015,12,4,50,4,Stop and finalize generation,0.5484350178464387,generation_finalized
+linear_q_learning,15,20015,13,5,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,15,20015,14,5,25,0,Random batch,0.06133122739288004,phenotype_batch
+linear_q_learning,15,20015,15,5,50,4,Stop and finalize generation,0.27771866565150904,generation_finalized
+linear_q_learning,15,20015,16,6,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,15,20015,17,6,25,0,Random batch,1.8105743916071273e-09,phenotype_batch
+linear_q_learning,15,20015,18,6,50,4,Stop and finalize generation,-0.012407141775064634,generation_finalized
+linear_q_learning,15,20015,19,7,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,15,20015,20,7,25,0,Random batch,0.09826940127426599,phenotype_batch
+linear_q_learning,15,20015,21,7,50,4,Stop and finalize generation,0.3856080383850917,generation_finalized
+linear_q_learning,15,20015,22,8,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,15,20015,23,8,25,0,Random batch,0.01176727032418098,phenotype_batch
+linear_q_learning,15,20015,24,8,50,4,Stop and finalize generation,0.16426899386857155,generation_finalized
+linear_q_learning,15,20015,25,9,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,15,20015,26,9,25,0,Random batch,0.153975661864755,phenotype_batch
+linear_q_learning,15,20015,27,9,50,4,Stop and finalize generation,0.004424781049343752,generation_finalized
+linear_q_learning,15,20015,28,10,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,15,20015,29,10,25,0,Random batch,0.0,phenotype_batch
+linear_q_learning,15,20015,30,10,50,4,Stop and finalize generation,0.021649050777865643,generation_finalized
+linear_q_learning,15,20015,31,11,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,15,20015,32,11,25,0,Random batch,0.0,phenotype_batch
+linear_q_learning,15,20015,33,11,50,4,Stop and finalize generation,4.186799487972458e-31,generation_finalized
+linear_q_learning,15,20015,34,12,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,15,20015,35,12,25,0,Random batch,0.0,phenotype_batch
+linear_q_learning,15,20015,36,12,50,4,Stop and finalize generation,4.186799487972458e-31,generation_finalized
+linear_q_learning,15,20015,37,13,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,15,20015,38,13,25,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,15,20015,39,13,50,4,Stop and finalize generation,4.186799487972458e-31,generation_finalized
+linear_q_learning,15,20015,40,14,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,15,20015,41,14,25,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,15,20015,42,14,50,4,Stop and finalize generation,4.186799487972458e-31,generation_finalized
+linear_q_learning,15,20015,43,15,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,15,20015,44,15,25,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,15,20015,45,15,50,4,Stop and finalize generation,4.186799487972458e-31,generation_finalized
+linear_q_learning,15,20015,46,16,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,15,20015,47,16,25,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,15,20015,48,16,50,4,Stop and finalize generation,4.186799487972458e-31,generation_finalized
+linear_q_learning,15,20015,49,17,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,15,20015,50,17,25,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,15,20015,51,17,50,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,15,20015,52,17,75,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,15,20015,53,17,100,4,Stop and finalize generation,4.186799487972458e-31,generation_finalized
+linear_q_learning,15,20015,54,18,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,15,20015,55,18,25,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,15,20015,56,18,50,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,15,20015,57,18,75,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,15,20015,58,18,100,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,15,20015,59,18,125,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,15,20015,60,18,150,4,Stop and finalize generation,4.186799487972458e-31,generation_finalized
+linear_q_learning,15,20015,61,19,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,15,20015,62,19,25,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,15,20015,63,19,50,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,15,20015,64,19,75,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,15,20015,65,19,100,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,15,20015,66,19,125,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,15,20015,67,19,150,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,15,20015,68,19,175,3,Highest-GEBV batch,4.186799487972458e-31,generation_finalized
+linear_q_learning,15,20015,69,20,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,15,20015,70,20,25,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,15,20015,71,20,50,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,15,20015,72,20,75,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,15,20015,73,20,100,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,15,20015,74,20,125,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,15,20015,75,20,150,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,15,20015,76,20,175,3,Highest-GEBV batch,4.186799487972458e-31,generation_finalized
+linear_q_learning,16,20016,1,1,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,16,20016,2,1,25,0,Random batch,0.006870229352570602,phenotype_batch
+linear_q_learning,16,20016,3,1,50,4,Stop and finalize generation,1.2831805984597109,generation_finalized
+linear_q_learning,16,20016,4,2,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,16,20016,5,2,25,0,Random batch,0.09996984019580983,phenotype_batch
+linear_q_learning,16,20016,6,2,50,4,Stop and finalize generation,0.9340108572368521,generation_finalized
+linear_q_learning,16,20016,7,3,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,16,20016,8,3,25,0,Random batch,0.06474262464066727,phenotype_batch
+linear_q_learning,16,20016,9,3,50,4,Stop and finalize generation,1.1070589931904808,generation_finalized
+linear_q_learning,16,20016,10,4,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,16,20016,11,4,25,0,Random batch,0.046911331953904435,phenotype_batch
+linear_q_learning,16,20016,12,4,50,4,Stop and finalize generation,0.45311950843709364,generation_finalized
+linear_q_learning,16,20016,13,5,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,16,20016,14,5,25,0,Random batch,1.2343897586542558e-09,phenotype_batch
+linear_q_learning,16,20016,15,5,50,4,Stop and finalize generation,0.2912418158985966,generation_finalized
+linear_q_learning,16,20016,16,6,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,16,20016,17,6,25,0,Random batch,0.12133669050116093,phenotype_batch
+linear_q_learning,16,20016,18,6,50,4,Stop and finalize generation,0.19401527288800685,generation_finalized
+linear_q_learning,16,20016,19,7,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,16,20016,20,7,25,0,Random batch,1.3904592035657594e-09,phenotype_batch
+linear_q_learning,16,20016,21,7,50,4,Stop and finalize generation,-0.17332028566458432,generation_finalized
+linear_q_learning,16,20016,22,8,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,16,20016,23,8,25,0,Random batch,0.07223842543650193,phenotype_batch
+linear_q_learning,16,20016,24,8,50,4,Stop and finalize generation,-0.030120933760300308,generation_finalized
+linear_q_learning,16,20016,25,9,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,16,20016,26,9,25,1,Diversity batch,2.30046238777613e-09,phenotype_batch
+linear_q_learning,16,20016,27,9,50,4,Stop and finalize generation,-0.11363905378306263,generation_finalized
+linear_q_learning,16,20016,28,10,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,16,20016,29,10,25,1,Diversity batch,2.2089674450661978e-09,phenotype_batch
+linear_q_learning,16,20016,30,10,50,4,Stop and finalize generation,0.13586016987643876,generation_finalized
+linear_q_learning,16,20016,31,11,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,16,20016,32,11,25,1,Diversity batch,2.2350774332377384e-09,phenotype_batch
+linear_q_learning,16,20016,33,11,50,4,Stop and finalize generation,-0.12608126328006458,generation_finalized
+linear_q_learning,16,20016,34,12,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,16,20016,35,12,25,1,Diversity batch,2.7241537927891774e-09,phenotype_batch
+linear_q_learning,16,20016,36,12,50,3,Highest-GEBV batch,1.020161676708914e-09,phenotype_batch
+linear_q_learning,16,20016,37,12,75,4,Stop and finalize generation,0.2393205484482109,generation_finalized
+linear_q_learning,16,20016,38,13,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,16,20016,39,13,25,1,Diversity batch,3.101200329343263e-09,phenotype_batch
+linear_q_learning,16,20016,40,13,50,3,Highest-GEBV batch,0.01342405847687477,phenotype_batch
+linear_q_learning,16,20016,41,13,75,3,Highest-GEBV batch,0.027048635006910602,phenotype_batch
+linear_q_learning,16,20016,42,13,100,3,Highest-GEBV batch,0.02235546136367719,phenotype_batch
+linear_q_learning,16,20016,43,13,125,3,Highest-GEBV batch,-0.011296184161761976,phenotype_batch
+linear_q_learning,16,20016,44,13,150,3,Highest-GEBV batch,0.00018667400506393872,phenotype_batch
+linear_q_learning,16,20016,45,13,175,4,Stop and finalize generation,0.013064375224369595,generation_finalized
+linear_q_learning,16,20016,46,14,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,16,20016,47,14,25,1,Diversity batch,8.751479586484384e-09,phenotype_batch
+linear_q_learning,16,20016,48,14,50,3,Highest-GEBV batch,0.038033953002826935,phenotype_batch
+linear_q_learning,16,20016,49,14,75,3,Highest-GEBV batch,-0.03803394583417842,phenotype_batch
+linear_q_learning,16,20016,50,14,100,3,Highest-GEBV batch,0.017447514172983986,phenotype_batch
+linear_q_learning,16,20016,51,14,125,3,Highest-GEBV batch,0.021817437208787316,phenotype_batch
+linear_q_learning,16,20016,52,14,150,3,Highest-GEBV batch,-0.014510769971913778,phenotype_batch
+linear_q_learning,16,20016,53,14,175,3,Highest-GEBV batch,0.007719242685214831,generation_finalized
+linear_q_learning,16,20016,54,15,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,16,20016,55,15,25,1,Diversity batch,0.08056480734888967,phenotype_batch
+linear_q_learning,16,20016,56,15,50,3,Highest-GEBV batch,-0.08056476830101954,phenotype_batch
+linear_q_learning,16,20016,57,15,75,3,Highest-GEBV batch,1.575594577514057e-08,phenotype_batch
+linear_q_learning,16,20016,58,15,100,3,Highest-GEBV batch,2.0406698525961213e-08,phenotype_batch
+linear_q_learning,16,20016,59,15,125,3,Highest-GEBV batch,1.3564864667380167e-08,phenotype_batch
+linear_q_learning,16,20016,60,15,150,3,Highest-GEBV batch,9.652258789861708e-09,phenotype_batch
+linear_q_learning,16,20016,61,15,175,3,Highest-GEBV batch,7.203690314652483e-09,generation_finalized
+linear_q_learning,16,20016,62,16,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,16,20016,63,16,25,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,16,20016,64,16,50,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,16,20016,65,16,75,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,16,20016,66,16,100,4,Stop and finalize generation,4.186799487972458e-31,generation_finalized
+linear_q_learning,16,20016,67,17,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,16,20016,68,17,25,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,16,20016,69,17,50,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,16,20016,70,17,75,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,16,20016,71,17,100,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,16,20016,72,17,125,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,16,20016,73,17,150,4,Stop and finalize generation,4.186799487972458e-31,generation_finalized
+linear_q_learning,16,20016,74,18,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,16,20016,75,18,25,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,16,20016,76,18,50,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,16,20016,77,18,75,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,16,20016,78,18,100,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,16,20016,79,18,125,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,16,20016,80,18,150,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,16,20016,81,18,175,3,Highest-GEBV batch,4.186799487972458e-31,generation_finalized
+linear_q_learning,16,20016,82,19,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,16,20016,83,19,25,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,16,20016,84,19,50,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,16,20016,85,19,75,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,16,20016,86,19,100,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,16,20016,87,19,125,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,16,20016,88,19,150,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,16,20016,89,19,175,3,Highest-GEBV batch,4.186799487972458e-31,generation_finalized
+linear_q_learning,16,20016,90,20,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,16,20016,91,20,25,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,16,20016,92,20,50,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,16,20016,93,20,75,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,16,20016,94,20,100,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,16,20016,95,20,125,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,16,20016,96,20,150,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,16,20016,97,20,175,3,Highest-GEBV batch,4.186799487972458e-31,generation_finalized
+linear_q_learning,17,20017,1,1,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,17,20017,2,1,25,0,Random batch,0.07335920043953667,phenotype_batch
+linear_q_learning,17,20017,3,1,50,4,Stop and finalize generation,1.23639348735191,generation_finalized
+linear_q_learning,17,20017,4,2,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,17,20017,5,2,25,0,Random batch,0.06617639641744158,phenotype_batch
+linear_q_learning,17,20017,6,2,50,4,Stop and finalize generation,0.9274954790493601,generation_finalized
+linear_q_learning,17,20017,7,3,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,17,20017,8,3,25,0,Random batch,7.224627842639108e-10,phenotype_batch
+linear_q_learning,17,20017,9,3,50,4,Stop and finalize generation,0.6028607414542863,generation_finalized
+linear_q_learning,17,20017,10,4,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,17,20017,11,4,25,0,Random batch,9.19438494392653e-10,phenotype_batch
+linear_q_learning,17,20017,12,4,50,4,Stop and finalize generation,0.33231524424733183,generation_finalized
+linear_q_learning,17,20017,13,5,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,17,20017,14,5,25,0,Random batch,0.051560317936552434,phenotype_batch
+linear_q_learning,17,20017,15,5,50,4,Stop and finalize generation,0.16594946227371216,generation_finalized
+linear_q_learning,17,20017,16,6,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,17,20017,17,6,25,0,Random batch,1.0262244339222019e-09,phenotype_batch
+linear_q_learning,17,20017,18,6,50,4,Stop and finalize generation,0.22215832587790826,generation_finalized
+linear_q_learning,17,20017,19,7,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,17,20017,20,7,25,0,Random batch,0.03763662568191433,phenotype_batch
+linear_q_learning,17,20017,21,7,50,4,Stop and finalize generation,0.2104933894689098,generation_finalized
+linear_q_learning,17,20017,22,8,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,17,20017,23,8,25,0,Random batch,0.08814911122958319,phenotype_batch
+linear_q_learning,17,20017,24,8,50,4,Stop and finalize generation,0.20262982305476013,generation_finalized
+linear_q_learning,17,20017,25,9,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,17,20017,26,9,25,1,Diversity batch,1.9701448867402934e-09,phenotype_batch
+linear_q_learning,17,20017,27,9,50,4,Stop and finalize generation,0.007953968796111582,generation_finalized
+linear_q_learning,17,20017,28,10,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,17,20017,29,10,25,1,Diversity batch,2.199541035027695e-09,phenotype_batch
+linear_q_learning,17,20017,30,10,50,4,Stop and finalize generation,0.3482941936582049,generation_finalized
+linear_q_learning,17,20017,31,11,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,17,20017,32,11,25,1,Diversity batch,0.0008665883655967458,phenotype_batch
+linear_q_learning,17,20017,33,11,50,4,Stop and finalize generation,-0.036376169757988436,generation_finalized
+linear_q_learning,17,20017,34,12,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,17,20017,35,12,25,1,Diversity batch,0.0779676578620816,phenotype_batch
+linear_q_learning,17,20017,36,12,50,3,Highest-GEBV batch,-0.07796765252922568,phenotype_batch
+linear_q_learning,17,20017,37,12,75,3,Highest-GEBV batch,1.326474436052699e-09,phenotype_batch
+linear_q_learning,17,20017,38,12,100,4,Stop and finalize generation,-0.012155438429464252,generation_finalized
+linear_q_learning,17,20017,39,13,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,17,20017,40,13,25,1,Diversity batch,6.182560279978159e-09,phenotype_batch
+linear_q_learning,17,20017,41,13,50,3,Highest-GEBV batch,3.8669361179865795e-09,phenotype_batch
+linear_q_learning,17,20017,42,13,75,3,Highest-GEBV batch,1.9065793270522633e-09,phenotype_batch
+linear_q_learning,17,20017,43,13,100,3,Highest-GEBV batch,2.65652284751537e-09,phenotype_batch
+linear_q_learning,17,20017,44,13,125,3,Highest-GEBV batch,4.148158957114499e-09,phenotype_batch
+linear_q_learning,17,20017,45,13,150,4,Stop and finalize generation,9.420298847938032e-31,generation_finalized
+linear_q_learning,17,20017,46,14,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,17,20017,47,14,25,1,Diversity batch,0.042299194253914076,phenotype_batch
+linear_q_learning,17,20017,48,14,50,4,Stop and finalize generation,9.420298847938032e-31,generation_finalized
+linear_q_learning,17,20017,49,15,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,17,20017,50,15,25,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,17,20017,51,15,50,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,17,20017,52,15,75,4,Stop and finalize generation,9.420298847938032e-31,generation_finalized
+linear_q_learning,17,20017,53,16,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,17,20017,54,16,25,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,17,20017,55,16,50,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,17,20017,56,16,75,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,17,20017,57,16,100,4,Stop and finalize generation,9.420298847938032e-31,generation_finalized
+linear_q_learning,17,20017,58,17,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,17,20017,59,17,25,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,17,20017,60,17,50,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,17,20017,61,17,75,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,17,20017,62,17,100,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,17,20017,63,17,125,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,17,20017,64,17,150,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,17,20017,65,17,175,4,Stop and finalize generation,9.420298847938032e-31,generation_finalized
+linear_q_learning,17,20017,66,18,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,17,20017,67,18,25,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,17,20017,68,18,50,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,17,20017,69,18,75,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,17,20017,70,18,100,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,17,20017,71,18,125,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,17,20017,72,18,150,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,17,20017,73,18,175,3,Highest-GEBV batch,9.420298847938032e-31,generation_finalized
+linear_q_learning,17,20017,74,19,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,17,20017,75,19,25,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,17,20017,76,19,50,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,17,20017,77,19,75,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,17,20017,78,19,100,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,17,20017,79,19,125,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,17,20017,80,19,150,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,17,20017,81,19,175,3,Highest-GEBV batch,9.420298847938032e-31,generation_finalized
+linear_q_learning,17,20017,82,20,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,17,20017,83,20,25,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,17,20017,84,20,50,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,17,20017,85,20,75,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,17,20017,86,20,100,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,17,20017,87,20,125,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,17,20017,88,20,150,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,17,20017,89,20,175,3,Highest-GEBV batch,9.420298847938032e-31,generation_finalized
+linear_q_learning,18,20018,1,1,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,18,20018,2,1,25,0,Random batch,0.008574568793838193,phenotype_batch
+linear_q_learning,18,20018,3,1,50,4,Stop and finalize generation,1.2441757636376594,generation_finalized
+linear_q_learning,18,20018,4,2,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,18,20018,5,2,25,0,Random batch,0.08333143440340769,phenotype_batch
+linear_q_learning,18,20018,6,2,50,4,Stop and finalize generation,0.36023423798863285,generation_finalized
+linear_q_learning,18,20018,7,3,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,18,20018,8,3,25,0,Random batch,0.05144929959015125,phenotype_batch
+linear_q_learning,18,20018,9,3,50,4,Stop and finalize generation,0.6981452065490167,generation_finalized
+linear_q_learning,18,20018,10,4,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,18,20018,11,4,25,0,Random batch,0.13706977970955275,phenotype_batch
+linear_q_learning,18,20018,12,4,50,4,Stop and finalize generation,0.769525678103279,generation_finalized
+linear_q_learning,18,20018,13,5,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,18,20018,14,5,25,0,Random batch,0.054405181719965064,phenotype_batch
+linear_q_learning,18,20018,15,5,50,4,Stop and finalize generation,0.43700512712196093,generation_finalized
+linear_q_learning,18,20018,16,6,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,18,20018,17,6,25,0,Random batch,0.12179672110594786,phenotype_batch
+linear_q_learning,18,20018,18,6,50,4,Stop and finalize generation,0.7555463036941831,generation_finalized
+linear_q_learning,18,20018,19,7,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,18,20018,20,7,25,0,Random batch,1.272102597926761e-09,phenotype_batch
+linear_q_learning,18,20018,21,7,50,4,Stop and finalize generation,0.28547441208295404,generation_finalized
+linear_q_learning,18,20018,22,8,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,18,20018,23,8,25,0,Random batch,1.540350157845868e-09,phenotype_batch
+linear_q_learning,18,20018,24,8,50,4,Stop and finalize generation,0.1476092913276942,generation_finalized
+linear_q_learning,18,20018,25,9,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,18,20018,26,9,25,1,Diversity batch,2.183043153685934e-09,phenotype_batch
+linear_q_learning,18,20018,27,9,50,4,Stop and finalize generation,0.15665425941431368,generation_finalized
+linear_q_learning,18,20018,28,10,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,18,20018,29,10,25,1,Diversity batch,0.024206538061328952,phenotype_batch
+linear_q_learning,18,20018,30,10,50,4,Stop and finalize generation,-0.05515838388405157,generation_finalized
+linear_q_learning,18,20018,31,11,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,18,20018,32,11,25,1,Diversity batch,3.0151114270206058e-09,phenotype_batch
+linear_q_learning,18,20018,33,11,50,4,Stop and finalize generation,-0.045493097659815906,generation_finalized
+linear_q_learning,18,20018,34,12,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,18,20018,35,12,25,1,Diversity batch,0.029036475692871135,phenotype_batch
+linear_q_learning,18,20018,36,12,50,3,Highest-GEBV batch,-0.029036470287538148,phenotype_batch
+linear_q_learning,18,20018,37,12,75,4,Stop and finalize generation,0.021613961298935246,generation_finalized
+linear_q_learning,18,20018,38,13,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,18,20018,39,13,25,1,Diversity batch,4.42652099708063e-09,phenotype_batch
+linear_q_learning,18,20018,40,13,50,3,Highest-GEBV batch,0.012354367390434636,phenotype_batch
+linear_q_learning,18,20018,41,13,75,3,Highest-GEBV batch,-0.012354364840951393,phenotype_batch
+linear_q_learning,18,20018,42,13,100,3,Highest-GEBV batch,2.4877865159044794e-09,phenotype_batch
+linear_q_learning,18,20018,43,13,125,4,Stop and finalize generation,-0.011757158493102052,generation_finalized
+linear_q_learning,18,20018,44,14,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,18,20018,45,14,25,1,Diversity batch,5.421250778958608e-09,phenotype_batch
+linear_q_learning,18,20018,46,14,50,3,Highest-GEBV batch,0.03599770612184036,phenotype_batch
+linear_q_learning,18,20018,47,14,75,3,Highest-GEBV batch,-0.03599770250521263,phenotype_batch
+linear_q_learning,18,20018,48,14,100,3,Highest-GEBV batch,0.02421619041921576,phenotype_batch
+linear_q_learning,18,20018,49,14,125,3,Highest-GEBV batch,0.027379504806174158,phenotype_batch
+linear_q_learning,18,20018,50,14,150,3,Highest-GEBV batch,-0.006615906443678363,phenotype_batch
+linear_q_learning,18,20018,51,14,175,3,Highest-GEBV batch,-0.005838872275517916,generation_finalized
+linear_q_learning,18,20018,52,15,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,18,20018,53,15,25,1,Diversity batch,3.0613755730084746e-08,phenotype_batch
+linear_q_learning,18,20018,54,15,50,3,Highest-GEBV batch,3.968421650740714e-09,phenotype_batch
+linear_q_learning,18,20018,55,15,75,3,Highest-GEBV batch,1.9841728669098964e-09,phenotype_batch
+linear_q_learning,18,20018,56,15,100,3,Highest-GEBV batch,4.492427009689897e-08,phenotype_batch
+linear_q_learning,18,20018,57,15,125,3,Highest-GEBV batch,2.994960875222667e-08,phenotype_batch
+linear_q_learning,18,20018,58,15,150,4,Stop and finalize generation,-0.0020803361873564506,generation_finalized
+linear_q_learning,18,20018,59,16,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,18,20018,60,16,25,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,18,20018,61,16,50,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,18,20018,62,16,75,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,18,20018,63,16,100,4,Stop and finalize generation,1.0466998719931145e-31,generation_finalized
+linear_q_learning,18,20018,64,17,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,18,20018,65,17,25,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,18,20018,66,17,50,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,18,20018,67,17,75,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,18,20018,68,17,100,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,18,20018,69,17,125,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,18,20018,70,17,150,4,Stop and finalize generation,1.0466998719931145e-31,generation_finalized
+linear_q_learning,18,20018,71,18,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,18,20018,72,18,25,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,18,20018,73,18,50,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,18,20018,74,18,75,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,18,20018,75,18,100,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,18,20018,76,18,125,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,18,20018,77,18,150,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,18,20018,78,18,175,4,Stop and finalize generation,1.0466998719931145e-31,generation_finalized
+linear_q_learning,18,20018,79,19,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,18,20018,80,19,25,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,18,20018,81,19,50,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,18,20018,82,19,75,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,18,20018,83,19,100,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,18,20018,84,19,125,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,18,20018,85,19,150,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,18,20018,86,19,175,3,Highest-GEBV batch,1.0466998719931145e-31,generation_finalized
+linear_q_learning,18,20018,87,20,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,18,20018,88,20,25,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,18,20018,89,20,50,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,18,20018,90,20,75,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,18,20018,91,20,100,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,18,20018,92,20,125,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,18,20018,93,20,150,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,18,20018,94,20,175,3,Highest-GEBV batch,1.0466998719931145e-31,generation_finalized
+linear_q_learning,19,20019,1,1,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,19,20019,2,1,25,0,Random batch,0.031146236736591067,phenotype_batch
+linear_q_learning,19,20019,3,1,50,4,Stop and finalize generation,0.8594512607774345,generation_finalized
+linear_q_learning,19,20019,4,2,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,19,20019,5,2,25,0,Random batch,0.11672429530250936,phenotype_batch
+linear_q_learning,19,20019,6,2,50,4,Stop and finalize generation,1.1517848336626393,generation_finalized
+linear_q_learning,19,20019,7,3,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,19,20019,8,3,25,0,Random batch,0.086985980856808,phenotype_batch
+linear_q_learning,19,20019,9,3,50,4,Stop and finalize generation,0.664835368854153,generation_finalized
+linear_q_learning,19,20019,10,4,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,19,20019,11,4,25,0,Random batch,0.016961997371243077,phenotype_batch
+linear_q_learning,19,20019,12,4,50,4,Stop and finalize generation,0.7642237072644424,generation_finalized
+linear_q_learning,19,20019,13,5,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,19,20019,14,5,25,0,Random batch,1.2051826584422018e-09,phenotype_batch
+linear_q_learning,19,20019,15,5,50,4,Stop and finalize generation,0.4619765777340877,generation_finalized
+linear_q_learning,19,20019,16,6,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,19,20019,17,6,25,0,Random batch,1.2474272199753125e-09,phenotype_batch
+linear_q_learning,19,20019,18,6,50,4,Stop and finalize generation,0.268508884706867,generation_finalized
+linear_q_learning,19,20019,19,7,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,19,20019,20,7,25,0,Random batch,0.014421677513427975,phenotype_batch
+linear_q_learning,19,20019,21,7,50,4,Stop and finalize generation,0.29048495968014343,generation_finalized
+linear_q_learning,19,20019,22,8,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,19,20019,23,8,25,0,Random batch,0.08432556364782562,phenotype_batch
+linear_q_learning,19,20019,24,8,50,4,Stop and finalize generation,0.11520546581087476,generation_finalized
+linear_q_learning,19,20019,25,9,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,19,20019,26,9,25,0,Random batch,4.652830241617871e-09,phenotype_batch
+linear_q_learning,19,20019,27,9,50,0,Random batch,2.4559173809349977e-09,phenotype_batch
+linear_q_learning,19,20019,28,9,75,0,Random batch,2.2014013054683093e-09,phenotype_batch
+linear_q_learning,19,20019,29,9,100,0,Random batch,2.3658160021573176e-09,phenotype_batch
+linear_q_learning,19,20019,30,9,125,4,Stop and finalize generation,-0.014306641119960606,generation_finalized
+linear_q_learning,19,20019,31,10,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,19,20019,32,10,25,0,Random batch,6.505802199945577e-09,phenotype_batch
+linear_q_learning,19,20019,33,10,50,0,Random batch,3.666841329106275e-09,phenotype_batch
+linear_q_learning,19,20019,34,10,75,0,Random batch,3.2378788977081436e-09,phenotype_batch
+linear_q_learning,19,20019,35,10,100,0,Random batch,4.020303639240553e-09,phenotype_batch
+linear_q_learning,19,20019,36,10,125,0,Random batch,3.3191862082210574e-09,phenotype_batch
+linear_q_learning,19,20019,37,10,150,4,Stop and finalize generation,-0.008299476764393689,generation_finalized
+linear_q_learning,19,20019,38,11,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,19,20019,39,11,25,1,Diversity batch,2.320235903408019e-08,phenotype_batch
+linear_q_learning,19,20019,40,11,50,0,Random batch,1.7367767216859975e-08,phenotype_batch
+linear_q_learning,19,20019,41,11,75,0,Random batch,1.6520091028384373e-08,phenotype_batch
+linear_q_learning,19,20019,42,11,100,0,Random batch,1.5448491360444314e-08,phenotype_batch
+linear_q_learning,19,20019,43,11,125,0,Random batch,0.047683248143590796,phenotype_batch
+linear_q_learning,19,20019,44,11,150,4,Stop and finalize generation,4.186799487972458e-31,generation_finalized
+linear_q_learning,19,20019,45,12,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,19,20019,46,12,25,0,Random batch,0.0,phenotype_batch
+linear_q_learning,19,20019,47,12,50,0,Random batch,0.0,phenotype_batch
+linear_q_learning,19,20019,48,12,75,0,Random batch,0.0,phenotype_batch
+linear_q_learning,19,20019,49,12,100,0,Random batch,0.0,phenotype_batch
+linear_q_learning,19,20019,50,12,125,0,Random batch,0.0,phenotype_batch
+linear_q_learning,19,20019,51,12,150,4,Stop and finalize generation,4.186799487972458e-31,generation_finalized
+linear_q_learning,19,20019,52,13,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,19,20019,53,13,25,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,19,20019,54,13,50,0,Random batch,0.0,phenotype_batch
+linear_q_learning,19,20019,55,13,75,0,Random batch,0.0,phenotype_batch
+linear_q_learning,19,20019,56,13,100,0,Random batch,0.0,phenotype_batch
+linear_q_learning,19,20019,57,13,125,0,Random batch,0.0,phenotype_batch
+linear_q_learning,19,20019,58,13,150,4,Stop and finalize generation,4.186799487972458e-31,generation_finalized
+linear_q_learning,19,20019,59,14,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,19,20019,60,14,25,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,19,20019,61,14,50,0,Random batch,0.0,phenotype_batch
+linear_q_learning,19,20019,62,14,75,0,Random batch,0.0,phenotype_batch
+linear_q_learning,19,20019,63,14,100,0,Random batch,0.0,phenotype_batch
+linear_q_learning,19,20019,64,14,125,0,Random batch,0.0,phenotype_batch
+linear_q_learning,19,20019,65,14,150,4,Stop and finalize generation,4.186799487972458e-31,generation_finalized
+linear_q_learning,19,20019,66,15,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,19,20019,67,15,25,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,19,20019,68,15,50,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,19,20019,69,15,75,0,Random batch,0.0,phenotype_batch
+linear_q_learning,19,20019,70,15,100,0,Random batch,0.0,phenotype_batch
+linear_q_learning,19,20019,71,15,125,0,Random batch,0.0,phenotype_batch
+linear_q_learning,19,20019,72,15,150,4,Stop and finalize generation,4.186799487972458e-31,generation_finalized
+linear_q_learning,19,20019,73,16,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,19,20019,74,16,25,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,19,20019,75,16,50,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,19,20019,76,16,75,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,19,20019,77,16,100,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,19,20019,78,16,125,4,Stop and finalize generation,4.186799487972458e-31,generation_finalized
+linear_q_learning,19,20019,79,17,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,19,20019,80,17,25,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,19,20019,81,17,50,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,19,20019,82,17,75,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,19,20019,83,17,100,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,19,20019,84,17,125,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,19,20019,85,17,150,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,19,20019,86,17,175,4,Stop and finalize generation,4.186799487972458e-31,generation_finalized
+linear_q_learning,19,20019,87,18,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,19,20019,88,18,25,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,19,20019,89,18,50,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,19,20019,90,18,75,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,19,20019,91,18,100,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,19,20019,92,18,125,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,19,20019,93,18,150,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,19,20019,94,18,175,3,Highest-GEBV batch,4.186799487972458e-31,generation_finalized
+linear_q_learning,19,20019,95,19,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,19,20019,96,19,25,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,19,20019,97,19,50,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,19,20019,98,19,75,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,19,20019,99,19,100,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,19,20019,100,19,125,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,19,20019,101,19,150,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,19,20019,102,19,175,3,Highest-GEBV batch,4.186799487972458e-31,generation_finalized
+linear_q_learning,19,20019,103,20,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,19,20019,104,20,25,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,19,20019,105,20,50,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,19,20019,106,20,75,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,19,20019,107,20,100,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,19,20019,108,20,125,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,19,20019,109,20,150,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,19,20019,110,20,175,3,Highest-GEBV batch,4.186799487972458e-31,generation_finalized
+linear_q_learning,20,20020,1,1,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,20,20020,2,1,25,0,Random batch,1.897187663810634e-10,phenotype_batch
+linear_q_learning,20,20020,3,1,50,4,Stop and finalize generation,1.2342132348722712,generation_finalized
+linear_q_learning,20,20020,4,2,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,20,20020,5,2,25,0,Random batch,0.08399669110182886,phenotype_batch
+linear_q_learning,20,20020,6,2,50,4,Stop and finalize generation,0.7223632441117459,generation_finalized
+linear_q_learning,20,20020,7,3,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,20,20020,8,3,25,0,Random batch,9.90862856922298e-10,phenotype_batch
+linear_q_learning,20,20020,9,3,50,4,Stop and finalize generation,0.24209373311876,generation_finalized
+linear_q_learning,20,20020,10,4,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,20,20020,11,4,25,0,Random batch,9.944393286375722e-10,phenotype_batch
+linear_q_learning,20,20020,12,4,50,4,Stop and finalize generation,0.5384783339912559,generation_finalized
+linear_q_learning,20,20020,13,5,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,20,20020,14,5,25,0,Random batch,0.002129851602453008,phenotype_batch
+linear_q_learning,20,20020,15,5,50,4,Stop and finalize generation,0.8452058723803255,generation_finalized
+linear_q_learning,20,20020,16,6,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,20,20020,17,6,25,0,Random batch,0.05443228577009298,phenotype_batch
+linear_q_learning,20,20020,18,6,50,4,Stop and finalize generation,0.4269002298752233,generation_finalized
+linear_q_learning,20,20020,19,7,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,20,20020,20,7,25,0,Random batch,0.05785538453734692,phenotype_batch
+linear_q_learning,20,20020,21,7,50,4,Stop and finalize generation,0.3765974431124579,generation_finalized
+linear_q_learning,20,20020,22,8,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,20,20020,23,8,25,0,Random batch,1.6465563006735395e-09,phenotype_batch
+linear_q_learning,20,20020,24,8,50,4,Stop and finalize generation,0.2946947492995592,generation_finalized
+linear_q_learning,20,20020,25,9,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,20,20020,26,9,25,1,Diversity batch,0.08388868254346116,phenotype_batch
+linear_q_learning,20,20020,27,9,50,4,Stop and finalize generation,0.02308872796719901,generation_finalized
+linear_q_learning,20,20020,28,10,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,20,20020,29,10,25,1,Diversity batch,0.052603928608871954,phenotype_batch
+linear_q_learning,20,20020,30,10,50,4,Stop and finalize generation,0.038592639089525066,generation_finalized
+linear_q_learning,20,20020,31,11,0,0,Random batch,0.0,phenotype_batch
+linear_q_learning,20,20020,32,11,25,1,Diversity batch,3.6117659632897263e-09,phenotype_batch
+linear_q_learning,20,20020,33,11,50,4,Stop and finalize generation,0.037951864209231044,generation_finalized
+linear_q_learning,20,20020,34,12,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,20,20020,35,12,25,1,Diversity batch,4.918658909993773e-09,phenotype_batch
+linear_q_learning,20,20020,36,12,50,3,Highest-GEBV batch,2.8411531257517538e-09,phenotype_batch
+linear_q_learning,20,20020,37,12,75,3,Highest-GEBV batch,0.06173832846765341,phenotype_batch
+linear_q_learning,20,20020,38,12,100,3,Highest-GEBV batch,0.015415814622071582,phenotype_batch
+linear_q_learning,20,20020,39,12,125,3,Highest-GEBV batch,0.02975662861925261,phenotype_batch
+linear_q_learning,20,20020,40,12,150,3,Highest-GEBV batch,-0.019264852541029276,phenotype_batch
+linear_q_learning,20,20020,41,12,175,4,Stop and finalize generation,1.6747197951889832e-30,generation_finalized
+linear_q_learning,20,20020,42,13,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,20,20020,43,13,25,1,Diversity batch,0.10581626103314334,phenotype_batch
+linear_q_learning,20,20020,44,13,50,3,Highest-GEBV batch,-0.10581625219536643,phenotype_batch
+linear_q_learning,20,20020,45,13,75,3,Highest-GEBV batch,0.027293834169419093,phenotype_batch
+linear_q_learning,20,20020,46,13,100,3,Highest-GEBV batch,0.021345663305409025,phenotype_batch
+linear_q_learning,20,20020,47,13,125,3,Highest-GEBV batch,0.009468891356226005,phenotype_batch
+linear_q_learning,20,20020,48,13,150,3,Highest-GEBV batch,0.012933370964161417,phenotype_batch
+linear_q_learning,20,20020,49,13,175,3,Highest-GEBV batch,-0.005812098266358639,generation_finalized
+linear_q_learning,20,20020,50,14,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,20,20020,51,14,25,1,Diversity batch,1.5240359823476268e-08,phenotype_batch
+linear_q_learning,20,20020,52,14,50,3,Highest-GEBV batch,2.8496309433215755e-09,phenotype_batch
+linear_q_learning,20,20020,53,14,75,3,Highest-GEBV batch,3.73323085056965e-09,phenotype_batch
+linear_q_learning,20,20020,54,14,100,3,Highest-GEBV batch,1.1928686397766341e-09,phenotype_batch
+linear_q_learning,20,20020,55,14,125,3,Highest-GEBV batch,4.941906468463172e-09,phenotype_batch
+linear_q_learning,20,20020,56,14,150,3,Highest-GEBV batch,1.0088987165536672e-08,phenotype_batch
+linear_q_learning,20,20020,57,14,175,3,Highest-GEBV batch,9.070757482331824e-09,generation_finalized
+linear_q_learning,20,20020,58,15,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,20,20020,59,15,25,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,20,20020,60,15,50,0,Random batch,0.0,phenotype_batch
+linear_q_learning,20,20020,61,15,75,0,Random batch,0.0,phenotype_batch
+linear_q_learning,20,20020,62,15,100,0,Random batch,0.0,phenotype_batch
+linear_q_learning,20,20020,63,15,125,4,Stop and finalize generation,1.6747197951889832e-30,generation_finalized
+linear_q_learning,20,20020,64,16,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,20,20020,65,16,25,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,20,20020,66,16,50,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,20,20020,67,16,75,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,20,20020,68,16,100,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,20,20020,69,16,125,4,Stop and finalize generation,1.6747197951889832e-30,generation_finalized
+linear_q_learning,20,20020,70,17,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,20,20020,71,17,25,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,20,20020,72,17,50,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,20,20020,73,17,75,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,20,20020,74,17,100,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,20,20020,75,17,125,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,20,20020,76,17,150,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,20,20020,77,17,175,4,Stop and finalize generation,1.6747197951889832e-30,generation_finalized
+linear_q_learning,20,20020,78,18,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,20,20020,79,18,25,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,20,20020,80,18,50,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,20,20020,81,18,75,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,20,20020,82,18,100,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,20,20020,83,18,125,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,20,20020,84,18,150,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,20,20020,85,18,175,3,Highest-GEBV batch,1.6747197951889832e-30,generation_finalized
+linear_q_learning,20,20020,86,19,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,20,20020,87,19,25,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,20,20020,88,19,50,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,20,20020,89,19,75,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,20,20020,90,19,100,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,20,20020,91,19,125,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,20,20020,92,19,150,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,20,20020,93,19,175,3,Highest-GEBV batch,1.6747197951889832e-30,generation_finalized
+linear_q_learning,20,20020,94,20,0,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,20,20020,95,20,25,1,Diversity batch,0.0,phenotype_batch
+linear_q_learning,20,20020,96,20,50,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,20,20020,97,20,75,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,20,20020,98,20,100,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,20,20020,99,20,125,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,20,20020,100,20,150,3,Highest-GEBV batch,0.0,phenotype_batch
+linear_q_learning,20,20020,101,20,175,3,Highest-GEBV batch,1.6747197951889832e-30,generation_finalized

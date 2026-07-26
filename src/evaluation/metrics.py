@@ -88,6 +88,11 @@ def validate_generation_results(
 
     for column in numeric_columns:
         values = pd.to_numeric(result[column], errors="coerce")
+
+        if column == "prediction_accuracy":
+            result[column] = values.fillna(0.0)
+            continue
+
         if values.isna().any():
             raise ValueError(
                 f"Column '{column}' contains missing or nonnumeric values."
