@@ -1,0 +1,4 @@
+name,heritability,number_of_replicates,number_of_generations,number_to_phenotype,number_of_parents,number_of_crosses,f1_per_cross,dh_per_f1,reps,trait,snp_chip,n_cores,active_initial_batch_size,base_seed,total_runtime_seconds
+h2_0.20_budget_200_parents_20,0.2,3,8,200,20,100,1,10,1,1,1,1,50,30001,226.65127569102333
+h2_0.40_budget_200_parents_20,0.4,3,8,200,20,100,1,10,1,1,1,1,50,31001,226.65127569102333
+h2_0.70_budget_200_parents_20,0.7,3,8,200,20,100,1,10,1,1,1,1,50,32001,226.65127569102333

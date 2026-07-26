@@ -248,7 +248,12 @@ class RBreedingBridge:
             ro.r["set.seed"](reset_seed)
 
             self.base_seed = reset_seed
-            self.generation = 1
+            if "bridge_generation" in loaded_names:
+                self.generation = int(
+                    ro.globalenv["bridge_generation"][0]
+                )
+            else:
+                self.generation = 1
             self._last_cycle_result = None
             self._clear_generation_state()
 
@@ -264,6 +269,117 @@ class RBreedingBridge:
             raise RBridgeError(
                 "Failed to reset the breeding simulator from "
                 f"{self.population_file}."
+            ) from exc
+
+    def save_program_state(
+        self,
+        path: str | Path,
+    ) -> Path:
+        """Save the current population, SimParam, and generation number."""
+        self._require_population()
+
+        state_path = Path(path).expanduser().resolve()
+        state_path.parent.mkdir(parents=True, exist_ok=True)
+
+        try:
+            ro.globalenv["candidate_population"] = (
+                self._current_population
+            )
+            ro.globalenv["SP"] = self._sim_param
+            ro.globalenv["bridge_generation"] = IntVector(
+                [int(self.generation)]
+            )
+            ro.r["save"](
+                "candidate_population",
+                "SP",
+                "bridge_generation",
+                file=str(state_path),
+            )
+        except Exception as exc:
+            raise RBridgeError(
+                "Failed to save the current breeding-program state."
+            ) from exc
+
+        return state_path
+
+    def load_program_state(
+        self,
+        path: str | Path,
+    ) -> dict[str, Any]:
+        """Restore a state saved by save_program_state()."""
+        state_path = Path(path).expanduser().resolve()
+
+        if not state_path.is_file():
+            raise FileNotFoundError(
+                f"Saved breeding-program state not found: {state_path}"
+            )
+
+        try:
+            loaded_names = [
+                str(name)
+                for name in ro.r["load"](str(state_path))
+            ]
+
+            if "candidate_population" not in loaded_names:
+                raise RBridgeError(
+                    "Saved state is missing 'candidate_population'."
+                )
+
+            if "SP" not in loaded_names:
+                raise RBridgeError("Saved state is missing 'SP'.")
+
+            self._current_population = ro.globalenv[
+                "candidate_population"
+            ]
+            self._initial_population = self._current_population
+            self._sim_param = ro.globalenv["SP"]
+
+            if "bridge_generation" in loaded_names:
+                self.generation = int(
+                    ro.globalenv["bridge_generation"][0]
+                )
+            else:
+                self.generation = 1
+
+            self._last_cycle_result = None
+            self._clear_generation_state()
+
+            return {
+                "generation": self.generation,
+                "population_size": self.population_size,
+                "individual_ids": self.get_candidate_ids(),
+            }
+
+        except RBridgeError:
+            raise
+        except Exception as exc:
+            raise RBridgeError(
+                "Failed to load a saved breeding-program state."
+            ) from exc
+
+    def set_trait_heritability(
+        self,
+        heritability: float,
+    ) -> None:
+        """Update AlphaSimR environmental variance using broad-sense h2."""
+        numeric = float(heritability)
+
+        if not np.isfinite(numeric):
+            raise ValueError("'heritability' must be finite.")
+
+        if not 0.0 < numeric <= 1.0:
+            raise ValueError(
+                "'heritability' must be greater than zero and at most one."
+            )
+
+        try:
+            ro.globalenv["SP"] = self._sim_param
+            ro.globalenv["bridge_h2"] = ro.FloatVector([numeric])
+            ro.r("SP$setVarE(h2 = bridge_h2)")
+            self._sim_param = ro.globalenv["SP"]
+        except Exception as exc:
+            raise RBridgeError(
+                "Failed to update the simulator heritability."
             ) from exc
 
     # ------------------------------------------------------------------

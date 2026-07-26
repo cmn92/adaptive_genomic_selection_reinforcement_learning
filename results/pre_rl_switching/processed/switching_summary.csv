@@ -1,0 +1,4 @@
+scenario,number_of_generations,number_of_unique_winners,number_of_strategy_switches,switching_detected,winner_sequence
+h2_0.20_budget_200_parents_20,8,3,5,True,diversity_sampling -> fixed_sampling -> diversity_sampling -> fixed_sampling -> diversity_sampling -> active_learning_pev -> active_learning_pev -> active_learning_pev
+h2_0.40_budget_200_parents_20,8,4,5,True,active_learning_pev -> random_sampling -> highest_gebv -> diversity_sampling -> highest_gebv -> diversity_sampling -> diversity_sampling -> diversity_sampling
+h2_0.70_budget_200_parents_20,8,4,4,True,highest_gebv -> diversity_sampling -> diversity_sampling -> fixed_sampling -> random_sampling -> random_sampling -> diversity_sampling -> diversity_sampling

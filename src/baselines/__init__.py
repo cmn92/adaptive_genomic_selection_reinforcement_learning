@@ -9,6 +9,9 @@ from src.baselines.active_learning import (
     ActiveLearningGenerationResult,
     ActiveLearningStrategy,
 )
+from src.baselines.model_assisted import (
+    HighestGEBVStrategy,
+)
 
 __all__ = [
     "BasePhenotypingStrategy",
@@ -18,4 +21,5 @@ __all__ = [
     "FixedSamplingStrategy",
     "ActiveLearningStrategy",
     "ActiveLearningGenerationResult",
+    "HighestGEBVStrategy",
 ]

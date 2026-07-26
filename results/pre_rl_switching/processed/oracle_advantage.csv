@@ -1,0 +1,4 @@
+scenario,best_fixed_strategy,best_fixed_mean_total_gain,oracle_mean_total_gain,oracle_gain_advantage
+h2_0.20_budget_200_parents_20,active_learning_pev,4.85933131928461,5.36012778410554,0.5007964648209295
+h2_0.40_budget_200_parents_20,diversity_sampling,5.778395339727616,5.800185133516511,0.02178979378889423
+h2_0.70_budget_200_parents_20,diversity_sampling,6.79153449898915,6.841540662204537,0.050006163215386756
