@@ -36,29 +36,63 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--generations",
         type=int,
-        default=8,
-        help="Breeding generations per replicate.",
+        nargs="+",
+        default=[5, 8, 12],
+        help="Breeding-generation counts to test.",
+    )
+    parser.add_argument(
+        "--scenario-mode",
+        choices=["compact", "full-factorial"],
+        default="compact",
+        help=(
+            "compact varies one factor at a time around a base scenario; "
+            "full-factorial runs every combination."
+        ),
     )
     parser.add_argument(
         "--heritabilities",
         type=float,
         nargs="+",
-        default=[0.2, 0.4, 0.7],
+        default=[0.05, 0.1, 0.2, 0.4, 0.7],
         help="Broad-sense h2 values to test.",
     )
     parser.add_argument(
         "--budgets",
         type=int,
         nargs="+",
-        default=[200],
+        default=[75, 100, 200],
         help="Phenotyping budgets per generation.",
+    )
+    parser.add_argument(
+        "--population-sizes",
+        type=int,
+        nargs="+",
+        default=[500, 1000],
+        help="Candidate population sizes to test.",
     )
     parser.add_argument(
         "--parents",
         type=int,
         nargs="+",
-        default=[20],
+        default=[10, 20, 40],
         help="Numbers of selected parents.",
+    )
+    parser.add_argument(
+        "--diversity-losses",
+        choices=["weak", "standard", "strong"],
+        nargs="+",
+        default=["weak", "standard", "strong"],
+        help=(
+            "Family-bottleneck settings. Weak uses many crosses and "
+            "fewer DH per cross; strong uses fewer crosses and more DH "
+            "per cross at the same population size."
+        ),
+    )
+    parser.add_argument(
+        "--active-initial-batch-size",
+        type=int,
+        default=50,
+        help="Initial diverse batch size for staged model-based strategies.",
     )
     parser.add_argument(
         "--base-seed",
@@ -81,38 +115,224 @@ def parse_args() -> argparse.Namespace:
     return parser.parse_args()
 
 
+def breeding_design_for(
+    *,
+    population_size: int,
+    diversity_loss: str,
+) -> tuple[int, int]:
+    """Return number_of_crosses and dh_per_f1 for a bottleneck level."""
+    dh_by_loss = {
+        "weak": 5,
+        "standard": 10,
+        "strong": 20,
+    }
+    dh_per_f1 = dh_by_loss[diversity_loss]
+
+    if population_size % dh_per_f1 != 0:
+        raise ValueError(
+            "Population size must be divisible by the DH-per-F1 value "
+            f"for diversity_loss={diversity_loss!r}."
+        )
+
+    return population_size // dh_per_f1, dh_per_f1
+
+
+def active_initial_batch_size(
+    *,
+    requested_size: int,
+    budget: int,
+) -> int:
+    """Keep the staged initial batch valid for smaller budgets."""
+    if budget < 3:
+        raise ValueError("Phenotyping budget must be at least 3.")
+    return max(2, min(requested_size, budget - 1))
+
+
+def scenario_name(
+    *,
+    heritability: float,
+    budget: int,
+    population_size: int,
+    parents: int,
+    generations: int,
+    diversity_loss: str,
+) -> str:
+    """Create a stable scenario identifier."""
+    return (
+        f"h2_{heritability:.2f}_budget_{budget}_"
+        f"pop_{population_size}_parents_{parents}_"
+        f"gen_{generations}_loss_{diversity_loss}"
+    )
+
+
+def make_scenario(
+    *,
+    args: argparse.Namespace,
+    scenario_index: int,
+    heritability: float,
+    budget: int,
+    population_size: int,
+    parents: int,
+    generations: int,
+    diversity_loss: str,
+) -> SwitchingScenario:
+    """Build one scenario with a population-size preserving design."""
+    if budget > population_size:
+        raise ValueError(
+            "Phenotyping budget cannot exceed population size "
+            f"for {scenario_name(heritability=heritability, budget=budget, population_size=population_size, parents=parents, generations=generations, diversity_loss=diversity_loss)}."
+        )
+
+    if parents > budget:
+        raise ValueError(
+            "Number of parents cannot exceed phenotyping budget "
+            f"for {scenario_name(heritability=heritability, budget=budget, population_size=population_size, parents=parents, generations=generations, diversity_loss=diversity_loss)}."
+        )
+
+    number_of_crosses, dh_per_f1 = breeding_design_for(
+        population_size=population_size,
+        diversity_loss=diversity_loss,
+    )
+
+    return SwitchingScenario(
+        name=scenario_name(
+            heritability=heritability,
+            budget=budget,
+            population_size=population_size,
+            parents=parents,
+            generations=generations,
+            diversity_loss=diversity_loss,
+        ),
+        heritability=heritability,
+        population_size=population_size,
+        diversity_loss=diversity_loss,
+        number_of_replicates=args.replicates,
+        number_of_generations=generations,
+        number_to_phenotype=budget,
+        number_of_parents=parents,
+        number_of_crosses=number_of_crosses,
+        dh_per_f1=dh_per_f1,
+        active_initial_batch_size=active_initial_batch_size(
+            requested_size=args.active_initial_batch_size,
+            budget=budget,
+        ),
+        base_seed=args.base_seed + scenario_index * 1000,
+    )
+
+
+def preferred_value(
+    values: list,
+    preferred,
+):
+    """Use a preferred compact-grid value when available."""
+    return preferred if preferred in values else values[0]
+
+
 def build_scenarios(
     args: argparse.Namespace,
 ) -> list[SwitchingScenario]:
     """Build the requested scenario grid."""
-    scenarios: list[SwitchingScenario] = []
+    scenario_specs: list[tuple[float, int, int, int, int, str]]
 
-    for scenario_index, (
-        heritability,
-        budget,
-        parents,
-    ) in enumerate(
-        product(
-            args.heritabilities,
-            args.budgets,
-            args.parents,
-        )
-    ):
-        name = (
-            f"h2_{heritability:.2f}_budget_{budget}_"
-            f"parents_{parents}"
-        )
-        scenarios.append(
-            SwitchingScenario(
-                name=name,
-                heritability=heritability,
-                number_of_replicates=args.replicates,
-                number_of_generations=args.generations,
-                number_to_phenotype=budget,
-                number_of_parents=parents,
-                base_seed=args.base_seed + scenario_index * 1000,
+    base = (
+        preferred_value(args.heritabilities, 0.4),
+        preferred_value(args.budgets, 200),
+        preferred_value(args.population_sizes, 1000),
+        preferred_value(args.parents, 20),
+        preferred_value(args.generations, 8),
+        preferred_value(args.diversity_losses, "standard"),
+    )
+
+    if args.scenario_mode == "full-factorial":
+        scenario_specs = list(
+            product(
+                args.heritabilities,
+                args.budgets,
+                args.population_sizes,
+                args.parents,
+                args.generations,
+                args.diversity_losses,
             )
         )
+    else:
+        specs: list[tuple[float, int, int, int, int, str]] = []
+
+        for heritability in args.heritabilities:
+            specs.append(
+                (
+                    heritability,
+                    base[1],
+                    base[2],
+                    base[3],
+                    base[4],
+                    base[5],
+                )
+            )
+
+        for budget in args.budgets:
+            specs.append((base[0], budget, base[2], base[3], base[4], base[5]))
+
+        for population_size in args.population_sizes:
+            specs.append(
+                (
+                    base[0],
+                    base[1],
+                    population_size,
+                    base[3],
+                    base[4],
+                    base[5],
+                )
+            )
+
+        for parents in args.parents:
+            specs.append((base[0], base[1], base[2], parents, base[4], base[5]))
+
+        for generations in args.generations:
+            specs.append(
+                (
+                    base[0],
+                    base[1],
+                    base[2],
+                    base[3],
+                    generations,
+                    base[5],
+                )
+            )
+
+        for diversity_loss in args.diversity_losses:
+            specs.append(
+                (
+                    base[0],
+                    base[1],
+                    base[2],
+                    base[3],
+                    base[4],
+                    diversity_loss,
+                )
+            )
+
+        scenario_specs = list(dict.fromkeys(specs))
+
+    scenarios = [
+        make_scenario(
+            args=args,
+            scenario_index=index,
+            heritability=heritability,
+            budget=budget,
+            population_size=population_size,
+            parents=parents,
+            generations=generations,
+            diversity_loss=diversity_loss,
+        )
+        for index, (
+            heritability,
+            budget,
+            population_size,
+            parents,
+            generations,
+            diversity_loss,
+        ) in enumerate(scenario_specs)
+    ]
 
     return scenarios
 

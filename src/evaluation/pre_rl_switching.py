@@ -41,6 +41,8 @@ class SwitchingScenario:
 
     name: str
     heritability: float | None = None
+    population_size: int | None = None
+    diversity_loss: str = "standard"
     number_of_replicates: int = 3
     number_of_generations: int = 8
     number_to_phenotype: int = 200
@@ -59,6 +61,16 @@ class SwitchingScenario:
         if not isinstance(self.name, str) or not self.name.strip():
             raise ValueError("'name' must be a non-empty string.")
 
+        if self.diversity_loss not in {
+            "weak",
+            "standard",
+            "strong",
+        }:
+            raise ValueError(
+                "'diversity_loss' must be 'weak', 'standard', or "
+                "'strong'."
+            )
+
         integer_fields = {
             "number_of_replicates": self.number_of_replicates,
             "number_of_generations": self.number_of_generations,
@@ -75,6 +87,9 @@ class SwitchingScenario:
             "base_seed": self.base_seed,
         }
 
+        if self.population_size is not None:
+            integer_fields["population_size"] = self.population_size
+
         for field_name, value in integer_fields.items():
             if (
                 isinstance(value, bool)
@@ -89,6 +104,38 @@ class SwitchingScenario:
             raise ValueError(
                 "'number_of_parents' cannot exceed "
                 "'number_to_phenotype'."
+            )
+
+        if (
+            self.population_size is not None
+            and self.number_to_phenotype > self.population_size
+        ):
+            raise ValueError(
+                "'number_to_phenotype' cannot exceed "
+                "'population_size'."
+            )
+
+        if (
+            self.population_size is not None
+            and self.number_of_parents > self.population_size
+        ):
+            raise ValueError(
+                "'number_of_parents' cannot exceed 'population_size'."
+            )
+
+        expected_population = (
+            self.number_of_crosses
+            * self.f1_per_cross
+            * self.dh_per_f1
+        )
+
+        if (
+            self.population_size is not None
+            and expected_population != self.population_size
+        ):
+            raise ValueError(
+                "For population-size scenarios, number_of_crosses * "
+                "f1_per_cross * dh_per_f1 must equal population_size."
             )
 
         if self.active_initial_batch_size >= self.number_to_phenotype:
@@ -126,18 +173,27 @@ def default_switching_scenarios() -> list[SwitchingScenario]:
     """Return a small default grid for pre-RL development runs."""
     return [
         SwitchingScenario(
-            name="h2_0.20_budget_200_parents_20",
-            heritability=0.20,
+            name="h2_0.05_budget_200_pop_1000_parents_20_gen_8_loss_standard",
+            heritability=0.05,
+            population_size=1000,
+            number_of_crosses=100,
+            dh_per_f1=10,
         ),
         SwitchingScenario(
-            name="h2_0.40_budget_200_parents_20",
-            heritability=0.40,
+            name="h2_0.10_budget_200_pop_1000_parents_20_gen_8_loss_standard",
+            heritability=0.10,
+            population_size=1000,
+            number_of_crosses=100,
+            dh_per_f1=10,
             base_seed=31001,
         ),
         SwitchingScenario(
-            name="h2_0.70_budget_200_parents_20",
-            heritability=0.70,
+            name="h2_0.40_budget_200_pop_1000_parents_20_gen_8_loss_standard",
+            heritability=0.40,
             base_seed=32001,
+            population_size=1000,
+            number_of_crosses=100,
+            dh_per_f1=10,
         ),
     ]
 
@@ -187,6 +243,12 @@ def _prepare_bridge(
     if scenario.heritability is not None:
         bridge.set_trait_heritability(
             scenario.heritability
+        )
+
+    if scenario.population_size is not None:
+        bridge.subset_current_population(
+            population_size=scenario.population_size,
+            seed=seed,
         )
 
     return bridge
@@ -280,9 +342,15 @@ def _add_context(
     result["scenario_number_to_phenotype"] = (
         scenario.number_to_phenotype
     )
+    result["scenario_population_size"] = scenario.population_size
+    result["scenario_diversity_loss"] = scenario.diversity_loss
     result["scenario_number_of_parents"] = (
         scenario.number_of_parents
     )
+    result["scenario_number_of_crosses"] = (
+        scenario.number_of_crosses
+    )
+    result["scenario_dh_per_f1"] = scenario.dh_per_f1
     result["scenario_number_of_generations"] = (
         scenario.number_of_generations
     )

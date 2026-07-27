@@ -382,6 +382,63 @@ class RBreedingBridge:
                 "Failed to update the simulator heritability."
             ) from exc
 
+    def subset_current_population(
+        self,
+        *,
+        population_size: int,
+        seed: int | None = None,
+    ) -> None:
+        """Randomly subset the current candidate population."""
+        self._require_population()
+        population_size = self._validate_positive_integer(
+            population_size,
+            "population_size",
+        )
+
+        if population_size > self.population_size:
+            raise ValueError(
+                "'population_size' cannot exceed the current population "
+                f"size of {self.population_size}."
+            )
+
+        if population_size == self.population_size:
+            return
+
+        subset_seed = (
+            self.base_seed
+            if seed is None
+            else self._validate_positive_integer(seed, "seed")
+        )
+        rng = np.random.default_rng(subset_seed)
+        selected = np.sort(
+            rng.choice(
+                self.population_size,
+                size=population_size,
+                replace=False,
+            )
+        )
+        selected_r = IntVector(
+            (selected + 1).astype(np.int32).tolist()
+        )
+
+        try:
+            subset_function = ro.r(
+                "function(candidate_population, selected_indices) {"
+                "candidate_population[as.integer(selected_indices)]"
+                "}"
+            )
+            self._current_population = subset_function(
+                self._current_population,
+                selected_r,
+            )
+            self._initial_population = self._current_population
+            self._last_cycle_result = None
+            self._clear_generation_state()
+        except Exception as exc:
+            raise RBridgeError(
+                "Failed to subset the current candidate population."
+            ) from exc
+
     # ------------------------------------------------------------------
     # Population access
     # ------------------------------------------------------------------
