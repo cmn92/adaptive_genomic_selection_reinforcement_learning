@@ -325,3 +325,8 @@ def compact_breeding_discretizer() -> ObservationDiscretizer:
             COMPACT_BREEDING_FEATURES
         ),
     )
+
+
+def compact_breeding_feature_indices() -> tuple[int, ...]:
+    """Return compact recurring observation columns for function approximators."""
+    return feature_indices_for_names(COMPACT_BREEDING_FEATURES)

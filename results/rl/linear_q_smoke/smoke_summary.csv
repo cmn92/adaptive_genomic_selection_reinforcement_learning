@@ -1,0 +1,2 @@
+episodes,eval_episodes,heritability,population_size,generations,train_pev_available_steps,train_highest_pev_actions,greedy_pev_available_steps,greedy_highest_pev_actions,final_rolling_return
+30,3,0.05,500,8,240,156,24,22,3.2808891984166038

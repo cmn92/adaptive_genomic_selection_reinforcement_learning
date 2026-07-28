@@ -1,7 +1,7 @@
 """
 run_training.py
 
-Executable training script for the tabular Q-learning agent.
+Executable training script for the linear Q-learning agent.
 
 Run from the project root with:
 
@@ -10,8 +10,8 @@ Run from the project root with:
 This script:
 1. Creates the Python-to-R breeding bridge.
 2. Builds the Gymnasium breeding environment.
-3. Creates the observation discretizer.
-4. Creates the tabular Q-learning agent.
+3. Uses compact continuous state features.
+4. Creates the linear Q-learning agent.
 5. Trains the agent.
 6. Saves checkpoints, the final agent, and training history.
 7. Produces basic training-diagnostic plots.
@@ -21,6 +21,7 @@ The default settings are intended for a longer production-style training run.
 
 from __future__ import annotations
 
+import argparse
 import os
 from pathlib import Path
 
@@ -34,12 +35,35 @@ from src.environment.breeding_env import (
 from src.environment.r_bridge import RBreedingBridge
 from src.environment.reward import RewardConfig
 from src.environment.state import observation_size
+from src.rl.discretizer import compact_breeding_feature_indices
 from src.rl.linear_q import LinearQAgent, LinearQConfig
 from src.rl.train import (
     TrainingConfig,
     save_training_result,
     train_q_learning,
 )
+
+
+def parse_args() -> argparse.Namespace:
+    """Parse command-line options for the low-h2 Linear Q run."""
+    parser = argparse.ArgumentParser(
+        description="Train the compact-feature Linear Q agent."
+    )
+    parser.add_argument("--episodes", type=int, default=500)
+    parser.add_argument("--seed", type=int, default=30001)
+    parser.add_argument("--heritability", type=float, default=0.05)
+    parser.add_argument("--population-size", type=int, default=500)
+    parser.add_argument("--generations", type=int, default=8)
+    parser.add_argument("--maximum-phenotypes", type=int, default=75)
+    parser.add_argument("--batch-size", type=int, default=25)
+    parser.add_argument("--minimum-training-size", type=int, default=50)
+    parser.add_argument("--number-of-parents", type=int, default=20)
+    parser.add_argument("--number-of-crosses", type=int, default=50)
+    parser.add_argument("--dh-per-f1", type=int, default=10)
+    parser.add_argument("--maximum-steps", type=int, default=80)
+    parser.add_argument("--n-cores", type=int, default=None)
+    parser.add_argument("--output-directory", default=None)
+    return parser.parse_args()
 
 
 def rolling_mean(
@@ -246,18 +270,33 @@ def create_training_plots(
 def main() -> None:
     """Run a development Q-learning training experiment."""
 
+    args = parse_args()
     project_root = Path(__file__).resolve().parents[2]
     available_cores = max(
         1,
         min(4, os.cpu_count() or 1),
     )
-
-    output_directory = (
-        project_root
-        / "results"
-        / "rl"
-        / "q_learning_development"
+    n_cores = (
+        available_cores
+        if args.n_cores is None
+        else max(1, int(args.n_cores))
     )
+
+    if args.output_directory is None:
+        heritability_label = str(args.heritability).replace(
+            ".",
+            "_",
+        )
+        output_directory = (
+            project_root
+            / "results"
+            / "rl"
+            / f"linear_q_h2_{heritability_label}"
+        )
+    else:
+        output_directory = Path(args.output_directory)
+        if not output_directory.is_absolute():
+            output_directory = project_root / output_directory
 
     checkpoint_directory = (
         output_directory
@@ -278,7 +317,7 @@ def main() -> None:
         population_file=(
             "data/initial_candidate_population.RData"
         ),
-        seed=12345,
+        seed=args.seed,
     )
 
     # ------------------------------------------------------------------
@@ -286,19 +325,21 @@ def main() -> None:
     # ------------------------------------------------------------------
 
     environment_config = BreedingEnvConfig(
-        maximum_generations=20,
-        batch_size=25,
-        minimum_training_size=50,
-        maximum_phenotypes=200,
-        number_of_parents=20,
-        number_of_crosses=100,
+        maximum_generations=args.generations,
+        batch_size=args.batch_size,
+        minimum_training_size=args.minimum_training_size,
+        maximum_phenotypes=args.maximum_phenotypes,
+        number_of_parents=args.number_of_parents,
+        number_of_crosses=args.number_of_crosses,
         f1_per_cross=1,
-        dh_per_f1=10,
+        dh_per_f1=args.dh_per_f1,
         reps=1,
         trait=1,
         snp_chip=1,
-        n_cores=available_cores,
-        seed=12345,
+        n_cores=n_cores,
+        seed=args.seed,
+        trait_heritability=args.heritability,
+        population_size=args.population_size,
     )
 
     reward_config = RewardConfig(
@@ -307,9 +348,9 @@ def main() -> None:
         # Fixed-budget baselines always spend the full phenotyping budget.
         # Keep Linear Q focused on batch choice rather than budget avoidance.
         phenotyping_cost_weight=0.0,
-        reliability_improvement_weight=0.3,
+        reliability_improvement_weight=0.0,
         invalid_action_penalty=1.0,
-        gain_scale=2.0,
+        gain_scale=5.0,
     )
 
     env = BreedingEnv(
@@ -328,7 +369,22 @@ def main() -> None:
     discretizer = None
 
     # ------------------------------------------------------------------
-    # 4. Linear Q-learning agent
+    # 4. Training settings
+    #
+    # Function approximation generalizes across continuous states, so hundreds
+    # of episodes are a reasonable first run after the diagnostic and smoke
+    # test prove that PEV is available and used.
+    # ------------------------------------------------------------------
+
+    training_config = TrainingConfig(
+        number_of_episodes=args.episodes,
+        maximum_steps_per_episode=args.maximum_steps,
+        seed=args.seed,
+        checkpoint_every=50,
+    )
+
+    # ------------------------------------------------------------------
+    # 5. Linear Q-learning agent
     # ------------------------------------------------------------------
 
     agent_config = LinearQConfig(
@@ -336,30 +392,20 @@ def main() -> None:
         discount_factor=0.95,
         epsilon_start=1.0,
         epsilon_end=0.05,
-        epsilon_decay_episodes=250,
+        epsilon_decay_episodes=max(
+            1,
+            int(training_config.number_of_episodes * 0.8),
+        ),
         l2_penalty=0.001,
         gradient_clip=5.0,
-        seed=12345,
+        seed=args.seed,
     )
 
     agent = LinearQAgent(
         number_of_actions=env.action_space.n,
         observation_size=observation_size(),
+        feature_indices=compact_breeding_feature_indices(),
         config=agent_config,
-    )
-
-    # ------------------------------------------------------------------
-    # 5. Training settings
-    #
-    # Function approximation generalizes across continuous states, so hundreds
-    # of episodes are a reasonable first run before doing wider sweeps.
-    # ------------------------------------------------------------------
-
-    training_config = TrainingConfig(
-        number_of_episodes=500,
-        maximum_steps_per_episode=220,
-        seed=12345,
-        checkpoint_every=50,
     )
 
     # ------------------------------------------------------------------
@@ -415,6 +461,12 @@ def main() -> None:
                 ),
                 "agent_number_of_features": (
                     agent.number_of_features
+                ),
+                "agent_feature_indices": (
+                    ",".join(
+                        str(index)
+                        for index in agent.feature_indices
+                    )
                 ),
                 "agent_number_of_parameters": (
                     agent.number_of_parameters

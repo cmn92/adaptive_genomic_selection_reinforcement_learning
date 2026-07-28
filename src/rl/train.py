@@ -14,6 +14,7 @@ from typing import Any
 import numpy as np
 import pandas as pd
 
+from src.environment.actions import PhenotypingAction
 from src.environment.breeding_env import BreedingEnv
 from src.rl.discretizer import ObservationDiscretizer
 from src.rl.linear_q import LinearQAgent
@@ -133,6 +134,13 @@ def train_q_learning(
         finalized_generations = 0
         final_gain = np.nan
         final_variance_retention = np.nan
+        action_counts = np.zeros(
+            agent.number_of_actions,
+            dtype=np.int64,
+        )
+        model_available_steps = 0
+        uncertainty_available_steps = 0
+        pev_available_steps = 0
 
         for step in range(
             config.maximum_steps_per_episode
@@ -141,12 +149,22 @@ def train_q_learning(
                 info["action_mask"],
                 dtype=bool,
             )
+            model_available_steps += int(
+                bool(info.get("model_available", False))
+            )
+            uncertainty_available_steps += int(
+                bool(info.get("uncertainty_available", False))
+            )
+            pev_available_steps += int(
+                bool(action_mask[int(PhenotypingAction.HIGHEST_PEV)])
+            )
 
             action = agent.choose_action(
                 state,
                 action_mask=action_mask,
                 epsilon=epsilon,
             )
+            action_counts[int(action)] += 1
 
             (
                 next_observation,
@@ -237,6 +255,26 @@ def train_q_learning(
                 ),
                 "model_size": _agent_model_size(agent),
                 "agent_kind": _agent_kind(agent),
+                "model_available_steps": model_available_steps,
+                "uncertainty_available_steps": (
+                    uncertainty_available_steps
+                ),
+                "pev_available_steps": pev_available_steps,
+                "action_random_count": int(
+                    action_counts[int(PhenotypingAction.RANDOM)]
+                ),
+                "action_diversity_count": int(
+                    action_counts[int(PhenotypingAction.DIVERSITY)]
+                ),
+                "action_highest_pev_count": int(
+                    action_counts[int(PhenotypingAction.HIGHEST_PEV)]
+                ),
+                "action_highest_gebv_count": int(
+                    action_counts[int(PhenotypingAction.HIGHEST_GEBV)]
+                ),
+                "action_stop_count": int(
+                    action_counts[int(PhenotypingAction.STOP)]
+                ),
             }
         )
 

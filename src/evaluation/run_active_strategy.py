@@ -51,6 +51,8 @@ class ActiveStrategyRunConfig:
     snp_chip: int = 1
     n_cores: int = 1
     seed: int = 12345
+    trait_heritability: float | None = None
+    population_size: int | None = None
 
     def __post_init__(self) -> None:
         """Validate all configuration values."""
@@ -68,6 +70,9 @@ class ActiveStrategyRunConfig:
             "seed": self.seed,
         }
 
+        if self.population_size is not None:
+            integer_fields["population_size"] = self.population_size
+
         for name, value in integer_fields.items():
             if isinstance(value, (bool, np.bool_)):
                 raise TypeError(f"'{name}' must be an integer.")
@@ -83,6 +88,18 @@ class ActiveStrategyRunConfig:
                 "'number_of_parents' cannot exceed "
                 "'number_to_phenotype'."
             )
+
+        if self.trait_heritability is not None:
+            heritability = float(self.trait_heritability)
+            if (
+                not np.isfinite(heritability)
+                or heritability <= 0.0
+                or heritability > 1.0
+            ):
+                raise ValueError(
+                    "'trait_heritability' must be greater than zero and at "
+                    "most one."
+                )
 
 
 @dataclass
@@ -143,6 +160,15 @@ def run_active_strategy(
         )
 
     bridge.reset(seed=config.seed)
+    if config.trait_heritability is not None:
+        bridge.set_trait_heritability(
+            float(config.trait_heritability)
+        )
+    if config.population_size is not None:
+        bridge.subset_current_population(
+            population_size=int(config.population_size),
+            seed=config.seed,
+        )
     rng = np.random.default_rng(config.seed)
 
     generation_rows: list[pd.DataFrame] = []

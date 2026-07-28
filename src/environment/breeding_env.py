@@ -76,11 +76,24 @@ class BreedingEnvConfig:
     snp_chip: int = 1
     n_cores: int = 1
     seed: int = 12345
+    trait_heritability: float | None = None
+    population_size: int | None = None
 
     def __post_init__(self) -> None:
-        fields = self.__dict__
+        integer_fields = {
+            name: value
+            for name, value in self.__dict__.items()
+            if name
+            not in {
+                "trait_heritability",
+                "population_size",
+            }
+        }
 
-        for name, value in fields.items():
+        if self.population_size is not None:
+            integer_fields["population_size"] = self.population_size
+
+        for name, value in integer_fields.items():
             if isinstance(value, (bool, np.bool_)) or not isinstance(
                 value, (int, np.integer)
             ):
@@ -103,6 +116,26 @@ class BreedingEnvConfig:
             raise ValueError(
                 "'minimum_training_size' must be divisible by 'batch_size'."
             )
+
+        if (
+            self.population_size is not None
+            and self.maximum_phenotypes > self.population_size
+        ):
+            raise ValueError(
+                "'maximum_phenotypes' cannot exceed 'population_size'."
+            )
+
+        if self.trait_heritability is not None:
+            heritability = float(self.trait_heritability)
+            if (
+                not np.isfinite(heritability)
+                or heritability <= 0.0
+                or heritability > 1.0
+            ):
+                raise ValueError(
+                    "'trait_heritability' must be greater than zero and at "
+                    "most one."
+                )
 
 
 class BreedingEnv(gym.Env):
@@ -139,7 +172,13 @@ class BreedingEnv(gym.Env):
         self.config = config or BreedingEnvConfig()
         self.reward_config = reward_config or RewardConfig()
 
-        if self.config.maximum_phenotypes > bridge.population_size:
+        configured_population_size = (
+            self.config.population_size
+            if self.config.population_size is not None
+            else bridge.population_size
+        )
+
+        if self.config.maximum_phenotypes > configured_population_size:
             raise ValueError(
                 "'maximum_phenotypes' cannot exceed population size."
             )
@@ -193,6 +232,7 @@ class BreedingEnv(gym.Env):
         )
 
         self.bridge.reset(seed=reset_seed)
+        self._apply_scenario_overrides(reset_seed)
         self.bridge.start_generation()
 
         self._marker_matrix = self.bridge.get_marker_matrix(
@@ -219,6 +259,22 @@ class BreedingEnv(gym.Env):
         self._last_info = info
 
         return observation, info
+
+    def _apply_scenario_overrides(
+        self,
+        seed: int,
+    ) -> None:
+        """Apply per-episode simulator scenario settings after bridge reset."""
+        if self.config.trait_heritability is not None:
+            self.bridge.set_trait_heritability(
+                float(self.config.trait_heritability)
+            )
+
+        if self.config.population_size is not None:
+            self.bridge.subset_current_population(
+                population_size=int(self.config.population_size),
+                seed=seed,
+            )
 
     def step(
         self,
@@ -1100,6 +1156,21 @@ class BreedingEnv(gym.Env):
         action: PhenotypingAction | None = None,
     ) -> dict[str, Any]:
         """Build the standard Gymnasium info dictionary."""
+        uncertainty_available = self._uncertainty_table is not None
+        mean_pev, max_pev, mean_reliability = (
+            self._uncertainty_summaries()
+        )
+        finite_pev_count = 0
+
+        if uncertainty_available:
+            finite_pev_count = int(
+                np.isfinite(
+                    self._uncertainty_table[
+                        "prediction_error_variance"
+                    ].to_numpy(dtype=float)
+                ).sum()
+            )
+
         info: dict[str, Any] = {
             "event": event,
             "generation": self.bridge.generation,
@@ -1109,9 +1180,12 @@ class BreedingEnv(gym.Env):
             "action_mask": self.action_masks(),
             "episode_return": self._episode_return,
             "episode_steps": self._episode_steps,
-            "uncertainty_available": (
-                self._uncertainty_table is not None
-            ),
+            "model_available": self._prediction_table is not None,
+            "uncertainty_available": uncertainty_available,
+            "finite_pev_count": finite_pev_count,
+            "mean_pev": mean_pev,
+            "max_pev": max_pev,
+            "mean_reliability": mean_reliability,
         }
 
         if self._last_uncertainty_error is not None:

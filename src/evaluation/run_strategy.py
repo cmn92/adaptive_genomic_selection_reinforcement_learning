@@ -46,6 +46,8 @@ class StrategyRunConfig:
     trait: int = 1
     seed: int = 12345
     include_markers: bool = False
+    trait_heritability: float | None = None
+    population_size: int | None = None
 
     def __post_init__(self) -> None:
         """Validate configuration values."""
@@ -61,6 +63,9 @@ class StrategyRunConfig:
             "seed": self.seed,
         }
 
+        if self.population_size is not None:
+            integer_fields["population_size"] = self.population_size
+
         for name, value in integer_fields.items():
             if isinstance(value, bool) or not isinstance(
                 value,
@@ -73,6 +78,18 @@ class StrategyRunConfig:
 
         if not isinstance(self.include_markers, bool):
             raise TypeError("'include_markers' must be Boolean.")
+
+        if self.trait_heritability is not None:
+            heritability = float(self.trait_heritability)
+            if (
+                not np.isfinite(heritability)
+                or heritability <= 0.0
+                or heritability > 1.0
+            ):
+                raise ValueError(
+                    "'trait_heritability' must be greater than zero and at "
+                    "most one."
+                )
 
 
 @dataclass
@@ -125,6 +142,15 @@ def run_strategy(
         raise TypeError("'config' must be a StrategyRunConfig instance.")
 
     bridge.reset(seed=config.seed)
+    if config.trait_heritability is not None:
+        bridge.set_trait_heritability(
+            float(config.trait_heritability)
+        )
+    if config.population_size is not None:
+        bridge.subset_current_population(
+            population_size=int(config.population_size),
+            seed=config.seed,
+        )
     rng = np.random.default_rng(config.seed)
 
     generation_rows: list[pd.DataFrame] = []

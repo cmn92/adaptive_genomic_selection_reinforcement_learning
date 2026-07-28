@@ -3,12 +3,12 @@ from dataclasses import dataclass
 from pathlib import Path
 import pandas as pd
 
-from src.environment.reward import RewardConfig
 from src.evaluation.compare_strategies import StrategyComparisonConfig, compare_strategies
 from src.evaluation.metrics import summarize_all_replicates
 from src.evaluation.run_rl_strategy import RLStrategyEvaluationConfig, evaluate_frozen_rl_strategy
 from src.rl.discretizer import compact_breeding_discretizer
 from src.rl.linear_q import LinearQAgent
+from src.rl.low_h2_setup import make_gain_reward_config
 from src.rl.q_learning import load_q_agent
 
 
@@ -27,6 +27,11 @@ def compare_all_five_strategies(
     number_of_generations: int = 20,
     number_to_phenotype: int = 200,
     base_seed: int = 20001,
+    trait_heritability: float | None = None,
+    population_size: int | None = None,
+    number_of_parents: int = 20,
+    number_of_crosses: int = 100,
+    dh_per_f1: int = 10,
 ) -> FiveStrategyComparisonResult:
     project_root = Path(project_root).expanduser().resolve()
     agent = load_q_agent(agent_path)
@@ -42,16 +47,18 @@ def compare_all_five_strategies(
             number_of_replicates=number_of_replicates,
             number_of_generations=number_of_generations,
             number_to_phenotype=number_to_phenotype,
-            number_of_parents=20,
-            number_of_crosses=100,
+            number_of_parents=number_of_parents,
+            number_of_crosses=number_of_crosses,
             f1_per_cross=1,
-            dh_per_f1=10,
+            dh_per_f1=dh_per_f1,
             reps=1,
             trait=1,
             snp_chip=1,
             active_initial_batch_size=50,
             n_cores=1,
             base_seed=base_seed,
+            trait_heritability=trait_heritability,
+            population_size=population_size,
         ),
     )
 
@@ -65,14 +72,14 @@ def compare_all_five_strategies(
             batch_size=25,
             minimum_training_size=50,
             maximum_phenotypes=number_to_phenotype,
+            number_of_parents=number_of_parents,
+            number_of_crosses=number_of_crosses,
+            dh_per_f1=dh_per_f1,
             base_seed=base_seed,
+            trait_heritability=trait_heritability,
+            population_size=population_size,
         ),
-        reward_config=RewardConfig(
-            # The baseline strategies all use a fixed phenotyping budget.
-            # Disable cost pressure here so RL is compared on batch choice,
-            # not on its ability to spend less than the baselines.
-            phenotyping_cost_weight=0.0,
-        ),
+        reward_config=make_gain_reward_config(),
     )
 
     generation_results = pd.concat(

@@ -58,6 +58,8 @@ class StrategyComparisonConfig:
     active_initial_batch_size: int = 50
     n_cores: int = 1
     base_seed: int = 1001
+    trait_heritability: float | None = None
+    population_size: int | None = None
 
     def __post_init__(self) -> None:
         integer_fields = {
@@ -78,6 +80,9 @@ class StrategyComparisonConfig:
             "base_seed": self.base_seed,
         }
 
+        if self.population_size is not None:
+            integer_fields["population_size"] = self.population_size
+
         for name, value in integer_fields.items():
             if isinstance(value, (bool, np.bool_)):
                 raise TypeError(f"'{name}' must be an integer.")
@@ -94,6 +99,26 @@ class StrategyComparisonConfig:
                 "'active_initial_batch_size' must be smaller than "
                 "'number_to_phenotype'."
             )
+
+        if (
+            self.population_size is not None
+            and self.number_to_phenotype > self.population_size
+        ):
+            raise ValueError(
+                "'number_to_phenotype' cannot exceed 'population_size'."
+            )
+
+        if self.trait_heritability is not None:
+            heritability = float(self.trait_heritability)
+            if (
+                not np.isfinite(heritability)
+                or heritability <= 0.0
+                or heritability > 1.0
+            ):
+                raise ValueError(
+                    "'trait_heritability' must be greater than zero and at "
+                    "most one."
+                )
 
 
 @dataclass
@@ -236,6 +261,8 @@ def compare_strategies(
                     snp_chip=config.snp_chip,
                     n_cores=config.n_cores,
                     seed=replicate_seed,
+                    trait_heritability=config.trait_heritability,
+                    population_size=config.population_size,
                 )
 
                 run_result = run_active_strategy(
@@ -264,6 +291,8 @@ def compare_strategies(
                     trait=config.trait,
                     seed=replicate_seed,
                     include_markers=include_markers,
+                    trait_heritability=config.trait_heritability,
+                    population_size=config.population_size,
                 )
 
                 run_result = run_strategy(

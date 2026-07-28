@@ -34,6 +34,8 @@ class RLStrategyEvaluationConfig:
     base_seed: int = 20001
     maximum_steps_per_episode: int = 200
     strategy_name: str = "linear_q_learning"
+    trait_heritability: float | None = None
+    population_size: int | None = None
 
 
 @dataclass
@@ -113,6 +115,8 @@ def evaluate_frozen_rl_strategy(
                 snp_chip=config.snp_chip,
                 n_cores=config.n_cores,
                 seed=seed,
+                trait_heritability=config.trait_heritability,
+                population_size=config.population_size,
             ),
             reward_config=reward_config,
         )

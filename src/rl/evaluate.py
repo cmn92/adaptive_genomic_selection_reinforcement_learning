@@ -14,7 +14,7 @@ from typing import Any
 import numpy as np
 import pandas as pd
 
-from src.environment.actions import action_name
+from src.environment.actions import PhenotypingAction, action_name
 from src.environment.breeding_env import BreedingEnv
 from src.rl.discretizer import ObservationDiscretizer
 from src.rl.linear_q import LinearQAgent
@@ -119,8 +119,45 @@ def evaluate_q_learning(
                     "action_name": (
                         action_name(action)
                     ),
+                    "model_available_before": bool(
+                        info.get("model_available", False)
+                    ),
+                    "uncertainty_available_before": bool(
+                        info.get("uncertainty_available", False)
+                    ),
+                    "finite_pev_count_before": int(
+                        info.get("finite_pev_count", 0)
+                    ),
+                    "mean_pev_before": float(
+                        info.get("mean_pev", 0.0)
+                    ),
+                    "max_pev_before": float(
+                        info.get("max_pev", 0.0)
+                    ),
+                    "mean_reliability_before": float(
+                        info.get("mean_reliability", 0.0)
+                    ),
+                    "mask_random_before": bool(
+                        action_mask[int(PhenotypingAction.RANDOM)]
+                    ),
+                    "mask_diversity_before": bool(
+                        action_mask[int(PhenotypingAction.DIVERSITY)]
+                    ),
+                    "mask_highest_pev_before": bool(
+                        action_mask[int(PhenotypingAction.HIGHEST_PEV)]
+                    ),
+                    "mask_highest_gebv_before": bool(
+                        action_mask[int(PhenotypingAction.HIGHEST_GEBV)]
+                    ),
+                    "mask_stop_before": bool(
+                        action_mask[int(PhenotypingAction.STOP)]
+                    ),
                     "reward": float(reward),
                     "event": next_info["event"],
+                    "uncertainty_error": info.get(
+                        "uncertainty_error",
+                        "",
+                    ),
                 }
             )
 
