@@ -13,6 +13,7 @@ from itertools import product
 from pathlib import Path
 
 from src.evaluation.pre_rl_switching import (
+    SwitchingPolicyConfig,
     SwitchingScenario,
     run_pre_rl_switching_analysis,
     save_pre_rl_switching_analysis,
@@ -23,7 +24,7 @@ def parse_args() -> argparse.Namespace:
     """Parse command-line arguments."""
     parser = argparse.ArgumentParser(
         description=(
-            "Run fixed-strategy and oracle-switching experiments before "
+            "Run fixed-strategy and empirical switching experiments before "
             "training RL."
         )
     )
@@ -42,11 +43,16 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument(
         "--scenario-mode",
-        choices=["compact", "full-factorial"],
+        choices=[
+            "compact",
+            "full-factorial",
+            "confirmatory-low-h2",
+        ],
         default="compact",
         help=(
             "compact varies one factor at a time around a base scenario; "
-            "full-factorial runs every combination."
+            "full-factorial runs every combination; confirmatory-low-h2 "
+            "focuses on promising low-heritability conditions."
         ),
     )
     parser.add_argument(
@@ -99,6 +105,29 @@ def parse_args() -> argparse.Namespace:
         type=int,
         default=30001,
         help="First scenario's base random seed.",
+    )
+    parser.add_argument(
+        "--switching-policy",
+        choices=[
+            "one_step_greedy",
+            "averaged_one_step",
+            "rollout_to_end",
+        ],
+        default="one_step_greedy",
+        help=(
+            "Empirical switching policy for Phase 2. "
+            "rollout_to_end scores each first action by continuing with "
+            "the best fixed strategy."
+        ),
+    )
+    parser.add_argument(
+        "--action-repeats",
+        type=int,
+        default=1,
+        help=(
+            "Number of stochastic draws per candidate action for "
+            "averaged_one_step or rollout_to_end scoring."
+        ),
     )
     parser.add_argument(
         "--output-directory",
@@ -254,6 +283,43 @@ def build_scenarios(
                 args.diversity_losses,
             )
         )
+    elif args.scenario_mode == "confirmatory-low-h2":
+        low_h2 = [
+            value
+            for value in args.heritabilities
+            if value <= 0.2
+        ] or [0.05, 0.1, 0.2]
+        budgets = [
+            value
+            for value in args.budgets
+            if value in {75, 200}
+        ] or [75, 200]
+        populations = [
+            value
+            for value in args.population_sizes
+            if value in {500, 1000}
+        ] or [500, 1000]
+        parents = [
+            value
+            for value in args.parents
+            if value in {20, 40}
+        ] or [20, 40]
+        generations = [preferred_value(args.generations, 8)]
+        losses = [
+            value
+            for value in args.diversity_losses
+            if value in {"standard", "strong"}
+        ] or ["standard"]
+        scenario_specs = list(
+            product(
+                low_h2,
+                budgets,
+                populations,
+                parents,
+                generations,
+                losses,
+            )
+        )
     else:
         specs: list[tuple[float, int, int, int, int, str]] = []
 
@@ -334,6 +400,20 @@ def build_scenarios(
         ) in enumerate(scenario_specs)
     ]
 
+    if args.scenario_mode == "confirmatory-low-h2":
+        scenarios = [
+            SwitchingScenario(
+                **{
+                    **scenario.__dict__,
+                    "number_of_replicates": max(
+                        args.replicates,
+                        20,
+                    ),
+                }
+            )
+            for scenario in scenarios
+        ]
+
     return scenarios
 
 
@@ -350,6 +430,10 @@ def main() -> None:
     result = run_pre_rl_switching_analysis(
         project_root=project_root,
         scenarios=build_scenarios(args),
+        switching_policy=SwitchingPolicyConfig(
+            policy=args.switching_policy,
+            action_repeats=args.action_repeats,
+        ),
         population_file=args.population_file,
     )
     paths = save_pre_rl_switching_analysis(

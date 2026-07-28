@@ -7,9 +7,8 @@ Phase 1 asks whether the best fixed phenotyping strategy changes across
 generations or breeding conditions.
 
 Phase 2 estimates the value of switching by comparing the best fixed strategy
-against an oracle that branches from the same population state, tries each
-available strategy for one generation, and commits the strategy with the
-largest immediate realized genetic gain.
+against one practical switching policy. These policies are empirical decision
+rules, not globally optimal oracles.
 """
 
 from __future__ import annotations
@@ -153,19 +152,69 @@ class SwitchingScenario:
                 )
 
 
+@dataclass(frozen=True)
+class SwitchingPolicyConfig:
+    """Configuration for the empirical switching policy."""
+
+    policy: str = "one_step_greedy"
+    action_repeats: int = 1
+    rollout_continuation: str = "best_fixed"
+
+    def __post_init__(self) -> None:
+        if self.policy not in {
+            "one_step_greedy",
+            "averaged_one_step",
+            "rollout_to_end",
+        }:
+            raise ValueError(
+                "'policy' must be 'one_step_greedy', "
+                "'averaged_one_step', or 'rollout_to_end'."
+            )
+
+        if (
+            isinstance(self.action_repeats, bool)
+            or not isinstance(self.action_repeats, (int, np.integer))
+            or self.action_repeats < 1
+        ):
+            raise ValueError(
+                "'action_repeats' must be a positive integer."
+            )
+
+        if self.rollout_continuation != "best_fixed":
+            raise ValueError(
+                "Only rollout_continuation='best_fixed' is currently "
+                "implemented."
+            )
+
+    @property
+    def strategy_name(self) -> str:
+        """Return the strategy label used in output tables."""
+        if self.policy == "one_step_greedy":
+            return "one_step_greedy_switching"
+
+        if self.policy == "averaged_one_step":
+            return (
+                f"averaged_one_step_switching_"
+                f"{self.action_repeats}_draws"
+            )
+
+        return "rollout_to_end_switching"
+
+
 @dataclass
 class SwitchingAnalysisResult:
     """Outputs from the pre-RL switching-value analysis."""
 
     scenarios: list[SwitchingScenario]
+    switching_policy: SwitchingPolicyConfig
     fixed_generation_results: pd.DataFrame
     fixed_replicate_results: pd.DataFrame
     generation_winners: pd.DataFrame
     switching_summary: pd.DataFrame
-    oracle_generation_results: pd.DataFrame
-    oracle_replicate_results: pd.DataFrame
-    oracle_trial_results: pd.DataFrame
-    oracle_advantage: pd.DataFrame
+    switching_generation_results: pd.DataFrame
+    switching_replicate_results: pd.DataFrame
+    switching_trial_results: pd.DataFrame
+    switching_advantage: pd.DataFrame
     total_runtime_seconds: float
 
 
@@ -447,29 +496,81 @@ def calculate_generation_winners(
         generation_results.groupby(
             ["scenario", "generation", "strategy"],
             as_index=False,
-        )[metric]
-        .mean()
-        .rename(columns={metric: f"mean_{metric}"})
+        )
+        .agg(
+            mean_metric=(metric, "mean"),
+            standard_deviation=(metric, "std"),
+            count=(metric, "count"),
+        )
     )
+    grouped["standard_error"] = (
+        grouped["standard_deviation"]
+        / np.sqrt(grouped["count"])
+    )
+    grouped["standard_error"] = grouped[
+        "standard_error"
+    ].fillna(0.0)
 
     grouped = grouped.sort_values(
-        ["scenario", "generation", f"mean_{metric}", "strategy"],
+        ["scenario", "generation", "mean_metric", "strategy"],
         ascending=[True, True, False, True],
     )
 
-    winners = (
-        grouped.groupby(
-            ["scenario", "generation"],
-            as_index=False,
-        )
-        .head(1)
-        .reset_index(drop=True)
-    )
-    winners = winners.rename(
-        columns={"strategy": "best_strategy"}
-    )
+    rows: list[dict[str, Any]] = []
 
-    return winners
+    for (scenario, generation), group in grouped.groupby(
+        ["scenario", "generation"],
+        sort=True,
+    ):
+        ordered = group.sort_values(
+            ["mean_metric", "strategy"],
+            ascending=[False, True],
+        ).reset_index(drop=True)
+        winner = ordered.iloc[0]
+        runner_up = (
+            ordered.iloc[1]
+            if len(ordered) > 1
+            else None
+        )
+        runner_up_strategy = (
+            str(runner_up["strategy"])
+            if runner_up is not None
+            else ""
+        )
+        runner_up_mean = (
+            float(runner_up["mean_metric"])
+            if runner_up is not None
+            else np.nan
+        )
+
+        rows.append(
+            {
+                "scenario": scenario,
+                "generation": int(generation),
+                "best_strategy": str(winner["strategy"]),
+                f"best_mean_{metric}": float(
+                    winner["mean_metric"]
+                ),
+                "best_standard_error": float(
+                    winner["standard_error"]
+                ),
+                "winner_replicates": int(winner["count"]),
+                "runner_up_strategy": runner_up_strategy,
+                f"runner_up_mean_{metric}": runner_up_mean,
+                "winner_margin": (
+                    float(winner["mean_metric"])
+                    - runner_up_mean
+                    if runner_up is not None
+                    else np.nan
+                ),
+                "low_replication_warning": int(
+                    winner["count"]
+                )
+                < 20,
+            }
+        )
+
+    return pd.DataFrame(rows)
 
 
 def summarize_switching_patterns(
@@ -498,6 +599,18 @@ def summarize_switching_patterns(
                 "number_of_unique_winners": len(set(winners)),
                 "number_of_strategy_switches": transitions,
                 "switching_detected": transitions > 0,
+                "minimum_winner_margin": float(
+                    ordered["winner_margin"].min()
+                ),
+                "median_winner_margin": float(
+                    ordered["winner_margin"].median()
+                ),
+                "minimum_winner_replicates": int(
+                    ordered["winner_replicates"].min()
+                ),
+                "low_replication_warning": bool(
+                    ordered["low_replication_warning"].any()
+                ),
                 "winner_sequence": " -> ".join(winners),
             }
         )
@@ -505,22 +618,119 @@ def summarize_switching_patterns(
     return pd.DataFrame(rows)
 
 
-def run_oracle_switching(
+def best_fixed_strategy_by_scenario(
+    fixed_replicate_results: pd.DataFrame,
+) -> dict[str, str]:
+    """Return the best fixed strategy name for each scenario."""
+    means = (
+        fixed_replicate_results.groupby(
+            ["scenario", "strategy"],
+            as_index=False,
+        )["total_realized_genetic_gain"]
+        .mean()
+        .rename(
+            columns={
+                "total_realized_genetic_gain": "mean_total_gain"
+            }
+        )
+    )
+
+    winners: dict[str, str] = {}
+
+    for scenario, group in means.groupby("scenario", sort=True):
+        winner = group.sort_values(
+            ["mean_total_gain", "strategy"],
+            ascending=[False, True],
+        ).iloc[0]
+        winners[str(scenario)] = str(winner["strategy"])
+
+    return winners
+
+
+def _trajectory_total_gain(
+    rows: list[pd.DataFrame],
+) -> float:
+    """Return total gain over a temporary trajectory."""
+    trajectory = pd.concat(
+        rows,
+        ignore_index=True,
+        sort=False,
+    )
+    first = trajectory.iloc[0]
+    last = trajectory.iloc[-1]
+    return float(
+        last["next_generation_mean_gv"]
+        - first["population_mean_gv_before"]
+    )
+
+
+def _score_candidate_strategy(
+    *,
+    bridge: RBreedingBridge,
+    state_path: Path,
+    strategy: BasePhenotypingStrategy | ActiveLearningStrategy,
+    scenario: SwitchingScenario,
+    generation: int,
+    run_seed: int,
+    strategy_seed: int,
+    policy_config: SwitchingPolicyConfig,
+    continuation_strategy: BasePhenotypingStrategy | ActiveLearningStrategy,
+) -> tuple[pd.DataFrame, float]:
+    """Score one first-generation candidate strategy."""
+    bridge.load_program_state(state_path)
+    first_summary = _run_one_generation(
+        bridge=bridge,
+        strategy=strategy,
+        scenario=scenario,
+        rng=np.random.default_rng(strategy_seed),
+        seed=run_seed + generation - 1,
+    )
+
+    if policy_config.policy != "rollout_to_end":
+        return first_summary, float(
+            first_summary.loc[0, "realized_genetic_gain"]
+        )
+
+    rollout_rows = [first_summary]
+
+    for future_generation in range(
+        generation + 1,
+        scenario.number_of_generations + 1,
+    ):
+        continuation_seed = (
+            strategy_seed
+            + future_generation * 1000
+        )
+        continuation_summary = _run_one_generation(
+            bridge=bridge,
+            strategy=continuation_strategy,
+            scenario=scenario,
+            rng=np.random.default_rng(continuation_seed),
+            seed=run_seed + future_generation - 1,
+        )
+        rollout_rows.append(continuation_summary)
+
+    return first_summary, _trajectory_total_gain(rollout_rows)
+
+
+def run_switching_policy(
     *,
     project_root: str | Path,
     scenarios: list[SwitchingScenario],
+    policy_config: SwitchingPolicyConfig,
+    best_fixed_by_scenario: dict[str, str],
     population_file: str | Path = "data/initial_candidate_population.RData",
 ) -> tuple[pd.DataFrame, pd.DataFrame]:
     """
-    Run a same-state one-generation oracle for each scenario replicate.
+    Run a same-state empirical switching policy for each replicate.
 
     Returns
     -------
     tuple
-        Chosen oracle generation rows and all one-step trial rows.
+        Chosen switching generation rows and all trial rows.
     """
     project_root = Path(project_root).expanduser().resolve()
-    oracle_rows: list[pd.DataFrame] = []
+    switching_rows: list[pd.DataFrame] = []
     trial_rows: list[pd.DataFrame] = []
 
     with TemporaryDirectory() as temporary:
@@ -545,7 +755,8 @@ def run_oracle_switching(
                     print(
                         f"\n[Phase 2] {scenario.name} | replicate "
                         f"{replicate}/{scenario.number_of_replicates} | "
-                        f"oracle generation {generation}"
+                        f"{policy_config.strategy_name} generation "
+                        f"{generation}"
                     )
 
                     state_path = temporary_root / (
@@ -555,36 +766,76 @@ def run_oracle_switching(
                     bridge.save_program_state(state_path)
 
                     candidate_rows: list[pd.DataFrame] = []
-                    strategy_seeds: dict[str, int] = {}
+                    strategy_seed_by_name: dict[str, int] = {}
+                    strategy_score_by_name: dict[str, float] = {}
 
                     for strategy_index, (
                         strategy_name,
                         strategy,
                     ) in enumerate(strategies.items()):
-                        bridge.load_program_state(state_path)
-                        strategy_seed = (
-                            seed
-                            + generation * 1000
-                            + strategy_index
+                        repeat_scores: list[float] = []
+                        repeat_count = (
+                            1
+                            if policy_config.policy == "one_step_greedy"
+                            else policy_config.action_repeats
                         )
-                        strategy_seeds[strategy_name] = strategy_seed
-                        summary = _run_one_generation(
-                            bridge=bridge,
-                            strategy=strategy,
-                            scenario=scenario,
-                            rng=np.random.default_rng(strategy_seed),
-                            seed=seed + generation - 1,
+
+                        for repeat in range(
+                            repeat_count
+                        ):
+                            strategy_seed = (
+                                seed
+                                + generation * 1000
+                                + strategy_index * 100
+                                + repeat
+                            )
+                            strategy_seed_by_name.setdefault(
+                                strategy_name,
+                                strategy_seed,
+                            )
+                            continuation_name = (
+                                best_fixed_by_scenario[scenario.name]
+                            )
+                            summary, score = _score_candidate_strategy(
+                                bridge=bridge,
+                                state_path=state_path,
+                                strategy=strategy,
+                                scenario=scenario,
+                                generation=generation,
+                                run_seed=seed,
+                                strategy_seed=strategy_seed,
+                                policy_config=policy_config,
+                                continuation_strategy=strategies[
+                                    continuation_name
+                                ],
+                            )
+                            repeat_scores.append(score)
+                            summary = _add_context(
+                                summary,
+                                scenario=scenario,
+                                replicate=replicate,
+                                seed=seed,
+                            )
+                            summary["switching_trial_strategy"] = (
+                                strategy_name
+                            )
+                            summary["switching_trial_repeat"] = (
+                                repeat + 1
+                            )
+                            summary["switching_trial_score"] = score
+                            summary["switching_policy"] = (
+                                policy_config.strategy_name
+                            )
+                            summary["rollout_continuation"] = (
+                                policy_config.rollout_continuation
+                                if policy_config.policy == "rollout_to_end"
+                                else ""
+                            )
+                            candidate_rows.append(summary)
+
+                        strategy_score_by_name[strategy_name] = float(
+                            np.mean(repeat_scores)
                         )
-                        summary = _add_context(
-                            summary,
-                            scenario=scenario,
-                            replicate=replicate,
-                            seed=seed,
-                        )
-                        summary["oracle_trial_strategy"] = (
-                            strategy_name
-                        )
-                        candidate_rows.append(summary)
 
                     trial_table = pd.concat(
                         candidate_rows,
@@ -593,18 +844,12 @@ def run_oracle_switching(
                     )
                     trial_rows.append(trial_table)
 
-                    best_index = (
-                        pd.to_numeric(
-                            trial_table["realized_genetic_gain"],
-                            errors="coerce",
-                        )
-                        .idxmax()
-                    )
-                    best_strategy = str(
-                        trial_table.loc[
-                            best_index,
-                            "oracle_trial_strategy",
-                        ]
+                    best_strategy = max(
+                        strategy_score_by_name,
+                        key=lambda name: (
+                            strategy_score_by_name[name],
+                            name,
+                        ),
                     )
 
                     bridge.load_program_state(state_path)
@@ -613,7 +858,7 @@ def run_oracle_switching(
                         strategy=strategies[best_strategy],
                         scenario=scenario,
                         rng=np.random.default_rng(
-                            strategy_seeds[best_strategy]
+                            strategy_seed_by_name[best_strategy]
                         ),
                         seed=seed + generation - 1,
                     )
@@ -624,33 +869,42 @@ def run_oracle_switching(
                         seed=seed,
                     )
                     committed_summary["strategy"] = (
-                        "oracle_switching"
+                        policy_config.strategy_name
                     )
-                    committed_summary["oracle_chosen_strategy"] = (
+                    committed_summary["switching_chosen_strategy"] = (
                         best_strategy
                     )
-                    oracle_rows.append(committed_summary)
+                    committed_summary["switching_policy"] = (
+                        policy_config.strategy_name
+                    )
+                    committed_summary["chosen_strategy_score"] = (
+                        strategy_score_by_name[best_strategy]
+                    )
+                    committed_summary["best_fixed_continuation"] = (
+                        best_fixed_by_scenario[scenario.name]
+                    )
+                    switching_rows.append(committed_summary)
 
-    oracle_generation_results = pd.concat(
-        oracle_rows,
+    switching_generation_results = pd.concat(
+        switching_rows,
         ignore_index=True,
         sort=False,
     )
-    oracle_trial_results = pd.concat(
+    switching_trial_results = pd.concat(
         trial_rows,
         ignore_index=True,
         sort=False,
     )
 
-    return oracle_generation_results, oracle_trial_results
+    return switching_generation_results, switching_trial_results
 
 
-def calculate_oracle_advantage(
+def calculate_switching_advantage(
     *,
     fixed_replicate_results: pd.DataFrame,
-    oracle_replicate_results: pd.DataFrame,
+    switching_replicate_results: pd.DataFrame,
 ) -> pd.DataFrame:
-    """Compare oracle switching against the best fixed strategy."""
+    """Compare switching against best fixed and report a safe ceiling."""
     rows: list[dict[str, Any]] = []
 
     fixed_means = (
@@ -666,16 +920,16 @@ def calculate_oracle_advantage(
         )
     )
 
-    oracle_means = (
-        oracle_replicate_results.groupby(
-            "scenario",
+    switching_means = (
+        switching_replicate_results.groupby(
+            ["scenario", "strategy"],
             as_index=False,
         )["total_realized_genetic_gain"]
         .mean()
         .rename(
             columns={
                 "total_realized_genetic_gain": (
-                    "oracle_mean_total_gain"
+                    "switching_mean_total_gain"
                 )
             }
         )
@@ -686,23 +940,33 @@ def calculate_oracle_advantage(
             ["mean_total_gain", "strategy"],
             ascending=[False, True],
         ).iloc[0]
-        oracle_row = oracle_means[
-            oracle_means["scenario"] == scenario
+        switching_row = switching_means[
+            switching_means["scenario"] == scenario
         ].iloc[0]
+        switching_gain = float(
+            switching_row["switching_mean_total_gain"]
+        )
+        best_fixed_gain = float(best_fixed["mean_total_gain"])
+        ceiling_gain = max(switching_gain, best_fixed_gain)
 
         rows.append(
             {
                 "scenario": scenario,
+                "switching_policy": switching_row["strategy"],
                 "best_fixed_strategy": best_fixed["strategy"],
-                "best_fixed_mean_total_gain": float(
-                    best_fixed["mean_total_gain"]
+                "best_fixed_mean_total_gain": best_fixed_gain,
+                "switching_mean_total_gain": switching_gain,
+                "raw_switching_advantage": float(
+                    switching_gain - best_fixed_gain
                 ),
-                "oracle_mean_total_gain": float(
-                    oracle_row["oracle_mean_total_gain"]
+                "ceiling_mean_total_gain": ceiling_gain,
+                "ceiling_advantage": float(
+                    ceiling_gain - best_fixed_gain
                 ),
-                "oracle_gain_advantage": float(
-                    oracle_row["oracle_mean_total_gain"]
-                    - best_fixed["mean_total_gain"]
+                "ceiling_source": (
+                    "switching_policy"
+                    if switching_gain >= best_fixed_gain
+                    else "best_fixed_floor"
                 ),
             }
         )
@@ -714,10 +978,12 @@ def run_pre_rl_switching_analysis(
     *,
     project_root: str | Path,
     scenarios: list[SwitchingScenario] | None = None,
+    switching_policy: SwitchingPolicyConfig | None = None,
     population_file: str | Path = "data/initial_candidate_population.RData",
 ) -> SwitchingAnalysisResult:
     """Run Phase 1 and Phase 2 pre-RL switching analysis."""
     scenarios = scenarios or default_switching_scenarios()
+    switching_policy = switching_policy or SwitchingPolicyConfig()
     start = perf_counter()
 
     fixed_generation_results = run_fixed_strategy_panel(
@@ -735,31 +1001,37 @@ def run_pre_rl_switching_analysis(
         generation_winners
     )
 
-    oracle_generation_results, oracle_trial_results = (
-        run_oracle_switching(
+    best_fixed_by_scenario = best_fixed_strategy_by_scenario(
+        fixed_replicate_results
+    )
+    switching_generation_results, switching_trial_results = (
+        run_switching_policy(
             project_root=project_root,
             scenarios=scenarios,
+            policy_config=switching_policy,
+            best_fixed_by_scenario=best_fixed_by_scenario,
             population_file=population_file,
         )
     )
-    oracle_replicate_results = _summarize_by_scenario(
-        oracle_generation_results
+    switching_replicate_results = _summarize_by_scenario(
+        switching_generation_results
     )
-    oracle_advantage = calculate_oracle_advantage(
+    switching_advantage = calculate_switching_advantage(
         fixed_replicate_results=fixed_replicate_results,
-        oracle_replicate_results=oracle_replicate_results,
+        switching_replicate_results=switching_replicate_results,
     )
 
     return SwitchingAnalysisResult(
         scenarios=scenarios,
+        switching_policy=switching_policy,
         fixed_generation_results=fixed_generation_results,
         fixed_replicate_results=fixed_replicate_results,
         generation_winners=generation_winners,
         switching_summary=switching_summary,
-        oracle_generation_results=oracle_generation_results,
-        oracle_replicate_results=oracle_replicate_results,
-        oracle_trial_results=oracle_trial_results,
-        oracle_advantage=oracle_advantage,
+        switching_generation_results=switching_generation_results,
+        switching_replicate_results=switching_replicate_results,
+        switching_trial_results=switching_trial_results,
+        switching_advantage=switching_advantage,
         total_runtime_seconds=perf_counter() - start,
     )
 
@@ -782,24 +1054,29 @@ def save_pre_rl_switching_analysis(
         "fixed_replicate_results": (
             raw / "fixed_replicate_results.csv"
         ),
-        "oracle_generation_results": (
-            raw / "oracle_generation_results.csv"
+        "switching_generation_results": (
+            raw / "switching_generation_results.csv"
         ),
-        "oracle_trial_results": raw / "oracle_trial_results.csv",
+        "switching_trial_results": (
+            raw / "switching_trial_results.csv"
+        ),
         "generation_winners": (
             processed / "generation_winners.csv"
         ),
         "switching_summary": (
             processed / "switching_summary.csv"
         ),
-        "oracle_replicate_results": (
-            processed / "oracle_replicate_results.csv"
+        "switching_replicate_results": (
+            processed / "switching_replicate_results.csv"
         ),
-        "oracle_advantage": (
-            processed / "oracle_advantage.csv"
+        "switching_advantage": (
+            processed / "switching_advantage.csv"
         ),
         "scenario_configuration": (
             raw / "scenario_configuration.csv"
+        ),
+        "switching_policy_configuration": (
+            raw / "switching_policy_configuration.csv"
         ),
         "report": output_directory / "pre_rl_switching_report.md",
     }
@@ -812,12 +1089,12 @@ def save_pre_rl_switching_analysis(
         paths["fixed_replicate_results"],
         index=False,
     )
-    result.oracle_generation_results.to_csv(
-        paths["oracle_generation_results"],
+    result.switching_generation_results.to_csv(
+        paths["switching_generation_results"],
         index=False,
     )
-    result.oracle_trial_results.to_csv(
-        paths["oracle_trial_results"],
+    result.switching_trial_results.to_csv(
+        paths["switching_trial_results"],
         index=False,
     )
     result.generation_winners.to_csv(
@@ -828,12 +1105,12 @@ def save_pre_rl_switching_analysis(
         paths["switching_summary"],
         index=False,
     )
-    result.oracle_replicate_results.to_csv(
-        paths["oracle_replicate_results"],
+    result.switching_replicate_results.to_csv(
+        paths["switching_replicate_results"],
         index=False,
     )
-    result.oracle_advantage.to_csv(
-        paths["oracle_advantage"],
+    result.switching_advantage.to_csv(
+        paths["switching_advantage"],
         index=False,
     )
     pd.DataFrame(
@@ -842,6 +1119,14 @@ def save_pre_rl_switching_analysis(
         total_runtime_seconds=result.total_runtime_seconds
     ).to_csv(
         paths["scenario_configuration"],
+        index=False,
+    )
+    pd.DataFrame(
+        [result.switching_policy.__dict__]
+    ).assign(
+        strategy_name=result.switching_policy.strategy_name
+    ).to_csv(
+        paths["switching_policy_configuration"],
         index=False,
     )
 
@@ -864,18 +1149,19 @@ def _render_report(
         "",
         _plain_table(result.switching_summary),
         "",
-        "## Phase 2: Best Fixed Strategy vs Oracle Switching",
+        "## Phase 2: Best Fixed Strategy vs Empirical Switching",
         "",
-        _plain_table(result.oracle_advantage),
+        _plain_table(result.switching_advantage),
         "",
         "## Interpretation",
         "",
         (
-            "If the winner sequence rarely changes, a fixed heuristic may be "
-            "enough. If oracle switching has little advantage over the best "
-            "fixed strategy, RL has little room to improve. If winner "
-            "sequences change and oracle advantage is large, then RL has a "
-            "meaningful switching problem to learn."
+            "The switching policy is not a mathematically perfect oracle. "
+            "Use raw_switching_advantage to see how the empirical policy "
+            "performed, and ceiling_advantage to see the nonnegative upper "
+            "candidate obtained by flooring at the best fixed strategy. "
+            "Winner sequences with low_replication_warning=True should be "
+            "treated as exploratory rather than conclusive."
         ),
         "",
         "Total runtime seconds: "

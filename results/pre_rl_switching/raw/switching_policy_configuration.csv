@@ -1,0 +1,2 @@
+policy,action_repeats,rollout_continuation,strategy_name
+averaged_one_step,5,best_fixed,averaged_one_step_switching_5_draws
