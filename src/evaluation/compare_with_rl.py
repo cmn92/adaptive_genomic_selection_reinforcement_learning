@@ -32,6 +32,7 @@ def compare_all_five_strategies(
     number_of_parents: int = 20,
     number_of_crosses: int = 100,
     dh_per_f1: int = 10,
+    reps: int = 1,
 ) -> FiveStrategyComparisonResult:
     project_root = Path(project_root).expanduser().resolve()
     agent = load_q_agent(agent_path)
@@ -51,7 +52,7 @@ def compare_all_five_strategies(
             number_of_crosses=number_of_crosses,
             f1_per_cross=1,
             dh_per_f1=dh_per_f1,
-            reps=1,
+            reps=reps,
             trait=1,
             snp_chip=1,
             active_initial_batch_size=50,
@@ -75,6 +76,7 @@ def compare_all_five_strategies(
             number_of_parents=number_of_parents,
             number_of_crosses=number_of_crosses,
             dh_per_f1=dh_per_f1,
+            reps=reps,
             base_seed=base_seed,
             trait_heritability=trait_heritability,
             population_size=population_size,

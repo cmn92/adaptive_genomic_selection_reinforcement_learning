@@ -134,6 +134,7 @@ def train_q_learning(
         finalized_generations = 0
         final_gain = np.nan
         final_variance_retention = np.nan
+        episode_total_genetic_gain = 0.0
         action_counts = np.zeros(
             agent.number_of_actions,
             dtype=np.int64,
@@ -215,6 +216,7 @@ def train_q_learning(
                         "realized_genetic_gain"
                     ]
                 )
+                episode_total_genetic_gain += final_gain
                 final_variance_retention = float(
                     next_info[
                         "variance_retention"
@@ -244,6 +246,15 @@ def train_q_learning(
                 ),
                 "final_generation_gain": (
                     final_gain
+                ),
+                "episode_total_genetic_gain": (
+                    episode_total_genetic_gain
+                ),
+                "episode_mean_generation_gain": (
+                    episode_total_genetic_gain
+                    / finalized_generations
+                    if finalized_generations > 0
+                    else np.nan
                 ),
                 "final_variance_retention": (
                     final_variance_retention

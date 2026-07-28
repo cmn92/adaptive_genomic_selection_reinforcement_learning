@@ -43,6 +43,7 @@ def make_low_h2_environment_config(
     number_of_crosses: int = DEFAULT_LOW_H2_CROSSES,
     f1_per_cross: int = DEFAULT_LOW_H2_F1_PER_CROSS,
     dh_per_f1: int = DEFAULT_LOW_H2_DH_PER_F1,
+    reps: int = 1,
     n_cores: int = 1,
     seed: int = DEFAULT_LOW_H2_SEED,
 ) -> BreedingEnvConfig:
@@ -56,7 +57,7 @@ def make_low_h2_environment_config(
         number_of_crosses=number_of_crosses,
         f1_per_cross=f1_per_cross,
         dh_per_f1=dh_per_f1,
-        reps=1,
+        reps=reps,
         trait=1,
         snp_chip=1,
         n_cores=n_cores,
@@ -70,11 +71,11 @@ def make_gain_reward_config() -> RewardConfig:
     """Return the no-cost, realized-gain RL reward used for fair comparison."""
     return RewardConfig(
         genetic_gain_weight=2.0,
-        variance_retention_weight=0.8,
+        variance_retention_weight=0.1,
         phenotyping_cost_weight=0.0,
         reliability_improvement_weight=0.0,
         invalid_action_penalty=1.0,
-        gain_scale=5.0,
+        gain_scale=0.15,
     )
 
 
@@ -86,6 +87,7 @@ def make_low_h2_env(
     population_size: int = DEFAULT_LOW_H2_POPULATION_SIZE,
     generations: int = DEFAULT_LOW_H2_GENERATIONS,
     maximum_phenotypes: int = DEFAULT_LOW_H2_BUDGET,
+    reps: int = 1,
     n_cores: int = 1,
     reward_config: RewardConfig | None = None,
     population_file: str | Path = "data/initial_candidate_population.RData",
@@ -101,6 +103,7 @@ def make_low_h2_env(
         population_size=population_size,
         generations=generations,
         maximum_phenotypes=maximum_phenotypes,
+        reps=reps,
         n_cores=n_cores,
         seed=seed,
     )

@@ -130,6 +130,7 @@ def run_pev_diagnostic(
     heritability: float,
     population_size: int,
     generations: int,
+    phenotype_reps: int,
     maximum_steps: int,
     n_cores: int,
 ) -> pd.DataFrame:
@@ -143,6 +144,7 @@ def run_pev_diagnostic(
         heritability=heritability,
         population_size=population_size,
         generations=generations,
+        reps=phenotype_reps,
         n_cores=n_cores,
     )
 
@@ -231,6 +233,7 @@ def parse_args() -> argparse.Namespace:
         type=int,
         default=DEFAULT_LOW_H2_GENERATIONS,
     )
+    parser.add_argument("--phenotype-reps", type=int, default=2)
     parser.add_argument("--maximum-steps", type=int, default=80)
     parser.add_argument("--n-cores", type=int, default=1)
     return parser.parse_args()
@@ -247,6 +250,7 @@ def main() -> None:
         heritability=args.heritability,
         population_size=args.population_size,
         generations=args.generations,
+        phenotype_reps=args.phenotype_reps,
         maximum_steps=args.maximum_steps,
         n_cores=args.n_cores,
     )

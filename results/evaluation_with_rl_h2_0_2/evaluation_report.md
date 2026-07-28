@@ -10,15 +10,15 @@ The strategies were evaluated using the same initial population, phenotyping bud
 
 | strategy            |   replicates |   mean_total_gain |   median_total_gain |   mean_prediction_accuracy |   mean_final_variance |   mean_variance_retention |   mean_runtime_seconds |
 |:--------------------|-------------:|------------------:|--------------------:|---------------------------:|----------------------:|--------------------------:|-----------------------:|
-| active_learning_pev |           20 |            3.6754 |              3.789  |                     0.3203 |                0.0782 |                    0.0826 |                 2.2109 |
-| diversity_sampling  |           20 |            3.537  |              3.58   |                     0.3101 |                0.0909 |                    0.0964 |                 0.4505 |
-| linear_q_learning   |           20 |            3.1277 |              3.0249 |                     0.283  |                0.0591 |                    0.0623 |                 0      |
-| fixed_sampling      |           20 |            2.9551 |              2.893  |                     0.2879 |                0.0538 |                    0.0574 |                 0.4477 |
-| random_sampling     |           20 |            2.6191 |              2.6075 |                     0.2657 |                0.0408 |                    0.0436 |                 0.4602 |
+| diversity_sampling  |           20 |            4.2207 |              4.1994 |                     0.3624 |                0.0951 |                    0.1009 |                 0.446  |
+| linear_q_learning   |           20 |            4.1215 |              4.1118 |                     0.3464 |                0.0648 |                    0.069  |                 0      |
+| active_learning_pev |           20 |            3.961  |              4.0324 |                     0.3441 |                0.0763 |                    0.0803 |                 2.2823 |
+| fixed_sampling      |           20 |            3.7889 |              3.8864 |                     0.3452 |                0.0394 |                    0.0418 |                 0.4582 |
+| random_sampling     |           20 |            3.2451 |              3.2633 |                     0.3075 |                0.0436 |                    0.0461 |                 0.4658 |
 
 ## Main descriptive result
 
-The highest mean total realized genetic gain was observed for **active_learning_pev**, with a mean of 3.675.
+The highest mean total realized genetic gain was observed for **diversity_sampling**, with a mean of 4.221.
 
 This descriptive ranking should be interpreted together with the paired statistical tests and the retained genetic variance.
 
@@ -26,12 +26,12 @@ This descriptive ranking should be interpreted together with the paired statisti
 
 | metric                      | test     |   number_of_replicates |   number_of_strategies |   statistic |   p_value |   kendalls_w |
 |:----------------------------|:---------|-----------------------:|-----------------------:|------------:|----------:|-------------:|
-| total_realized_genetic_gain | Friedman |                     20 |                      5 |       17.24 |   0.00174 |       0.2155 |
-| final_mean_genetic_value    | Friedman |                     20 |                      5 |       17.24 |   0.00174 |       0.2155 |
-| mean_prediction_accuracy    | Friedman |                     20 |                      5 |        8.8  |   0.0663  |       0.11   |
-| final_genetic_variance      | Friedman |                     20 |                      5 |       11.6  |   0.02059 |       0.145  |
-| variance_retention          | Friedman |                     20 |                      5 |       11.6  |   0.02059 |       0.145  |
-| total_cycle_seconds         | Friedman |                     20 |                      5 |       64.12 |   0       |       0.8015 |
+| total_realized_genetic_gain | Friedman |                     20 |                      5 |       10.88 |   0.02795 |       0.136  |
+| final_mean_genetic_value    | Friedman |                     20 |                      5 |       10.88 |   0.02795 |       0.136  |
+| mean_prediction_accuracy    | Friedman |                     20 |                      5 |        5.6  |   0.23108 |       0.07   |
+| final_genetic_variance      | Friedman |                     20 |                      5 |       15.08 |   0.00454 |       0.1885 |
+| variance_retention          | Friedman |                     20 |                      5 |       15.08 |   0.00454 |       0.1885 |
+| total_cycle_seconds         | Friedman |                     20 |                      5 |       64.16 |   0       |       0.802  |
 
 ## Figures
 

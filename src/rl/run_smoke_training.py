@@ -41,6 +41,7 @@ def run_smoke_training(
     heritability: float,
     population_size: int,
     generations: int,
+    phenotype_reps: int,
     maximum_steps_per_episode: int,
     n_cores: int,
 ) -> dict[str, Path]:
@@ -59,6 +60,7 @@ def run_smoke_training(
         population_size=population_size,
         generations=generations,
         maximum_phenotypes=75,
+        reps=phenotype_reps,
         n_cores=n_cores,
         reward_config=reward_config,
     )
@@ -125,12 +127,18 @@ def run_smoke_training(
                 "heritability": heritability,
                 "population_size": population_size,
                 "generations": generations,
+                "phenotype_reps": phenotype_reps,
                 "train_pev_available_steps": train_pev_available,
                 "train_highest_pev_actions": train_pev_chosen,
                 "greedy_pev_available_steps": greedy_pev_available,
                 "greedy_highest_pev_actions": greedy_pev_chosen,
                 "final_rolling_return": float(
                     history["episode_return"].tail(5).mean()
+                ),
+                "final_rolling_total_genetic_gain": float(
+                    history["episode_total_genetic_gain"]
+                    .tail(5)
+                    .mean()
                 ),
             }
         ]
@@ -180,6 +188,7 @@ def parse_args() -> argparse.Namespace:
         type=int,
         default=DEFAULT_LOW_H2_GENERATIONS,
     )
+    parser.add_argument("--phenotype-reps", type=int, default=2)
     parser.add_argument("--maximum-steps", type=int, default=80)
     parser.add_argument("--n-cores", type=int, default=1)
     return parser.parse_args()
@@ -198,6 +207,7 @@ def main() -> None:
         heritability=args.heritability,
         population_size=args.population_size,
         generations=args.generations,
+        phenotype_reps=args.phenotype_reps,
         maximum_steps_per_episode=args.maximum_steps,
         n_cores=args.n_cores,
     )

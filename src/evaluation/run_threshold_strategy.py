@@ -63,6 +63,7 @@ def run_threshold_strategy(
     population_size: int,
     generations: int,
     maximum_phenotypes: int,
+    phenotype_reps: int,
     maximum_steps_per_episode: int,
     n_cores: int,
 ) -> dict[str, Path]:
@@ -88,6 +89,7 @@ def run_threshold_strategy(
             population_size=population_size,
             generations=generations,
             maximum_phenotypes=maximum_phenotypes,
+            reps=phenotype_reps,
             n_cores=n_cores,
             reward_config=make_gain_reward_config(),
         )
@@ -202,6 +204,7 @@ def run_threshold_strategy(
                 "population_size": population_size,
                 "generations": generations,
                 "maximum_phenotypes": maximum_phenotypes,
+                "phenotype_reps": phenotype_reps,
                 "maximum_steps_per_episode": maximum_steps_per_episode,
                 "n_cores": n_cores,
                 "total_runtime_seconds": perf_counter() - start,
@@ -249,6 +252,7 @@ def parse_args() -> argparse.Namespace:
         default=DEFAULT_LOW_H2_GENERATIONS,
     )
     parser.add_argument("--maximum-phenotypes", type=int, default=75)
+    parser.add_argument("--phenotype-reps", type=int, default=2)
     parser.add_argument("--maximum-steps", type=int, default=80)
     parser.add_argument("--n-cores", type=int, default=1)
     return parser.parse_args()
@@ -268,6 +272,7 @@ def main() -> None:
         population_size=args.population_size,
         generations=args.generations,
         maximum_phenotypes=args.maximum_phenotypes,
+        phenotype_reps=args.phenotype_reps,
         maximum_steps_per_episode=args.maximum_steps,
         n_cores=args.n_cores,
     )

@@ -60,6 +60,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--number-of-parents", type=int, default=20)
     parser.add_argument("--number-of-crosses", type=int, default=50)
     parser.add_argument("--dh-per-f1", type=int, default=10)
+    parser.add_argument("--phenotype-reps", type=int, default=2)
     parser.add_argument("--maximum-steps", type=int, default=80)
     parser.add_argument("--n-cores", type=int, default=None)
     parser.add_argument("--output-directory", default=None)
@@ -333,7 +334,7 @@ def main() -> None:
         number_of_crosses=args.number_of_crosses,
         f1_per_cross=1,
         dh_per_f1=args.dh_per_f1,
-        reps=1,
+        reps=args.phenotype_reps,
         trait=1,
         snp_chip=1,
         n_cores=n_cores,
@@ -344,13 +345,13 @@ def main() -> None:
 
     reward_config = RewardConfig(
         genetic_gain_weight=2.0,
-        variance_retention_weight=0.8,
+        variance_retention_weight=0.1,
         # Fixed-budget baselines always spend the full phenotyping budget.
         # Keep Linear Q focused on batch choice rather than budget avoidance.
         phenotyping_cost_weight=0.0,
         reliability_improvement_weight=0.0,
         invalid_action_penalty=1.0,
-        gain_scale=5.0,
+        gain_scale=0.15,
     )
 
     env = BreedingEnv(

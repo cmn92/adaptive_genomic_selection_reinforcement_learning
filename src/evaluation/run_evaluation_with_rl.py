@@ -17,6 +17,7 @@ def parse_args():
     parser.add_argument("--number-of-parents", type=int, default=20)
     parser.add_argument("--number-of-crosses", type=int, default=50)
     parser.add_argument("--dh-per-f1", type=int, default=10)
+    parser.add_argument("--phenotype-reps", type=int, default=2)
     parser.add_argument("--base-seed", type=int, default=30001)
     parser.add_argument("--agent-path", default=None)
     parser.add_argument("--output-directory", default=None)
@@ -67,6 +68,7 @@ def main():
         number_of_parents=args.number_of_parents,
         number_of_crosses=args.number_of_crosses,
         dh_per_f1=args.dh_per_f1,
+        reps=args.phenotype_reps,
     )
 
     raw_paths = save_five_strategy_results(result, output_directory)

@@ -1,2 +1,2 @@
-episodes,eval_episodes,heritability,population_size,generations,train_pev_available_steps,train_highest_pev_actions,greedy_pev_available_steps,greedy_highest_pev_actions,final_rolling_return
-30,3,0.05,500,8,240,156,24,22,3.2808891984166038
+episodes,eval_episodes,heritability,population_size,generations,phenotype_reps,train_pev_available_steps,train_highest_pev_actions,greedy_pev_available_steps,greedy_highest_pev_actions,final_rolling_return,final_rolling_total_genetic_gain
+30,3,0.05,500,8,2,240,22,24,0,9.915806656479235,2.1791060636049044
